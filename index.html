@@ -1,364 +1,408 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recettes Minceur Light</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header>
-        <h1>🥗 Recettes Minceur Light</h1>
-        <p>Rapides, simples et délicieuses pour une perte de poids sereine</p>
-    </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Recettes Minceur Light</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <header>
+            <h1>🥗 Recettes Minceur Light</h1>
+            <p>Rapides, simples et délicieuses pour une perte de poids sereine</p>
+        </header>
 
-    <main class="container">
-        <div class="intro">
-            <h2>✨ Bienvenue</h2>
-            <p>Découvrez 5 recettes faciles, rapides et peu caloriques parfaites pour un mode de vie sain. Cliquez sur une recette pour voir les détails complets !</p>
-        </div>
+        <main class="container">
+            <div class="intro">
+                <h2>✨ Bienvenue</h2>
+                <p>
+                    Découvrez des recettes faciles, rapides et peu caloriques parfaites pour un mode de vie sain. Cliquez
+                    sur une recette pour voir les détails complets !
+                </p>
+            </div>
 
-        <div class="recipes-grid">
-            <!-- Bowl Poulet -->
-            <div class="recipe-card" onclick="openModal('bowl')">
-                <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/572d83c2-a732-44d2-9d9f-a63f4099924a.png" alt="Bowl poulet minceur" class="recipe-image">
-                <div class="recipe-content">
-                    <h3 class="recipe-title">Bowl Poulet Minceur</h3>
-                    <span class="recipe-time">⏱️ 10–15 min</span>
-                    <p class="recipe-description">Un bol coloré et équilibré avec poulet, riz et légumes frais.</p>
-                    <div class="recipe-footer">
-                        <span class="calories">350 kcal</span>
-                        <span class="difficulty">Facile</span>
+            <div class="recipes-grid">
+                <!-- Bowl Poulet -->
+                <div class="recipe-card" onclick="openModal('bowl')">
+                    <img src="images/Bowl%20Poulet%20Minceur.jpeg" alt="Bowl poulet minceur" class="recipe-image" />
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Bowl Poulet Minceur</h3>
+                        <span class="recipe-time">⏱️ 10–15 min</span>
+                        <p class="recipe-description">Un bol coloré et équilibré avec poulet, riz et légumes frais.</p>
+                        <div class="recipe-footer">
+                            <span class="calories">350 kcal</span>
+                            <span class="difficulty">Facile</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Omelette -->
+                <div class="recipe-card" onclick="openModal('omelette')">
+                    <img
+                        src="images/Omelette%20Full%20Le%CC%81gumes.jpeg"
+                        alt="Omelette full légumes"
+                        class="recipe-image" />
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Omelette Full Légumes</h3>
+                        <span class="recipe-time">⏱️ 7–10 min</span>
+                        <p class="recipe-description">Riche en protéines avec un maximum de légumes colorés.</p>
+                        <div class="recipe-footer">
+                            <span class="calories">200 kcal</span>
+                            <span class="difficulty">Très facile</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Poisson -->
+                <div class="recipe-card" onclick="openModal('poisson')">
+                    <img
+                        src="images/Poisson%20&%20Le%CC%81gumes%20au%20Four.jpeg"
+                        alt="Poisson légumes au four"
+                        class="recipe-image" />
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Poisson & Légumes au Four</h3>
+                        <span class="recipe-time">⏱️ 20 min</span>
+                        <p class="recipe-description">Cuit lentement au four pour une saveur délicate et naturelle.</p>
+                        <div class="recipe-footer">
+                            <span class="calories">280 kcal</span>
+                            <span class="difficulty">Facile</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wrap -->
+                <div class="recipe-card" onclick="openModal('wrap')">
+                    <img
+                        src="images/Wrap%20Grison%20&%20Crudite%CC%81s.jpeg"
+                        alt="Wrap grison crudités"
+                        class="recipe-image" />
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Wrap Grison & Crudités</h3>
+                        <span class="recipe-time">⏱️ 5 min</span>
+                        <p class="recipe-description">Léger et savoureux, parfait pour un déjeuner sur le pouce.</p>
+                        <div class="recipe-footer">
+                            <span class="calories">280 kcal</span>
+                            <span class="difficulty">Très facile</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Yaourt -->
+                <div class="recipe-card" onclick="openModal('yaourt')">
+                    <img
+                        src="images/Yaourt%20Prote%CC%81ine%CC%81%20Dessert.jpeg"
+                        alt="Yaourt protéiné dessert"
+                        class="recipe-image" />
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Yaourt Protéiné Dessert</h3>
+                        <span class="recipe-time">⏱️ 3 min</span>
+                        <p class="recipe-description">Sucré, satisfaisant et bourré de protéines naturelles.</p>
+                        <div class="recipe-footer">
+                            <span class="calories">180 kcal</span>
+                            <span class="difficulty">Très facile</span>
+                        </div>
                     </div>
                 </div>
             </div>
+        </main>
 
-            <!-- Omelette -->
-            <div class="recipe-card" onclick="openModal('omelette')">
-                <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/a0dcce5b-e2b8-494f-9e2f-4021328da596.png" alt="Omelette full légumes" class="recipe-image">
-                <div class="recipe-content">
-                    <h3 class="recipe-title">Omelette Full Légumes</h3>
-                    <span class="recipe-time">⏱️ 7–10 min</span>
-                    <p class="recipe-description">Riche en protéines avec un maximum de légumes colorés.</p>
-                    <div class="recipe-footer">
-                        <span class="calories">200 kcal</span>
-                        <span class="difficulty">Très facile</span>
+        <!-- Modals -->
+        <div id="bowlModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Bowl Poulet Minceur</h2>
+                    <button class="close-btn" onclick="closeModal('bowl')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <img src="images/Bowl%20Poulet%20Minceur.jpeg" alt="Bowl poulet minceur" class="modal-image" />
+
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Temps</div>
+                            <div class="meta-value">15 min</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Calories</div>
+                            <div class="meta-value">350</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Portion</div>
+                            <div class="meta-value">1</div>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Poisson -->
-            <div class="recipe-card" onclick="openModal('poisson')">
-                <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/2e877508-7eb9-4513-a4f3-93ab7d8ec566.png" alt="Poisson légumes au four" class="recipe-image">
-                <div class="recipe-content">
-                    <h3 class="recipe-title">Poisson & Légumes au Four</h3>
-                    <span class="recipe-time">⏱️ 20 min</span>
-                    <p class="recipe-description">Cuit lentement au four pour une saveur délicate et naturelle.</p>
-                    <div class="recipe-footer">
-                        <span class="calories">280 kcal</span>
-                        <span class="difficulty">Facile</span>
+                    <div class="recipe-section">
+                        <h3>🛒 Ingrédients</h3>
+                        <ul>
+                            <li>120 g de blanc de poulet en dés</li>
+                            <li>100 g de riz complet ou quinoa cuit</li>
+                            <li>Légumes à volonté : tomates, concombre, carottes râpées, maïs, poivron</li>
+                            <li>1 c. à soupe de yaourt nature</li>
+                            <li>Citron, sel, poivre, ail en poudre</li>
+                        </ul>
                     </div>
-                </div>
-            </div>
 
-            <!-- Wrap -->
-            <div class="recipe-card" onclick="openModal('wrap')">
-                <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/67ea0c8e-b9fb-46e6-b239-fbdacee49688.png" alt="Wrap grison crudités" class="recipe-image">
-                <div class="recipe-content">
-                    <h3 class="recipe-title">Wrap Grison & Crudités</h3>
-                    <span class="recipe-time">⏱️ 5 min</span>
-                    <p class="recipe-description">Léger et savoureux, parfait pour un déjeuner sur le pouce.</p>
-                    <div class="recipe-footer">
-                        <span class="calories">280 kcal</span>
-                        <span class="difficulty">Très facile</span>
+                    <div class="recipe-section">
+                        <h3>👨‍🍳 Préparation</h3>
+                        <ol>
+                            <li>Faire revenir le poulet à la poêle avec 1 c. à café d'huile max.</li>
+                            <li>Préparer tous les légumes crus dans un bol.</li>
+                            <li>Mélanger yaourt nature + citron + sel + poivre + ail.</li>
+                            <li>Assembler : riz, légumes, poulet, puis la sauce yaourt par-dessus.</li>
+                        </ol>
                     </div>
-                </div>
-            </div>
 
-            <!-- Yaourt -->
-            <div class="recipe-card" onclick="openModal('yaourt')">
-                <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/bd10215f-4c4b-4a5a-9829-94ab62c0b7ac.png" alt="Yaourt protéiné dessert" class="recipe-image">
-                <div class="recipe-content">
-                    <h3 class="recipe-title">Yaourt Protéiné Dessert</h3>
-                    <span class="recipe-time">⏱️ 3 min</span>
-                    <p class="recipe-description">Sucré, satisfaisant et bourré de protéines naturelles.</p>
-                    <div class="recipe-footer">
-                        <span class="calories">180 kcal</span>
-                        <span class="difficulty">Très facile</span>
+                    <div class="recipe-section">
+                        <h3>💡 Conseil</h3>
+                        <p>
+                            Plus tu mets de légumes, plus l'assiette est grosse pour un total calorique raisonnable.
+                            C'est l'astuce idéale pour te sentir rassasié(e) sans culpabilité !
+                        </p>
                     </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Modals -->
-    <div id="bowlModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Bowl Poulet Minceur</h2>
-                <button class="close-btn" onclick="closeModal('bowl')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/572d83c2-a732-44d2-9d9f-a63f4099924a.png" alt="Bowl poulet minceur" class="modal-image">
-                
-                <div class="recipe-meta">
-                    <div class="meta-item">
-                        <div class="meta-label">Temps</div>
-                        <div class="meta-value">15 min</div>
-                    </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Calories</div>
-                        <div class="meta-value">350</div>
-                    </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Portion</div>
-                        <div class="meta-value">1</div>
-                    </div>
-                </div>
-
-                <div class="recipe-section">
-                    <h3>🛒 Ingrédients</h3>
-                    <ul>
-                        <li>120 g de blanc de poulet en dés</li>
-                        <li>100 g de riz complet ou quinoa cuit</li>
-                        <li>Légumes à volonté : tomates, concombre, carottes râpées, maïs, poivron</li>
-                        <li>1 c. à soupe de yaourt nature</li>
-                        <li>Citron, sel, poivre, ail en poudre</li>
-                    </ul>
-                </div>
-
-                <div class="recipe-section">
-                    <h3>👨‍🍳 Préparation</h3>
-                    <ol>
-                        <li>Faire revenir le poulet à la poêle avec 1 c. à café d'huile max.</li>
-                        <li>Préparer tous les légumes crus dans un bol.</li>
-                        <li>Mélanger yaourt nature + citron + sel + poivre + ail.</li>
-                        <li>Assembler : riz, légumes, poulet, puis la sauce yaourt par-dessus.</li>
-                    </ol>
-                </div>
-
-                <div class="recipe-section">
-                    <h3>💡 Conseil</h3>
-                    <p>Plus tu mets de légumes, plus l'assiette est grosse pour un total calorique raisonnable. C'est l'astuce idéale pour te sentir rassasié(e) sans culpabilité !</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="omelettModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Omelette Full Légumes</h2>
-                <button class="close-btn" onclick="closeModal('omelette')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/a0dcce5b-e2b8-494f-9e2f-4021328da596.png" alt="Omelette full légumes" class="modal-image">
-                
-                <div class="recipe-meta">
-                    <div class="meta-item">
-                        <div class="meta-label">Temps</div>
-                        <div class="meta-value">10 min</div>
-                    </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Calories</div>
-                        <div class="meta-value">200</div>
-                    </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Portion</div>
-                        <div class="meta-value">1</div>
-                    </div>
-                </div>
-
-                <div class="recipe-section">
-                    <h3>🛒 Ingrédients</h3>
-                    <ul>
-                        <li>2 œufs + 1 blanc d'œuf</li>
-                        <li>Légumes coupés fin : poivron, oignon, champignons, épinards, tomate</li>
-                        <li>1 c. à café d'huile d'olive ou spray d'huile</li>
-                        <li>Sel et poivre</li>
-                        <li>Optionnel : fromage râpé light ou viande des Grisons</li>
-                    </ul>
-                </div>
-
-                <div class="recipe-section">
-                    <h3>👨‍🍳 Préparation</h3>
-                    <ol>
-                        <li>Poêler rapidement les légumes coupés fin dans l'huile.</li>
-                        <li>Battre les œufs avec le blanc dans un bol.</li>
-                        <li>Verser le mélange sur les légumes.</li>
-                        <li>Cuire à feu moyen jusqu'à ce que l'omelette soit cuite, environ 5 min.</li>
-                    </ol>
-                </div>
-
-                <div class="recipe-section">
-                    <h3>💡 Conseil</h3>
-                    <p>Le blanc d'œuf ajouté augmente les protéines pour la satiété sans ajouter beaucoup de calories. Tu peux ajouter un peu de fromage ou de viande des Grisons pour plus de goût sans dépasser 220 kcal.</p>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div id="poissonModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Poisson & Légumes au Four</h2>
-                <button class="close-btn" onclick="closeModal('poisson')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/2e877508-7eb9-4513-a4f3-93ab7d8ec566.png" alt="Poisson légumes au four" class="modal-image">
-                
-                <div class="recipe-meta">
-                    <div class="meta-item">
-                        <div class="meta-label">Temps</div>
-                        <div class="meta-value">20 min</div>
+        <div id="omelettModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Omelette Full Légumes</h2>
+                    <button class="close-btn" onclick="closeModal('omelette')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <img
+                        src="images/Omelette%20Full%20Le%CC%81gumes.jpeg"
+                        alt="Omelette full légumes"
+                        class="modal-image" />
+
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Temps</div>
+                            <div class="meta-value">10 min</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Calories</div>
+                            <div class="meta-value">200</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Portion</div>
+                            <div class="meta-value">1</div>
+                        </div>
                     </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Calories</div>
-                        <div class="meta-value">280</div>
+
+                    <div class="recipe-section">
+                        <h3>🛒 Ingrédients</h3>
+                        <ul>
+                            <li>2 œufs + 1 blanc d'œuf</li>
+                            <li>Légumes coupés fin : poivron, oignon, champignons, épinards, tomate</li>
+                            <li>1 c. à café d'huile d'olive ou spray d'huile</li>
+                            <li>Sel et poivre</li>
+                            <li>Optionnel : fromage râpé light ou viande des Grisons</li>
+                        </ul>
                     </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Portion</div>
-                        <div class="meta-value">1</div>
+
+                    <div class="recipe-section">
+                        <h3>👨‍🍳 Préparation</h3>
+                        <ol>
+                            <li>Poêler rapidement les légumes coupés fin dans l'huile.</li>
+                            <li>Battre les œufs avec le blanc dans un bol.</li>
+                            <li>Verser le mélange sur les légumes.</li>
+                            <li>Cuire à feu moyen jusqu'à ce que l'omelette soit cuite, environ 5 min.</li>
+                        </ol>
                     </div>
-                </div>
 
-                <div class="recipe-section">
-                    <h3>🛒 Ingrédients</h3>
-                    <ul>
-                        <li>1 filet de cabillaud, colin ou saumon (100–150 g)</li>
-                        <li>Légumes : brocoli, carottes, courgettes, haricots verts (surgelés ou frais)</li>
-                        <li>1 c. à café d'huile d'olive</li>
-                        <li>Citron, herbes (thym, persil), sel, poivre</li>
-                    </ul>
-                </div>
-
-                <div class="recipe-section">
-                    <h3>👨‍🍳 Préparation</h3>
-                    <ol>
-                        <li>Préchauffer le four à 180–200 °C.</li>
-                        <li>Préparer une feuille de papier cuisson ou un plat.</li>
-                        <li>Mettre le poisson au centre avec les légumes autour.</li>
-                        <li>Arroser d'huile d'olive, assaisonner (citron, herbes, sel, poivre).</li>
-                        <li>Cuire 15–20 min au four.</li>
-                    </ol>
-                </div>
-
-                <div class="recipe-section">
-                    <h3>💡 Conseil</h3>
-                    <p>Très pratique pour le soir : tu lances au four et tu fais autre chose pendant que ça cuit ! La papillote rend le poisson super tendre et concentre les saveurs.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="wrapModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Wrap Grison & Crudités</h2>
-                <button class="close-btn" onclick="closeModal('wrap')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/67ea0c8e-b9fb-46e6-b239-fbdacee49688.png" alt="Wrap grison crudités" class="modal-image">
-                
-                <div class="recipe-meta">
-                    <div class="meta-item">
-                        <div class="meta-label">Temps</div>
-                        <div class="meta-value">5 min</div>
+                    <div class="recipe-section">
+                        <h3>💡 Conseil</h3>
+                        <p>
+                            Le blanc d'œuf ajouté augmente les protéines pour la satiété sans ajouter beaucoup de
+                            calories. Tu peux ajouter un peu de fromage ou de viande des Grisons pour plus de goût sans
+                            dépasser 220 kcal.
+                        </p>
                     </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Calories</div>
-                        <div class="meta-value">280</div>
-                    </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Portion</div>
-                        <div class="meta-value">1</div>
-                    </div>
-                </div>
-
-                <div class="recipe-section">
-                    <h3>🛒 Ingrédients</h3>
-                    <ul>
-                        <li>1 galette de blé complet ou tortilla de maïs</li>
-                        <li>30–40 g de viande des Grisons</li>
-                        <li>Crudités : salade, tomate, concombre, carotte râpée</li>
-                        <li>1 c. à soupe de yaourt nature</li>
-                        <li>Moutarde ou citron</li>
-                    </ul>
-                </div>
-
-                <div class="recipe-section">
-                    <h3>👨‍🍳 Préparation</h3>
-                    <ol>
-                        <li>Tartiner la galette avec le yaourt nature + moutarde ou citron.</li>
-                        <li>Ajouter les tranches de viande des Grisons.</li>
-                        <li>Remplir avec les crudités (salade, tomate, concombre, carottes).</li>
-                        <li>Rouler serré comme un kebab, couper en deux et déguster !</li>
-                    </ol>
-                </div>
-
-                <div class="recipe-section">
-                    <h3>💡 Conseil</h3>
-                    <p>Tu as le côté snack/sandwich mais beaucoup plus léger qu'un vrai sandwich gras. Parfait pour un déjeuner rapide ou même pour grignoter devant la télé sans culpabilité.</p>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div id="yaourt_Modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Yaourt Protéiné Dessert</h2>
-                <button class="close-btn" onclick="closeModal('yaourt')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/bd10215f-4c4b-4a5a-9829-94ab62c0b7ac.png" alt="Yaourt protéiné dessert" class="modal-image">
-                
-                <div class="recipe-meta">
-                    <div class="meta-item">
-                        <div class="meta-label">Temps</div>
-                        <div class="meta-value">3 min</div>
-                    </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Calories</div>
-                        <div class="meta-value">180</div>
-                    </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Portion</div>
-                        <div class="meta-value">1</div>
-                    </div>
+        <div id="poissonModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Poisson & Légumes au Four</h2>
+                    <button class="close-btn" onclick="closeModal('poisson')">&times;</button>
                 </div>
+                <div class="modal-body">
+                    <img
+                        src="images/Poisson%20&%20Le%CC%81gumes%20au%20Four.jpeg"
+                        alt="Poisson légumes au four"
+                        class="modal-image" />
 
-                <div class="recipe-section">
-                    <h3>🛒 Ingrédients</h3>
-                    <ul>
-                        <li>1 yaourt grec 0 % ou fromage blanc / skyr (150 g)</li>
-                        <li>1 petit fruit : demi-banane, kiwi, quelques framboises ou fraises</li>
-                        <li>Optionnel : 1 c. à café de miel, sirop d'agave ou cannelle</li>
-                    </ul>
-                </div>
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Temps</div>
+                            <div class="meta-value">20 min</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Calories</div>
+                            <div class="meta-value">280</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Portion</div>
+                            <div class="meta-value">1</div>
+                        </div>
+                    </div>
 
-                <div class="recipe-section">
-                    <h3>👨‍🍳 Préparation</h3>
-                    <ol>
-                        <li>Mettre le yaourt grec ou fromage blanc dans un bol.</li>
-                        <li>Couper ou ajouter les fruits.</li>
-                        <li>Ajouter un peu de miel ou de cannelle selon tes envies.</li>
-                        <li>Mélanger délicatement et déguster immédiatement.</li>
-                    </ol>
-                </div>
+                    <div class="recipe-section">
+                        <h3>🛒 Ingrédients</h3>
+                        <ul>
+                            <li>1 filet de cabillaud, colin ou saumon (100–150 g)</li>
+                            <li>Légumes : brocoli, carottes, courgettes, haricots verts (surgelés ou frais)</li>
+                            <li>1 c. à café d'huile d'olive</li>
+                            <li>Citron, herbes (thym, persil), sel, poivre</li>
+                        </ul>
+                    </div>
 
-                <div class="recipe-section">
-                    <h3>💡 Conseil</h3>
-                    <p>Ça cale super bien en fin de repas ou en collation grâce aux protéines. Le ratio protéines/calories est excellent, et c'est tellement rapide à faire. Idéal quand tu as une petite fringale sucrée !</p>
+                    <div class="recipe-section">
+                        <h3>👨‍🍳 Préparation</h3>
+                        <ol>
+                            <li>Préchauffer le four à 180–200 °C.</li>
+                            <li>Préparer une feuille de papier cuisson ou un plat.</li>
+                            <li>Mettre le poisson au centre avec les légumes autour.</li>
+                            <li>Arroser d'huile d'olive, assaisonner (citron, herbes, sel, poivre).</li>
+                            <li>Cuire 15–20 min au four.</li>
+                        </ol>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>💡 Conseil</h3>
+                        <p>
+                            Très pratique pour le soir : tu lances au four et tu fais autre chose pendant que ça cuit !
+                            La papillote rend le poisson super tendre et concentre les saveurs.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <footer>
-        <p>🥗 Recettes Minceur — Bon grignotage et bonne perte de poids ! 💚</p>
-    </footer>
+        <div id="wrapModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Wrap Grison & Crudités</h2>
+                    <button class="close-btn" onclick="closeModal('wrap')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <img
+                        src="images/Wrap%20Grison%20&%20Crudite%CC%81s.jpeg"
+                        alt="Wrap grison crudités"
+                        class="modal-image" />
 
-    <script src="script.js"></script>
-</body>
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Temps</div>
+                            <div class="meta-value">5 min</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Calories</div>
+                            <div class="meta-value">280</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Portion</div>
+                            <div class="meta-value">1</div>
+                        </div>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>🛒 Ingrédients</h3>
+                        <ul>
+                            <li>1 galette de blé complet ou tortilla de maïs</li>
+                            <li>30–40 g de viande des Grisons</li>
+                            <li>Crudités : salade, tomate, concombre, carotte râpée</li>
+                            <li>1 c. à soupe de yaourt nature</li>
+                            <li>Moutarde ou citron</li>
+                        </ul>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>👨‍🍳 Préparation</h3>
+                        <ol>
+                            <li>Tartiner la galette avec le yaourt nature + moutarde ou citron.</li>
+                            <li>Ajouter les tranches de viande des Grisons.</li>
+                            <li>Remplir avec les crudités (salade, tomate, concombre, carottes).</li>
+                            <li>Rouler serré comme un kebab, couper en deux et déguster !</li>
+                        </ol>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>💡 Conseil</h3>
+                        <p>
+                            Tu as le côté snack/sandwich mais beaucoup plus léger qu'un vrai sandwich gras. Parfait pour
+                            un déjeuner rapide ou même pour grignoter devant la télé sans culpabilité.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="yaourt Modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Yaourt Protéiné Dessert</h2>
+                    <button class="close-btn" onclick="closeModal('yaourt')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <img
+                        src="images/Yaourt%20Prote%CC%81ine%CC%81%20Dessert.jpeg"
+                        alt="Yaourt protéiné dessert"
+                        class="modal-image" />
+
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Temps</div>
+                            <div class="meta-value">3 min</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Calories</div>
+                            <div class="meta-value">180</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Portion</div>
+                            <div class="meta-value">1</div>
+                        </div>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>🛒 Ingrédients</h3>
+                        <ul>
+                            <li>1 yaourt grec 0 % ou fromage blanc / skyr (150 g)</li>
+                            <li>1 petit fruit : demi-banane, kiwi, quelques framboises ou fraises</li>
+                            <li>Optionnel : 1 c. à café de miel, sirop d'agave ou cannelle</li>
+                        </ul>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>👨‍🍳 Préparation</h3>
+                        <ol>
+                            <li>Mettre le yaourt grec ou fromage blanc dans un bol.</li>
+                            <li>Couper ou ajouter les fruits.</li>
+                            <li>Ajouter un peu de miel ou de cannelle selon tes envies.</li>
+                            <li>Mélanger délicatement et déguster immédiatement.</li>
+                        </ol>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>💡 Conseil</h3>
+                        <p>
+                            Ça cale super bien en fin de repas ou en collation grâce aux protéines. Le ratio
+                            protéines/calories est excellent, et c'est tellement rapide à faire. Idéal quand tu as une
+                            petite fringale sucrée !
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>🥗 Recettes Minceur — Bon grignotage et bonne perte de poids ! 💚</p>
+        </footer>
+
+        <script src="script.js"></script>
+    </body>
 </html>

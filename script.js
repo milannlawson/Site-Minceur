@@ -4,7 +4,8 @@ function openModal(recipeName) {
         'omelette': 'omelettModal',
         'poisson': 'poissonModal',
         'wrap': 'wrapModal',
-        'yaourt': 'yaourt Modal'
+        'yaourt': 'yaourt Modal',
+        'thon': 'thonModal'
     };
     
     const modal = document.getElementById(modalMap[recipeName]);
@@ -20,7 +21,8 @@ function closeModal(recipeName) {
         'omelette': 'omelettModal',
         'poisson': 'poissonModal',
         'wrap': 'wrapModal',
-        'yaourt': 'yaourt Modal'
+        'yaourt': 'yaourt Modal',
+        'thon': 'thonModal'
     };
     
     const modal = document.getElementById(modalMap[recipeName]);

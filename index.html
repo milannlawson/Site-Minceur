@@ -24,7 +24,9 @@
             <div class="recipes-grid">
                 <!-- Bowl Poulet -->
                 <div class="recipe-card" onclick="openModal('bowl')">
-                    <img src="images/Bowl%20Poulet%20Minceur.jpeg" alt="Bowl poulet minceur" class="recipe-image" />
+                    <img src="images/Bowl%20Poulet%20Minceur.jpeg"
+                        alt="Bowl poulet minceur"
+                        class="recipe-image" />
                     <div class="recipe-content">
                         <h3 class="recipe-title">Bowl Poulet Minceur</h3>
                         <span class="recipe-time">⏱️ 10–15 min</span>
@@ -39,7 +41,7 @@
                 <!-- Omelette -->
                 <div class="recipe-card" onclick="openModal('omelette')">
                     <img
-                        src="images/Omelette%20Full%20Le%CC%81gumes.jpeg"
+                        src="images/Omelette%20Full%20L%C3%A9gumes.jpeg"
                         alt="Omelette full légumes"
                         class="recipe-image" />
                     <div class="recipe-content">
@@ -56,7 +58,7 @@
                 <!-- Poisson -->
                 <div class="recipe-card" onclick="openModal('poisson')">
                     <img
-                        src="images/Poisson%20&%20Le%CC%81gumes%20au%20Four.jpeg"
+                        src="images/Poisson%20&%20L%C3%A9gumes%20au%20Four.jpeg"
                         alt="Poisson légumes au four"
                         class="recipe-image" />
                     <div class="recipe-content">
@@ -73,7 +75,7 @@
                 <!-- Wrap -->
                 <div class="recipe-card" onclick="openModal('wrap')">
                     <img
-                        src="images/Wrap%20Grison%20&%20Crudite%CC%81s.jpeg"
+                        src="images/Wrap%20Grison%20&%20Crudit%C3%A9s.jpeg"
                         alt="Wrap grison crudités"
                         class="recipe-image" />
                     <div class="recipe-content">
@@ -90,7 +92,7 @@
                 <!-- Yaourt -->
                 <div class="recipe-card" onclick="openModal('yaourt')">
                     <img
-                        src="images/Yaourt%20Prote%CC%81ine%CC%81%20Dessert.jpeg"
+                        src="images/Yaourt%20Prot%C3%A9in%C3%A9%20Dessert.jpeg"
                         alt="Yaourt protéiné dessert"
                         class="recipe-image" />
                     <div class="recipe-content">
@@ -103,6 +105,23 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Nouvelle Recette -->
+                <div class="recipe-card" onclick="openModal('thon')">
+                    <img
+                        src="images/Salade%20Thon%20Light.png"
+                        alt="Salade thon light"
+                        class="recipe-image" />
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Salade Thon Light</h3>
+                        <span class="recipe-time">⏱️ 8 min</span>
+                        <p class="recipe-description">Protéinée et ultra-légère avec thon et crudités croustillantes.</p>
+                        <div class="recipe-footer">
+                            <span class="calories">220 kcal</span>
+                            <span class="difficulty">Très facile</span>
+                    </div>
+                </div>
+            </div>
             </div>
         </main>
 
@@ -171,7 +190,7 @@
                 </div>
                 <div class="modal-body">
                     <img
-                        src="images/Omelette%20Full%20Le%CC%81gumes.jpeg"
+                        src="images/Omelette%20Full%20L%C3%A9gumes.jpeg"
                         alt="Omelette full légumes"
                         class="modal-image" />
 
@@ -231,7 +250,7 @@
                 </div>
                 <div class="modal-body">
                     <img
-                        src="images/Poisson%20&%20Le%CC%81gumes%20au%20Four.jpeg"
+                        src="images/Poisson%20&%20L%C3%A9gumes%20au%20Four.jpeg"
                         alt="Poisson légumes au four"
                         class="modal-image" />
 
@@ -290,7 +309,7 @@
                 </div>
                 <div class="modal-body">
                     <img
-                        src="images/Wrap%20Grison%20&%20Crudite%CC%81s.jpeg"
+                        src="images/Wrap%20Grison%20&%20Crudit%C3%A9s.jpeg"
                         alt="Wrap grison crudités"
                         class="modal-image" />
 
@@ -349,7 +368,7 @@
                 </div>
                 <div class="modal-body">
                     <img
-                        src="images/Yaourt%20Prote%CC%81ine%CC%81%20Dessert.jpeg"
+                        src="images/Yaourt%20Prot%C3%A9in%C3%A9%20Dessert.jpeg"
                         alt="Yaourt protéiné dessert"
                         class="modal-image" />
 
@@ -394,6 +413,63 @@
                             protéines/calories est excellent, et c'est tellement rapide à faire. Idéal quand tu as une
                             petite fringale sucrée !
                         </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="thonModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Salade Thon Light</h2>
+                    <button class="close-btn" onclick="closeModal('thon')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <img src="images/Salade%20Thon%20Light.png"
+                        alt="Salade thon light"
+                        class="modal-image" />
+                
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Temps</div>
+                            <div class="meta-value">8 min</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Calories</div>
+                            <div class="meta-value">220</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Portion</div>
+                            <div class="meta-value">1</div>
+                        </div>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>🛒 Ingrédients</h3>
+                        <ul>
+                            <li>1 boîte de thon au naturel (100 g), égoutté</li>
+                            <li>Une poignée de salade mixte</li>
+                            <li>Tomate, concombre, oignon rouge (quelques tranches)</li>
+                            <li>1 c. à soupe de maïs</li>
+                            <li>1 c. à soupe de yaourt nature + jus de citron + moutarde</li>
+                            <li>Sel, poivre</li>
+                        </ul>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>👨‍🍳 Préparation</h3>
+                        <ol>
+                            <li>Rincer et égoutter le thon, le mettre dans un bol.</li>
+                            <li>Préparer tous les légumes en morceaux ou tranches.</li>
+                            <li>Mélanger yaourt + citron + moutarde pour la vinaigrette.</li>
+                            <li>Assembler : salade, légumes, thon, puis verser la sauce.</li>
+                            <li>Mélanger délicatement et déguster frais.</li>
+                        </ol>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>💡 Conseil</h3>
+                        <p>Le thon est une excellente source de protéines maigres. Tu peux aussi utiliser du thon en papillote pour varier les saveurs. Parfait pour un déjeuner rapide au travail !</p>
                     </div>
                 </div>
             </div>

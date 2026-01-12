@@ -10,7 +10,7 @@ const recipes = {
             'Citron, sel, poivre, ail en poudre'
         ]
     },
-    'omelette': {
+    'omelett': {
         name: 'Omelette Full Légumes',
         ingredients: [
             '2 œufs + 1 blanc d\'œuf',
@@ -117,10 +117,10 @@ document.addEventListener('DOMContentLoaded', function() {
 function openModal(recipeName) {
     const modalMap = {
         'bowl': 'bowlModal',
-        'omelette': 'omelettModal',
+        'omelett': 'omelettModal',
         'poisson': 'poissonModal',
         'wrap': 'wrapModal',
-        'yaourt': 'yaourt Modal',
+        'yaourt': 'yaourtModal',
         'thon': 'thonModal',
         'cocotte': 'cocotteModal',
         'soupe': 'soupeModal',
@@ -138,10 +138,10 @@ function openModal(recipeName) {
 function closeModal(recipeName) {
     const modalMap = {
         'bowl': 'bowlModal',
-        'omelette': 'omelettModal',
+        'omelett': 'omelettModal',
         'poisson': 'poissonModal',
         'wrap': 'wrapModal',
-        'yaourt': 'yaourt Modal',
+        'yaourt': 'yaourtModal',
         'thon': 'thonModal',
         'cocotte': 'cocotteModal',
         'soupe': 'soupeModal',

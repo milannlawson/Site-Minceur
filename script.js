@@ -106,6 +106,7 @@ const recipes = {
 };
 
 let selectedRecipes = new Set();
+let recipePortion = {}; // 👈 AJOUTE CETTE LIGNE pour tracker les portions
 
 // Initialisation
 document.addEventListener('DOMContentLoaded', function() {
@@ -157,8 +158,9 @@ function closeModal(recipeName) {
 }
 
 function setupModal() {
-    // Fermeture au clic extérieur
+    // Fermeture au clic extérieur (mais PAS sur le contenu)
     window.onclick = function(event) {
+        // Vérifie si c'est un clic sur la modal de fond (pas le contenu)
         if (event.target.classList.contains('modal')) {
             event.target.classList.remove('active');
             document.body.style.overflow = 'auto';
@@ -230,9 +232,11 @@ function addShoppingButtons() {
 function toggleRecipe(recipeId, buttonElement) {
     if (selectedRecipes.has(recipeId)) {
         selectedRecipes.delete(recipeId);
+        delete recipePortion[recipeId]; // 👈 Supprime la portion si on retire la recette
         if (buttonElement) buttonElement.classList.remove('added');
     } else {
         selectedRecipes.add(recipeId);
+        recipePortion[recipeId] = 1; // 👈 Initialise à 1x (portion normale)
         if (buttonElement) buttonElement.classList.add('added');
     }
     updateShoppingList();
@@ -258,7 +262,11 @@ function updateShoppingList() {
     // Regrouper les ingrédients par recette
     selectedRecipes.forEach(recipeId => {
         if (recipes[recipeId]) {
+            const portion = recipePortion[recipeId] || 1; // 👈 Récupère la portion (défaut = 1)
+            
             recipes[recipeId].ingredients.forEach(ingredient => {
+                const adjustedIngredient = multiplyIngredientQuantity(ingredient, portion);
+                
                 if (!allIngredients[ingredient]) {
                     allIngredients[ingredient] = [];
                 }
@@ -299,6 +307,33 @@ function updateShoppingList() {
     });
 
     totalSpan.textContent = selectedRecipes.size;
+}
+
+// Multiplier les quantités
+function multiplyIngredientQuantity(ingredient, portion) {
+    // 👇 Regex qui cherche les nombres au début (ex: "120 g", "2 œufs")
+    const regex = /^(\d+(?:[.,]\d+)?)\s*(.*)$/;
+    const match = ingredient.match(regex);
+    
+    if (match) {
+        // match[1] = le nombre (ex: "120")
+        // match[2] = le reste (ex: "g de blanc de poulet")
+        const quantity = parseFloat(match[1].replace(',', '.'));
+        const unit = match[2];
+        const newQuantity = (quantity * portion).toFixed(1); // 👈 Multiplie et arrondit à 1 décimale
+        return `${newQuantity} ${unit}`;
+    }
+    
+    // Si pas de nombre au début, retourne inchangé (ex: "Sel, poivre")
+    return ingredient;
+}
+
+// Changer la portion au click
+function changePortionSize(recipeId, newPortion) {
+    // 👈 Sauvegarde la portion sélectionnée
+    recipePortion[recipeId] = newPortion;
+    // 👈 Recalcule la liste de courses
+    updateShoppingList();
 }
 
 function printShoppingList() {

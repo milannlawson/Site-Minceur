@@ -241,6 +241,17 @@
 
                     <div class="recipe-section">
                         <h3>🛒 Ingrédients</h3>
+                            <!-- 👇 AJOUTE CET BLOC ICI -->
+                            <div class="portion-control">
+                                <label for="portion-bowl">Portions :</label>
+                                <select id="portion-bowl" class="portion-select" onchange="changePortionSize('bowl', parseFloat(this.value))">
+                                    <option value="0.5">×0.5 (léger)</option>
+                                    <option value="1" selected>×1 (normal)</option>
+                                    <option value="1.5">×1.5 (copieux)</option>
+                                    <option value="2">×2 (double)</option>
+                                </select>
+                            </div>
+                            <!-- 👆 FIN DU BLOC À AJOUTER -->
                         <ul>
                             <li>120 g de blanc de poulet en dés</li>
                             <li>100 g de riz complet ou quinoa cuit</li>
@@ -300,6 +311,17 @@
 
                     <div class="recipe-section">
                         <h3>🛒 Ingrédients</h3>
+                        <!-- 👇 AJOUTE CET BLOC ICI -->
+                        <div class="portion-control">
+                            <label for="portion-omelett">Portions :</label>
+                            <select id="portion-omelett" class="portion-select" onchange="changePortionSize('omelett', parseFloat(this.value))">
+                                <option value="0.5">×0.5 (léger)</option>
+                                <option value="1" selected>×1 (normal)</option>
+                                <option value="1.5">×1.5 (copieux)</option>
+                                <option value="2">×2 (double)</option>
+                            </select>
+                        </div>
+                        <!-- 👆 FIN DU BLOC À AJOUTER -->
                         <ul>
                             <li>2 œufs + 1 blanc d'œuf</li>
                             <li>Légumes coupés fin : poivron, oignon, champignons, épinards, tomate</li>
@@ -360,6 +382,17 @@
 
                     <div class="recipe-section">
                         <h3>🛒 Ingrédients</h3>
+                        <!-- 👇 AJOUTE CET BLOC ICI -->
+                        <div class="portion-control">
+                            <label for="portion-poisson">Portions :</label>
+                            <select id="portion-poisson" class="portion-select" onchange="changePortionSize('poisson', parseFloat(this.value))">
+                                <option value="0.5">×0.5 (léger)</option>
+                                <option value="1" selected>×1 (normal)</option>
+                                <option value="1.5">×1.5 (copieux)</option>
+                                <option value="2">×2 (double)</option>
+                            </select>
+                        </div>
+                        <!-- 👆 FIN DU BLOC À AJOUTER -->
                         <ul>
                             <li>1 filet de cabillaud, colin ou saumon (100–150 g)</li>
                             <li>Légumes : brocoli, carottes, courgettes, haricots verts (surgelés ou frais)</li>
@@ -419,6 +452,17 @@
 
                     <div class="recipe-section">
                         <h3>🛒 Ingrédients</h3>
+                        <!-- 👇 AJOUTE CET BLOC ICI -->
+                        <div class="portion-control">
+                            <label for="portion-wrap">Portions :</label>
+                            <select id="portion-wrap" class="portion-select" onchange="changePortionSize('wrap', parseFloat(this.value))">
+                                <option value="0.5">×0.5 (léger)</option>
+                                <option value="1" selected>×1 (normal)</option>
+                                <option value="1.5">×1.5 (copieux)</option>
+                                <option value="2">×2 (double)</option>
+                            </select>
+                        </div>
+                        <!-- 👆 FIN DU BLOC À AJOUTER -->
                         <ul>
                             <li>1 galette de blé complet ou tortilla de maïs</li>
                             <li>30–40 g de viande des Grisons</li>
@@ -478,6 +522,17 @@
 
                     <div class="recipe-section">
                         <h3>🛒 Ingrédients</h3>
+                        <!-- 👇 AJOUTE CET BLOC ICI -->
+                        <div class="portion-control">
+                            <label for="portion-yaourt">Portions :</label>
+                            <select id="portion-yaourt" class="portion-select" onchange="changePortionSize('yaourt', parseFloat(this.value))">
+                                <option value="0.5">×0.5 (léger)</option>
+                                <option value="1" selected>×1 (normal)</option>
+                                <option value="1.5">×1.5 (copieux)</option>
+                                <option value="2">×2 (double)</option>
+                            </select>
+                        </div>
+                        <!-- 👆 FIN DU BLOC À AJOUTER -->
                         <ul>
                             <li>1 yaourt grec 0 % ou fromage blanc / skyr (150 g)</li>
                             <li>1 petit fruit : demi-banane, kiwi, quelques framboises ou fraises</li>
@@ -535,6 +590,17 @@
 
                     <div class="recipe-section">
                         <h3>🛒 Ingrédients</h3>
+                        <!-- 👇 AJOUTE CET BLOC ICI -->
+                        <div class="portion-control">
+                            <label for="portion-thon">Portions :</label>
+                            <select id="portion-thon" class="portion-select" onchange="changePortionSize('thon', parseFloat(this.value))">
+                                <option value="0.5">×0.5 (léger)</option>
+                                <option value="1" selected>×1 (normal)</option>
+                                <option value="1.5">×1.5 (copieux)</option>
+                                <option value="2">×2 (double)</option>
+                            </select>
+                        </div>
+                        <!-- 👆 FIN DU BLOC À AJOUTER -->
                         <ul>
                             <li>1 boîte de thon au naturel (100 g), égoutté</li>
                             <li>Une poignée de salade mixte</li>
@@ -593,6 +659,17 @@
 
                     <div class="recipe-section">
                         <h3>🛒 Ingrédients</h3>
+                        <!-- 👇 AJOUTE CET BLOC ICI -->
+                        <div class="portion-control">
+                            <label for="portion-cocotte">Portions :</label>
+                            <select id="portion-cocotte" class="portion-select" onchange="changePortionSize('cocotte', parseFloat(this.value))">
+                                <option value="0.5">×0.5 (léger)</option>
+                                <option value="1" selected>×1 (normal)</option>
+                                <option value="1.5">×1.5 (copieux)</option>
+                                <option value="2">×2 (double)</option>
+                            </select>
+                        </div>
+                        <!-- 👆 FIN DU BLOC À AJOUTER -->
                         <ul>
                             <li>2 œufs</li>
                             <li>Légumes : épinards, poivron, champignons, tomate (coupés fin)</li>
@@ -651,6 +728,17 @@
 
                     <div class="recipe-section">
                         <h3>🛒 Ingrédients</h3>
+                        <!-- 👇 AJOUTE CET BLOC ICI -->
+                        <div class="portion-control">
+                            <label for="portion-soupe">Portions :</label>
+                            <select id="portion-soupe" class="portion-select" onchange="changePortionSize('soupe', parseFloat(this.value))">
+                                <option value="0.5">×0.5 (léger)</option>
+                                <option value="1" selected>×1 (normal)</option>
+                                <option value="1.5">×1.5 (copieux)</option>
+                                <option value="2">×2 (double)</option>
+                            </select>
+                        </div>
+                        <!-- 👆 FIN DU BLOC À AJOUTER -->
                         <ul>
                             <li>1 litre de bouillon de légumes léger</li>
                             <li>2 carottes, 1 courgette, 1 brocoli, poignée de chou-fleur</li>
@@ -710,6 +798,17 @@
 
                     <div class="recipe-section">
                         <h3>🛒 Ingrédients</h3>
+                        <!-- 👇 AJOUTE CET BLOC ICI -->
+                        <div class="portion-control">
+                            <label for="portion-pates">Portions :</label>
+                            <select id="portion-pates" class="portion-select" onchange="changePortionSize('pates', parseFloat(this.value))">
+                                <option value="0.5">×0.5 (léger)</option>
+                                <option value="1" selected>×1 (normal)</option>
+                                <option value="1.5">×1.5 (copieux)</option>
+                                <option value="2">×2 (double)</option>
+                            </select>
+                        </div>
+                        <!-- 👆 FIN DU BLOC À AJOUTER -->
                         <ul>
                             <li>80 g de pâtes complètes (spaghetti ou penne)</li>
                             <li>2 courgettes moyennes, taillées en julienne</li>
@@ -768,6 +867,17 @@
 
                     <div class="recipe-section">
                         <h3>🛒 Ingrédients</h3>
+                        <!-- 👇 AJOUTE CET BLOC ICI -->
+                        <div class="portion-control">
+                            <label for="portion-gingembre">Portions :</label>
+                            <select id="portion-gingembre" class="portion-select" onchange="changePortionSize('gingembre', parseFloat(this.value))">
+                                <option value="0.5">×0.5 (léger)</option>
+                                <option value="1" selected>×1 (normal)</option>
+                                <option value="1.5">×1.5 (copieux)</option>
+                                <option value="2">×2 (double)</option>
+                            </select>
+                        </div>
+                        <!-- 👆 FIN DU BLOC À AJOUTER -->
                         <ul>
                             <li>150 g de blanc de poulet, coupé en lanières</li>
                             <li>1 c. à soupe de gingembre frais, râpé</li>

@@ -102,6 +102,18 @@ const recipes = {
             '1 oignon, 1 poivron, légumes de saison',
             'Poivre, optionnel : citron ou 1 trait de miel'
         ]
+    },
+    'smoothie1': {
+        name: 'Smoothie Protéiné Fruité',
+        ingredients: [
+            '1 banane',
+            '200 ml de lait amande',
+            '1 yaourt grec (150 g)',
+            '30 g de flocons avoine',
+            '30 g de poudre protéinée vanille',
+            '1 poignée de myrtilles fraîches',
+            '1 c. à soupe de beurre amande'
+        ]
     }
 };
 
@@ -125,7 +137,13 @@ function openModal(recipeName) {
         'cocotte': 'cocotteModal',
         'soupe': 'soupeModal',
         'pates': 'patesModal',
-        'gingembre': 'gingembreModal'
+        'gingembre': 'gingembreModal',
+        'smoothie1': 'smoothie1Modal',
+        'porridge1': 'porridge1Modal',
+        'rillettes1': 'rillettes1Modal',
+        'avocado1': 'avocado1Modal',
+        'pancakes1': 'pancakes1Modal',
+        'yaourt1': 'yaourt1Modal'
     };
     
     const modal = document.getElementById(modalMap[recipeName]);
@@ -146,7 +164,13 @@ function closeModal(recipeName) {
         'cocotte': 'cocotteModal',
         'soupe': 'soupeModal',
         'pates': 'patesModal',
-        'gingembre': 'gingembreModal'
+        'gingembre': 'gingembreModal',
+        'smoothie1': 'smoothie1Modal',
+        'porridge1': 'porridge1Modal',
+        'rillettes1': 'rillettes1Modal',
+        'avocado1': 'avocado1Modal',
+        'pancakes1': 'pancakes1Modal',
+        'yaourt1': 'yaourt1Modal'
     };
     
     const modal = document.getElementById(modalMap[recipeName]);

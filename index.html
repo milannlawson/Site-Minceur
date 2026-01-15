@@ -192,6 +192,108 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Smoothie Protéiné Fruité -->
+                <div class="recipe-card" onclick="openModal('smoothie1')">
+                    <img 
+                        src="images/Smoothie%20Prot%C3%A9in%C3%A9.png" 
+                        alt="Smoothie Protéiné Fruité" 
+                        class="recipe-image">
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Smoothie Protéiné Fruité</h3>
+                        <span class="recipe-time">⏱️ 5 min</span>
+                        <p class="recipe-description">Smoothie protéiné fruité pour bien démarrer la journée</p>
+                        <div class="recipe-footer">
+                            <span class="calories">280 kcal</span>
+                            <span class="difficulty">Très facile</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Porridge Pomme Cannelle -->
+                <div class="recipe-card" onclick="openModal('porridge1')">
+                    <img 
+                        src="images/Porridge%20pomme.png" 
+                        alt="Porridge Pomme Cannelle" 
+                        class="recipe-image">
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Porridge Pomme Cannelle</h3>
+                        <span class="recipe-time">⏱️ 10 min</span>
+                        <p class="recipe-description">Porridge à la pomme et à la cannelle</p>
+                        <div class="recipe-footer">
+                            <span class="calories">320 kcal</span>
+                            <span class="difficulty">Facile</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Rillettes de Thon et Chips Patates Douces -->
+                <div class="recipe-card" onclick="openModal('rillettes1')">
+                    <img 
+                        src="images/Rillettes%20de%20Thon%20et%20Chips%20Patates%20Douces.jpg" 
+                        alt="Rillettes de Thon et Chips Patates Douces" 
+                        class="recipe-image">
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Rillettes de Thon et Chips Patates Douces</h3>
+                        <span class="recipe-time">⏱️ 25 min</span>
+                        <p class="recipe-description">Recette TikTok de @cuisineavec_parvaflos</p>
+                        <div class="recipe-footer">
+                            <span class="calories">~350 kcal</span>
+                            <span class="difficulty">Facile</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tartines Avocado et Œuf Poché -->
+                <div class="recipe-card" onclick="openModal('avocado1')">
+                    <img 
+                        src="images/Tartines%20Avocado.png" 
+                        alt="Tartines Avocado et Œuf Poché" 
+                        class="recipe-image">
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Tartines Avocado et Œuf Poché</h3>
+                        <span class="recipe-time">⏱️ 12 min</span>
+                        <p class="recipe-description"></p>
+                        <div class="recipe-footer">
+                            <span class="calories">350 kcal</span>
+                            <span class="difficulty">Facile</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pancakes Protéinés Myrtilles -->
+                <div class="recipe-card" onclick="openModal('pancakes1')">
+                    <img 
+                        src="images/Pancakes%20Myrtilles.jpg" 
+                        alt="Pancakes Protéinés Myrtilles" 
+                        class="recipe-image">
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Pancakes Protéinés Myrtilles</h3>
+                        <span class="recipe-time">⏱️ 15 min</span>
+                        <p class="recipe-description"></p>
+                        <div class="recipe-footer">
+                            <span class="calories">380 kcal</span>
+                            <span class="difficulty">Facile</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Yaourt Grec, Granola et Fruits -->
+                <div class="recipe-card" onclick="openModal('yaourt1')">
+                    <img 
+                        src="images/Yaourt%20Granola.jpg" 
+                        alt="Yaourt Grec, Granola et Fruits" 
+                        class="recipe-image">
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Yaourt Grec, Granola et Fruits</h3>
+                        <span class="recipe-time">⏱️ 3 min</span>
+                        <p class="recipe-description"></p>
+                        <div class="recipe-footer">
+                            <span class="calories">290 kcal</span>
+                            <span class="difficulty">Très facile</span>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <!-- Système Liste de Courses -->
@@ -799,6 +901,398 @@
                 </div>
             </div>
         </div>
+        
+        <div id="smoothie1Modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Smoothie Protéiné Fruité</h2>
+                    <button class="close-btn" onclick="closeModal('smoothie1')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <img 
+                        src="images/Smoothie%20Prot%C3%A9in%C3%A9.png" 
+                        alt="Smoothie Protéiné Fruité" 
+                        class="modal-image" />
+
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Temps</div>
+                            <div class="meta-value">5 min</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Calories</div>
+                            <div class="meta-value">280</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Portion</div>
+                            <div class="meta-value">1</div>
+                        </div>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>🛒 Ingrédients</h3>
+                        <ul>
+                            <li>1 banane</li>
+                            <li>200 ml de lait d'amande</li>
+                            <li>1 yaourt grec (150 g)</li>
+                            <li>30 g de flocons d'avoine</li>
+                            <li>30 g de poudre protéinée vanille</li>
+                            <li>1 poignée de myrtilles fraîches</li>
+                            <li>1 c. à soupe de beurre d'amande</li>
+                        </ul>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>👨‍🍳 Préparation</h3>
+                        <ol>
+                            <li>Verser le lait d'amande dans le blender</li>
+                            <li>Ajouter la banane coupée et les myrtilles</li>
+                            <li>Ajouter le yaourt grec et la poudre protéinée</li>
+                            <li>Ajouter le beurre d'amande</li>
+                            <li>Mixer 1-2 minutes jusqu'à texture lisse</li>
+                            <li>Servir immédiatement</li>
+                        </ol>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>💡 Conseil</h3>
+                        <p>Préparez-le le matin pour un boost d'énergie !</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="porridge1Modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Smoothie Protéiné Fruité</h2>
+                    <button class="close-btn" onclick="closeModal('porridge1')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <img 
+                        src="images/Porridge%20pomme.png" 
+                        alt="Porridge Pomme Cannelle" 
+                        class="modal-image" />
+
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Temps</div>
+                            <div class="meta-value">10 min</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Calories</div>
+                            <div class="meta-value">320</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Portion</div>
+                            <div class="meta-value">1</div>
+                        </div>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>🛒 Ingrédients</h3>
+                        <ul>
+                            <li>50 g de flocons d'avoine</li>
+                            <li>200 ml de lait d'amande</li>
+                            <li>1 pomme râpée</li>
+                            <li>1 c. à café de cannelle</li>
+                            <li>1 c. à soupe de miel</li>
+                            <li>Pincée de sel</li>
+                            <li>1 poignée d'amandes effilées</li>
+                        </ul>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>👨‍🍳 Préparation</h3>
+                        <ol>
+                            <li>Verser le lait dans une casserole</li>
+                            <li>Ajouter les flocons d'avoine et le sel</li>
+                            <li>Cuire 5-7 min à feu moyen en remuant</li>
+                            <li>Ajouter la pomme râpée et cannelle</li>
+                            <li>Transférer dans un bol</li>
+                            <li>Garnir de miel et amandes</li>
+                        </ol>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>💡 Conseil</h3>
+                        <p>La pomme apporte du sucre naturel et des fibres</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="rillettes1Modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Rillettes de Thon et Chips Patates Douces</h2>
+                    <button class="close-btn" onclick="closeModal('rillettes1')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <img 
+                        src="images/Rillettes%20de%20Thon%20et%20Chips%20Patates%20Douces.jpg" 
+                        alt="Rillettes de Thon et Chips Patates Douces" 
+                        class="modal-image" />
+
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Temps</div>
+                            <div class="meta-value">25 min</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Calories</div>
+                            <div class="meta-value">~350</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Portion</div>
+                            <div class="meta-value">2</div>
+                        </div>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>🛒 Ingrédients Rillettes de Thon</h3>
+                        <ul>
+                            <li>250 g thon frais (steaks/filets)</li>
+                            <li>Fond huile d'olive</li>
+                            <li>Sel, poivre</li>
+                            <li>Persil/ciboulette frais haché</li>
+                            <li>1/2 citron (jus + zeste)</li>
+                            <li>1 c. à café moutarde (optionnel)</li>
+                            <li>2 c. à soupe crème fraîche allégée (optionnel)</li>
+                        </ul>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>👨‍🍳 Préparation Rillettes de Thon</h3>
+                        <ol>
+                            <li>Cuire thon : Poêle chaude + fond huile olive, cuire 2-3 min/par côté (saisi). Saler/poivrer. Tiédir.</li>
+                            <li>Émietter : Fourchette → gros morceaux dans bol.</li>
+                            <li>Assaisonner : Persil/ciboulette, jus + zeste citron, moutarde, crème. Mélanger.</li>
+                            <li>Repos : Frigo 1h minimum.</li>
+                            <li>Transférer dans un bol.</li>
+                            <li>Servir : Avec chips patates douces !</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="recipe-section">
+                        <h3>🛒 Ingrédients Chips Patates Douces</h3>
+                        <ul>
+                            <li>1 grosse patate douce (300-400 g)</li>
+                            <li>1 c. à soupe huile olive</li>
+                            <li>Maïzena</li>
+                            <li>Sel, poivre, paprika fumé ou herbes de Provence</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="recipe-section">
+                        <h3>👨‍🍳 Préparation Chips Patates Douces</h3>
+                        <ol>
+                            <li>Préchauffer four 200°C (chaleur tournante).</li>
+                            <li>Trancher fin : Patate douce (2-3 mm).</li>
+                            <li>Maïzena</li>
+                            <li>Assaisonner : huile olive, sel, paprika/herbes, poivre. Bien enrober.</li>
+                            <li>Étaler sur une plaque plaque de cuisson avec du papier sulfurisé (ne pas empilé).</li>
+                            <li>Cuire : 15-20 min jusqu'à croustillantes dorées. Surveiller !</li>
+                            <li>Laisser refroidir</li>
+                        </ol>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>💡 Conseil</h3>
+                        <ul>
+                            <li>Thon : Frais obligatoire ! Moins cuit = plus fondant</li>
+                            <li>Chips : Tranches ultra-fines = croustillant max. Four ventilé idéal</li>
+                            <li>Accompagnement : Rillettes fraîches et chips chaudes</li>
+                            <li>Variantes : Ajoutez câpres rillettes, piment chips</li>
+                            <li>Conservation : Rillettes frigo 3j, chips hermétique 2j</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="avocado1Modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Tartines Avocado et Œuf Poché</h2>
+                    <button class="close-btn" onclick="closeModal('avocado1')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <img 
+                        src="images/Tartines%20Avocado.png" 
+                        alt="Tartines Avocado et Œuf Poché" 
+                        class="modal-image" />
+
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Temps</div>
+                            <div class="meta-value">12 min</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Calories</div>
+                            <div class="meta-value">350</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Portion</div>
+                            <div class="meta-value">1</div>
+                        </div>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>🛒 Ingrédients</h3>
+                        <ul>
+                            <li>2 tranches de pain complet</li>
+                            <li>1/2 avocat</li>
+                            <li>2 œufs</li>
+                            <li>Jus de citron</li>
+                            <li>Sel, poivre</li>
+                            <li>Piment d'Espelette</li>
+                            <li>Tomates cerises (5-6)</li>
+                        </ul>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>👨‍🍳 Préparation</h3>
+                        <ol>
+                            <li>Faire griller le pain complet</li>
+                            <li>Porter une casserole d'eau à ébullition</li>
+                            <li>Créer un tourbillon et casser l'œuf dedans</li>
+                            <li>Cuire 3-4 min (blanc pris, jaune coulant)</li>
+                            <li>Écraser l'avocat avec citron, sel, poivre</li>
+                            <li>Tartiner sur le pain, poser l'œuf dessus</li>
+                            <li>Garnir de tomates et piment</li>
+                        </ol>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>💡 Conseil</h3>
+                        <p>Les bons gras de l'avocat sustentent longtemps</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="pancakes1Modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Pancakes Protéinés Myrtilles</h2>
+                    <button class="close-btn" onclick="closeModal('pancakes1')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <img 
+                        src="images/Pancakes%20Myrtilles.jpg" 
+                        alt="Pancakes Protéinés Myrtilles" 
+                        class="modal-image" />
+
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Temps</div>
+                            <div class="meta-value">15 min</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Calories</div>
+                            <div class="meta-value">380</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Portion</div>
+                            <div class="meta-value">1 (6 pancakes)</div>
+                        </div>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>🛒 Ingrédients</h3>
+                        <ul>
+                            <li>2 œufs</li>
+                            <li>50 g de farine complète</li>
+                            <li>30 g de poudre protéinée</li>
+                            <li>1/2 banane écrasée</li>
+                            <li>100 ml de lait d'amande</li>
+                            <li>1 c. à café de levure chimique</li>
+                            <li>Pincée de sel</li>
+                            <li>100 g de myrtilles fraîches</li>
+                        </ul>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>👨‍🍳 Préparation</h3>
+                        <ol>
+                            <li>Mélanger tous les ingrédients secs</li>
+                            <li>Ajouter les œufs et le lait, mélanger</li>
+                            <li>Incorporer la banane écrasée</li>
+                            <li>Chauffer une poêle antiadhésive</li>
+                            <li>Verser une louche, ajouter quelques myrtilles</li>
+                            <li>Retourner quand des bulles apparaissent</li>
+                            <li>Servir chaud avec le reste des myrtilles</li>
+                        </ol>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>💡 Conseil</h3>
+                        <p>Excellente source de protéines pour bien démarrer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="yaourt1Modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Yaourt Grec, Granola et Fruits</h2>
+                    <button class="close-btn" onclick="closeModal('yaourt1')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <img 
+                        src="images/Yaourt%20Granola.jpg" 
+                        alt="Pancakes Protéinés Myrtilles" 
+                        class="modal-image" />
+
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Temps</div>
+                            <div class="meta-value">3 min</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Calories</div>
+                            <div class="meta-value">290</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Portion</div>
+                            <div class="meta-value">1</div>
+                        </div>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>🛒 Ingrédients</h3>
+                        <ul>
+                            <li>200 g de yaourt grec</li>
+                            <li>50 g de granola maison</li>
+                            <li>1 poignée de fruits rouges</li>
+                            <li>1 c. à soupe de miel</li>
+                            <li>30 g d'amandes concassées</li>
+                            <li>1 c. à café de graines de chia</li>
+                        </ul>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>👨‍🍳 Préparation</h3>
+                        <ol>
+                            <li>Verser le yaourt grec dans un bol</li>
+                            <li>Ajouter le granola sur le dessus</li>
+                            <li>Disposer les fruits rouges</li>
+                            <li>Parsemer d'amandes et graines de chia</li>
+                            <li>Arroser de miel</li>
+                            <li>Servir immédiatement</li>
+                        </ol>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>💡 Conseil</h3>
+                        <p>Préparation express, idéal si vous êtes pressé(e)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
 
         <footer>
             <p>🥗 Recettes Minceur — Bon grignotage et bonne perte de poids ! 💚</p>

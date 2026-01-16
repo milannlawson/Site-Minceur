@@ -1,5 +1,30 @@
 // Dictionnaire des recettes avec leurs ingrédients
+// BASE DE DONNÉES RECETTES TRIÉES PAR CATÉGORIES
 const recipes = {
+    // 🌅 PETITS-DÉJEUNERS (10)
+    'smoothie1': {
+        name: 'Smoothie Protéiné Fruité',
+        category: 'petits-dejeuners',
+        temps: '5 min',
+        calories: 280,
+        portions: '1 personne',
+        ingredients: [
+            '1 banane',
+            '200 ml de lait amande',
+            '1 yaourt grec (150 g)',
+            '30 g de flocons avoine',
+            '30 g de poudre protéinée vanille',
+            '1 poignée de myrtilles fraîches',
+            '1 c. à soupe de beurre amande'
+        ],
+        etapes: [
+            'Verser lait blender', 
+            'Ajouter banane myrtilles', 
+            'Ajouter yaourt poudre', 
+            'Mixer 1-2 min', 
+            'Servir frais'],
+        conseils: 'Boost énergie matin !'
+    },
     'bowl': {
         name: 'Bowl Poulet Minceur',
         ingredients: [
@@ -103,19 +128,27 @@ const recipes = {
             'Poivre, optionnel : citron ou 1 trait de miel'
         ]
     },
-    'smoothie1': {
-        name: 'Smoothie Protéiné Fruité',
-        ingredients: [
-            '1 banane',
-            '200 ml de lait amande',
-            '1 yaourt grec (150 g)',
-            '30 g de flocons avoine',
-            '30 g de poudre protéinée vanille',
-            '1 poignée de myrtilles fraîches',
-            '1 c. à soupe de beurre amande'
-        ]
-    }
 };
+
+// FONCTION FILTRAGE (déjà présente)
+function displayRecipes(category) {
+  const container = document.getElementById('recipesContainer');
+  container.innerHTML = '';
+  
+  Object.entries(recipes).forEach(([id, recipe]) => {
+    if (recipe.category === category || category === 'all') {  // ✅ TOUT TRIÉ !
+      // Créer carte recette
+      const card = document.createElement('div');
+      card.className = 'recipe-card';
+      card.innerHTML = `
+        <h3>${recipe.name}</h3>
+        <p>${recipe.temps} • ${recipe.calories} kcal • ${recipe.portions}</p>
+        <button onclick="openModal('${id}')">Voir recette 👀</button>
+      `;
+      container.appendChild(card);
+    }
+  });
+}
 
 let selectedRecipes = new Set();
 

@@ -29,7 +29,7 @@ const recipes = {
             'Citron, herbes (thym, persil), sel, poivre'
         ]
     },
-    'wrap': {
+    'wrap1': {
         name: 'Wrap Grison & Crudités',
         ingredients: [
             '1 galette de blé complet ou tortilla de maïs',
@@ -131,7 +131,7 @@ function openModal(recipeName) {
         'bowl': 'bowlModal',
         'omelett': 'omelettModal',
         'poisson': 'poissonModal',
-        'wrap': 'wrapModal',
+        'wrap1': 'wrap1Modal',
         'yaourt': 'yaourtModal',
         'thon': 'thonModal',
         'cocotte': 'cocotteModal',
@@ -143,7 +143,8 @@ function openModal(recipeName) {
         'rillettes1': 'rillettes1Modal',
         'avocado1': 'avocado1Modal',
         'pancakes1': 'pancakes1Modal',
-        'yaourt1': 'yaourt1Modal'
+        'yaourt1': 'yaourt1Modal',
+        'wrap2': 'wrap2Modal'
     };
     
     const modal = document.getElementById(modalMap[recipeName]);
@@ -158,7 +159,7 @@ function closeModal(recipeName) {
         'bowl': 'bowlModal',
         'omelett': 'omelettModal',
         'poisson': 'poissonModal',
-        'wrap': 'wrapModal',
+        'wrap1': 'wrap1Modal',
         'yaourt': 'yaourtModal',
         'thon': 'thonModal',
         'cocotte': 'cocotteModal',
@@ -170,7 +171,8 @@ function closeModal(recipeName) {
         'rillettes1': 'rillettes1Modal',
         'avocado1': 'avocado1Modal',
         'pancakes1': 'pancakes1Modal',
-        'yaourt1': 'yaourt1Modal'
+        'yaourt1': 'yaourt1Modal',
+        'wrap2': 'wrap2Modal'
     };
     
     const modal = document.getElementById(modalMap[recipeName]);

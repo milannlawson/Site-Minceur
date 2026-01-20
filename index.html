@@ -73,7 +73,7 @@
                 </div>
 
                 <!-- Wrap -->
-                <div class="recipe-card" onclick="openModal('wrap')">
+                <div class="recipe-card" onclick="openModal('wrap1')">
                     <img
                         src="images/Wrap%20Grison%20&%20Crudit%C3%A9s.jpeg"
                         alt="Wrap grison crudités"
@@ -294,6 +294,23 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Yaourt Grec, Granola et Fruits -->
+                <div class="recipe-card" onclick="openModal('wrap2')">
+                    <img 
+                        src="images/Wrap%20%C5%92ufs.jpg" 
+                        alt="Wrap aux Œufs Brouillés" 
+                        class="recipe-image">
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Wrap aux Œufs Brouillés</h3>
+                        <span class="recipe-time">⏱️ 10 min</span>
+                        <p class="recipe-description"></p>
+                        <div class="recipe-footer">
+                            <span class="calories">420 kcal</span>
+                            <span class="difficulty">Facile</span>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <!-- Système Liste de Courses -->
@@ -492,11 +509,11 @@
             </div>
         </div>
 
-        <div id="wrapModal" class="modal">
+        <div id="wrap1Modal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2>Wrap Grison & Crudités</h2>
-                    <button class="close-btn" onclick="closeModal('wrap')">&times;</button>
+                    <button class="close-btn" onclick="closeModal('wrap1')">&times;</button>
                 </div>
                 <div class="modal-body">
                     <img
@@ -1293,6 +1310,66 @@
             </div>
         </div>
         
+        <div id="wrap2Modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Yaourt Grec, Granola et Fruits</h2>
+                    <button class="close-btn" onclick="closeModal('wrap2')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <img 
+                        src="images/Wrap%20%C5%92ufs.jpg" 
+                        alt="Pancakes Protéinés Myrtilles" 
+                        class="modal-image" />
+
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Temps</div>
+                            <div class="meta-value">10 min</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Calories</div>
+                            <div class="meta-value">420</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Portion</div>
+                            <div class="meta-value">1</div>
+                        </div>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>🛒 Ingrédients</h3>
+                        <ul>
+                            <li>2 tortillas de blé complet</li>
+                            <li>3 œufs</li>
+                            <li>1/2 avocat</li>
+                            <li>Poignée d'épinards</li>
+                            <li>1 tomate</li>
+                            <li>30 g de fromage blanc</li>
+                            <li>Sel, poivre, ciboulette</li>
+                        </ul>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>👨‍🍳 Préparation</h3>
+                        <ol>
+                            <li>Battre les œufs avec sel et poivre</li>
+                            <li>Cuire à feu doux en remuant (œufs brouillés)</li>
+                            <li>Chauffer légèrement les tortillas</li>
+                            <li>Étaler le fromage blanc sur les wraps</li>
+                            <li>Ajouter épinards, tomate en dés, avocat</li>
+                            <li>Ajouter les œufs brouillés</li>
+                            <li>Rouler et servir chaud</li>
+                        </ol>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>💡 Conseil</h3>
+                        <p>Repas complet et transportable facilement</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <footer>
             <p>🥗 Recettes Minceur — Bon grignotage et bonne perte de poids ! 💚</p>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Calories - Recettes Minceur</title>
+    <link rel="stylesheet" href="calories-styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto;">
+            <div>
+                <div class="back-btn" onclick="window.location.href='recettes.html'">← Retour Recettes</div>
+                <h1>📊 Mes Calories</h1>
+                <div class="stats-summary">
+                    <div class="stat-card">
+                        <div class="stat-number" id="todayCalories">0</div>
+                        <div class="stat-label">Aujourd'hui</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="weekCalories">0</div>
+                        <div class="stat-label">Cette semaine</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="monthCalories">0</div>
+                        <div class="stat-label">Ce mois</div>
+                    </div>
+                </div>
+            </div>
+            <a href="home.html" class="header-home-btn">🏠 Accueil</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Période -->
+        <div class="period-selector">
+            <button class="period-btn active" data-period="day">Jour</button>
+            <button class="period-btn" data-period="week">Semaine</button>
+            <button class="period-btn" data-period="month">Mois</button>
+            <button class="period-btn" data-period="year">Année</button>
+            <button class="period-btn" data-period="all">Tout</button>
+        </div>
+
+        <!-- Graphique -->
+        <div class="chart-container">
+            <canvas id="caloriesChart"></canvas>
+        </div>
+
+        <!-- Objectif journalier -->
+        <div class="goal-section">
+            <label>Objectif journalier : 
+                <input type="number" id="dailyGoal" value="1800" min="1000" max="4000">
+                kcal
+            </label>
+            <button id="saveGoal" class="btn-primary">Sauvegarder</button>
+        </div>
+
+        <!-- Liste des jours -->
+        <div class="days-list">
+            <h3>📅 Derniers repas</h3>
+            <div id="daysList">Clique sur une recette pour commencer !</div>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+            <button id="exportPDF" class="btn-primary">📄 Exporter PDF</button>
+            <button id="clearAll" class="btn-danger">🗑️ Effacer tout</button>
+        </div>
+    </main>
+
+    <script src="calories-script.js"></script>
+</body>
+</html>

@@ -144,7 +144,8 @@ function openModal(recipeName) {
         'avocado1': 'avocado1Modal',
         'pancakes1': 'pancakes1Modal',
         'yaourt1': 'yaourt1Modal',
-        'wrap2': 'wrap2Modal'
+        'wrap2': 'wrap2Modal',
+        'poulet_frit1': 'poulet_frit1Modal'
     };
     
     const modal = document.getElementById(modalMap[recipeName]);
@@ -172,7 +173,8 @@ function closeModal(recipeName) {
         'avocado1': 'avocado1Modal',
         'pancakes1': 'pancakes1Modal',
         'yaourt1': 'yaourt1Modal',
-        'wrap2': 'wrap2Modal'
+        'wrap2': 'wrap2Modal',
+        'poulet_frit1': 'poulet_frit1Modal'
     };
     
     const modal = document.getElementById(modalMap[recipeName]);

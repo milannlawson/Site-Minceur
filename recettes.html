@@ -323,6 +323,23 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Poulet frit, riz et légumes -->
+                <div class="recipe-card" onclick="openModal('poulet_frit1')">
+                    <img 
+                        src="images/Poulet%20frit,%20riz%20et%20le%CC%81gumes.png" 
+                        alt="Poulet frit, riz et légumes" 
+                        class="recipe-image">
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Poulet frit, riz et légumes</h3>
+                        <span class="recipe-time">⏱️ 25 min</span>
+                        <p class="recipe-description"></p>
+                        <div class="recipe-footer">
+                            <span class="calories">450 kcal</span>
+                            <span class="difficulty">Facile</span>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <!-- Système Liste de Courses -->
@@ -1382,11 +1399,82 @@
                 </div>
             </div>
         </div>
+        
+        <div id="poulet_frit1Modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Poulet frit, riz et légumes</h2>
+                    <button class="close-btn" onclick="closeModal('poulet_frit1')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <img 
+                        src="images/Poulet%20frit,%20riz%20et%20le%CC%81gumes.png" 
+                        alt="Poulet frit, riz et légumes" 
+                        class="modal-image" />
+
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Temps</div>
+                            <div class="meta-value">25 min</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Calories</div>
+                            <div class="meta-value">450</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Portion</div>
+                            <div class="meta-value">1</div>
+                        </div>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>🛒 Ingrédients</h3>
+                        <ul>
+                            <li>400 g d’escalopes de poulet</li>
+                            <li>1 œuf</li>
+                            <li>Fécule de maïs</li>
+                            <li>Carottes</li>
+                            <li>Concombre</li>
+                            <li>Sauce teriyaki</li>
+                            <li>Sauce soja sucrée</li>
+                            <li>Sauce soja salée</li>
+                            <li>Vinaigre de riz</li>
+                            <li>Miel</li>
+                            <li>Gochujang</li>
+                            <li>Sucre de canne</li>
+                            <li>Paprika</li>
+                            <li>Ail en poudre</li>
+                            <li>Sel et poivre</li>
+                        </ul>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>👨‍🍳 Préparation</h3>
+                        <ol>
+                            <li>Coupez le poulet en morceaux.</li>
+                            <li>Dans un récipient, mélangez le poulet avec du poivre, de la sauce teriyaki, un œuf.</li>
+                            <li>Mettre le poulet dans la fécule de maïs.</li>
+                            <li>Mettre au AirFryer.</li>
+                            <li>Pendant ce temps, épluchez les carottes et le concombre et tranchez les en fines bandes.</li>
+                            <li>Pour la sauce, mélangez de la sauce soja sucrée et salée avec un peu d’eau, du Gochujang, du vinaigre de riz, du miel et un peu de sucre.</li>
+                            <li>Faire cuire la sauce à feu moyen jusqu’à qu’elle épaississe.</li>
+                            <li>Enrobez le poulet cuit dans la sauce.</li>
+                            <li>Dressez avec du riz et les légumes sur le côté.</li>
+                        </ol>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>💡 Conseil</h3>
+                        <p>Pour plus de croustillant, doublez la panure ou ajoutez du bicarbonate ; accompagnez de riz et légumes pour équilibrer.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <footer>
             <p>🥗 Recettes Minceur — Bon grignotage et bonne perte de poids ! 💚</p>
         </footer>
 
-        <script src="script.js"></script>
+        <script src="recettes-script.js"></script>
     </body>
 </html>

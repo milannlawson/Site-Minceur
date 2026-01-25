@@ -111,10 +111,18 @@
     }
 
     .planning-row:last-child .planning-cell:last-child {
+        display: grid;
+        grid-template-columns: 120px 1.6fr 0.8fr 0.8fr 0.7fr 0.8fr;
         border-bottom: none;
     }
 
     .planning-day {
         background: var(--color-primary-light);
+    }
+    
+    .planning-duration {
+        font-size: 0.9rem;
+        color: var(--color-text-light);
+        font-weight: 600;
     }
 }

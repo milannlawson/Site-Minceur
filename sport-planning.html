@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planning Sport - Programmes</title>
+    <link rel="stylesheet" href="recettes-styles.css">
+    <link rel="stylesheet" href="sport-planning-styles.css">
+</head>
+<body>
+<header>
+    <div class="header-inner">
+        <div>
+            <h1>🏋️ Planning Sport</h1>
+            <p>Planifie tes séances de sport pour la semaine et garde le cap.</p>
+        </div>
+        <a href="home.html" class="header-home-btn">🏠 Accueil</a>
+    </div>
+</header>
+
+<main class="container">
+    <section class="intro">
+        <h2>Ton planning d’entraînement</h2>
+        <p>Note pour chaque jour le type de séance (cardio, muscu, mobilité…), l’heure et l’intensité.</p>
+    </section>
+
+    <section class="sport-planning">
+        <div class="planning-header">
+            <h2>Planning de la semaine</h2>
+            <button id="clearPlanningBtn" class="btn-secondary">🧹 Vider le planning</button>
+        </div>
+
+        <div class="planning-grid">
+            <div class="planning-row planning-row-header">
+                <div class="planning-cell">Jour</div>
+                <div class="planning-cell">Séance</div>
+                <div class="planning-cell">Début</div>
+                <div class="planning-cell">Fin</div>
+                <div class="planning-cell">Durée</div>
+            </div>
+
+            <!-- Une ligne par jour -->
+            <!-- Lundi -->
+            <div class="planning-row" data-day="Lundi">
+                <div class="planning-cell planning-day">Lundi</div>
+                <div class="planning-cell">
+                    <input type="text" class="planning-input planning-session" placeholder="Ex : Haut du corps 💪🏾">
+                </div>
+                <div class="planning-cell">
+                    <input type="time" class="planning-input planning-start">
+                </div>
+                <div class="planning-cell">
+                    <input type="time" class="planning-input planning-end">
+                </div>
+                <div class="planning-cell">
+                    <span class="planning-duration">–</span>
+                </div>
+            </div>
+
+            <!-- Mardi -->
+            <div class="planning-row" data-day="Mardi">
+                <div class="planning-cell planning-day">Mardi</div>
+                <div class="planning-cell">
+                    <input type="text" class="planning-input planning-session" placeholder="Ex : Cardio 🏃🏾‍♂️">
+                </div>
+                <div class="planning-cell">
+                    <input type="time" class="planning-input planning-start">
+                </div>
+                <div class="planning-cell">
+                    <input type="time" class="planning-input planning-end">
+                </div>
+                <div class="planning-cell">
+                    <span class="planning-duration">–</span>
+                </div>
+            </div>
+
+            <!-- Mercredi -->
+            <div class="planning-row" data-day="Mercredi">
+                <div class="planning-cell planning-day">Mercredi</div>
+                <div class="planning-cell">
+                    <input type="text" class="planning-input planning-session" placeholder="Ex : Bas du corps 🦵🏾">
+                </div>
+                <div class="planning-cell">
+                    <input type="time" class="planning-input planning-start">
+                </div>
+                <div class="planning-cell">
+                    <input type="time" class="planning-input planning-end">
+                </div>
+                <div class="planning-cell">
+                    <span class="planning-duration">–</span>
+                </div>
+            </div>
+
+            <!-- Jeudi -->
+            <div class="planning-row" data-day="Jeudi">
+                <div class="planning-cell planning-day">Jeudi</div>
+                <div class="planning-cell">
+                    <input type="text" class="planning-input planning-session" placeholder="Ex : Yoga 🧘🏾‍♂️">
+                </div>
+                <div class="planning-cell">
+                    <input type="time" class="planning-input planning-start">
+                </div>
+                <div class="planning-cell">
+                    <input type="time" class="planning-input planning-end">
+                </div>
+                <div class="planning-cell">
+                    <span class="planning-duration">–</span>
+                </div>
+            </div>
+
+            <!-- Vendredi -->
+            <div class="planning-row" data-day="Vendredi">
+                <div class="planning-cell planning-day">Vendredi</div>
+                <div class="planning-cell">
+                    <input type="text" class="planning-input planning-session" placeholder="Ex : Full body 💥">
+                </div>
+                <div class="planning-cell">
+                    <input type="time" class="planning-input planning-start">
+                </div>
+                <div class="planning-cell">
+                    <input type="time" class="planning-input planning-end">
+                </div>
+                <div class="planning-cell">
+                    <span class="planning-duration">–</span>
+                </div>
+            </div>
+
+            <!-- Samedi -->
+            <div class="planning-row" data-day="Samedi">
+                <div class="planning-cell planning-day">Samedi</div>
+                <div class="planning-cell">
+                    <input type="text" class="planning-input planning-session" placeholder="Ex : Cardio + abdos 🔥">
+                </div>
+                <div class="planning-cell">
+                    <input type="time" class="planning-input planning-start">
+                </div>
+                <div class="planning-cell">
+                    <input type="time" class="planning-input planning-end">
+                </div>
+                <div class="planning-cell">
+                    <span class="planning-duration">–</span>
+                </div>
+            </div>
+
+            <!-- Dimanche -->
+            <div class="planning-row" data-day="Dimanche">
+                <div class="planning-cell planning-day">Dimanche</div>
+                <div class="planning-cell">
+                    <input type="text" class="planning-input planning-session" placeholder="Ex : Repos / marche 🚶🏾‍♂️">
+                </div>
+                <div class="planning-cell">
+                    <input type="time" class="planning-input planning-start">
+                </div>
+                <div class="planning-cell">
+                    <input type="time" class="planning-input planning-end">
+                </div>
+                <div class="planning-cell">
+                    <span class="planning-duration">–</span>
+                </div>
+            </div>
+        </div>
+
+        <p class="planning-note">
+            Astuce : garde le même créneau horaire pour créer une habitude plus facilement.
+        </p>
+    </section>
+</main>
+
+<footer>
+    <p>Recettes Minceur Light – Version sport 💪</p>
+</footer>
+
+<script src="sport-planning-script.js"></script>
+</body>
+</html>

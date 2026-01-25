@@ -114,6 +114,95 @@ const recipes = {
             '1 poignée de myrtilles fraîches',
             '1 c. à soupe de beurre amande'
         ]
+    },
+    'porridge1': {
+        name: 'Porridge Pome Cannelle',
+        ingredients: [
+            '50 g de flocons avoine',
+            '200 ml de lait amande',
+            '1 pomme râpée',
+            '1 c. à café de canelle',
+            '1 c. à soupe de miel',
+            'Pincée de sel',
+            '1 poignée amandes effilées'
+        ]
+    },
+    'rillettes1': {
+        name: 'Rillettes de Thon et Chips Patates Douces',
+        ingredients: [
+            '250 g de thon frais',
+            'Huile olive',
+            'Sel, poivre',
+            'Persil/ciboulette frais',
+            'Citron vert',
+            'Moutarde (optionnel)',
+            'Crème fraiche allégée (optionnel)'
+        ]
+    },
+    'avocado1': {
+        name: 'Tartines Avocado et Œuf Poché',
+        ingredients: [
+            'Pain complet',
+            '1 avocat',
+            '2 œufs',
+            'Jus de citron',
+            'Piment de Cayenne',
+            'Tomate cerise (5-6)'
+        ]
+    },
+    'pancakes1': {
+        name: 'Pancakes Protéinés Myrtilles',
+        ingredients: [
+            'Farine complète',
+            'Poudre protéinée',
+            '2 œufs',
+            '1 banane',
+            'Lait ammande',
+            'Levure chimique',
+            '100 g de myrtilles fraîches'
+        ]
+    },
+    'yaourt1': {
+        name: 'Yaourt Grec, Granola et Fruits',
+        ingredients: [
+            'Yaourt grec',
+            '50 g de granola maison',
+            '1 poignée de fruits rouges',
+            'Miel',
+            'Amandes',
+            'Graines de chia'
+        ]
+    },
+    'wrap2': {
+        name: 'Wrap aux Œufs Brouillés',
+        ingredients: [
+            'Tortillas de blé complet',
+            '3 œufs',
+            'Avocat',
+            'Epinards',
+            '1 tomate',
+            'Fromage blanc',
+            'Ciboulette'
+        ]
+    },
+    'poulet_frit1': {
+        name: 'Poulet frit, riz et légumes',
+        ingredients: [
+            '400 g d’escalopes de poulet',
+            '1 œuf',
+            'Fécule de maïs',
+            'Carottes',
+            'Concombre',
+            'Sauce teriyaki',
+            'Sauce soja sucrée',
+            'Sauce soja salée',
+            'Vinaigre de riz',
+            'Miel',
+            'Gochujang',
+            'Sucre de canne',
+            'Paprika fumé',
+            'Ail en poudre'
+        ]
     }
 };
 
@@ -144,7 +233,8 @@ function openModal(recipeName) {
         'avocado1': 'avocado1Modal',
         'pancakes1': 'pancakes1Modal',
         'yaourt1': 'yaourt1Modal',
-        'wrap2': 'wrap2Modal'
+        'wrap2': 'wrap2Modal',
+        'poulet_frit1': 'poulet_frit1Modal'
     };
     
     const modal = document.getElementById(modalMap[recipeName]);
@@ -172,7 +262,8 @@ function closeModal(recipeName) {
         'avocado1': 'avocado1Modal',
         'pancakes1': 'pancakes1Modal',
         'yaourt1': 'yaourt1Modal',
-        'wrap2': 'wrap2Modal'
+        'wrap2': 'wrap2Modal',
+        'poulet_frit1': 'poulet_frit1Modal'
     };
     
     const modal = document.getElementById(modalMap[recipeName]);
@@ -220,62 +311,60 @@ function setupShopping() {
 }
 
 function addShoppingButtons() {
-    const modalElements = document.querySelectorAll('.modal-body');
+    // Parcourir TOUTES les modales
+    const allModals = document.querySelectorAll('.modal');
     
-    modalElements.forEach(modalBody => {
-        const ingredientsSections = modalBody.querySelectorAll('.recipe-section');
-        ingredientsSections.forEach((section, index) => {
+    allModals.forEach(modal => {
+        // Trouver le nom de la recette depuis l'ID de la modale
+        const modalId = modal.id;
+        const recipeName = modalId.replace('Modal', '');
+        
+        // Trouver la section Ingrédients
+        const modalBody = modal.querySelector('.modal-body');
+        if (!modalBody) return;
+        
+        const sections = modalBody.querySelectorAll('.recipe-section');
+        
+        sections.forEach(section => {
             const h3 = section.querySelector('h3');
-            if (h3 && h3.textContent.includes('🛒')) {
-                // Vérifier si le bouton existe déjà
-                if (!section.querySelector('.add-to-shopping')) {
-                    // Bouton liste de courses
-                    const shoppingBtn = document.createElement('button');
-                    shoppingBtn.className = 'add-to-shopping';
-                    shoppingBtn.innerHTML = '➕ Ajouter ma liste';
-                    shoppingBtn.onclick = function(e) {
-                        e.preventDefault();
-                        toggleRecipe(recipeName, shoppingBtn);
-                    };
-                    
-                    // NOUVEAU BOUTON "J'AI MANGÉ ÇA"
-                    const eatBtn = document.createElement('button');
-                    eatBtn.className = 'eat-btn';
-                    eatBtn.innerHTML = '🍽️ J\'ai mangé ça';
-                    eatBtn.onclick = function(e) {
-                        e.preventDefault();
-                        addToCalories(recipeName);
-                    };
-                    
-                    const buttonsContainer = document.createElement('div');
-                    buttonsContainer.style.display = 'flex';
-                    buttonsContainer.style.gap = '0.5rem';
-                    buttonsContainer.style.marginTop = '1rem';
-                    
-                    buttonsContainer.appendChild(shoppingBtn);
-                    buttonsContainer.appendChild(eatBtn);
-                    
-                    section.appendChild(buttonsContainer);
-                    
-                    // Trouver l'ID de la recette
-                    const modal = modalBody.closest('.modal');
-                    const recipeName = Object.keys(recipes).find(key => {
-                        return document.getElementById(recipes[key].name.toLowerCase().replace(/\s+/g, '') + 'Modal') === modal ||
-                               modal.id === (key + 'Modal');
-                    });
-                    
-                    if (recipeName) {
-                        button.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            toggleRecipe(recipeName, button);
-                        });
-                        section.appendChild(button);
-                    }
-                }
+            
+            // Vérifier si c'est la section Ingrédients
+            if (h3 && h3.textContent.includes('Ingrédients')) {
+                
+                // Vérifier si les boutons existent déjà
+                if (section.querySelector('.modal-buttons')) return;
+                
+                // BOUTON 1 : Liste de courses
+                const shoppingBtn = document.createElement('button');
+                shoppingBtn.className = 'add-to-shopping';
+                shoppingBtn.innerHTML = '➕ Liste courses';
+                shoppingBtn.onclick = function(e) {
+                    e.preventDefault();
+                    toggleRecipe(recipeName, shoppingBtn);
+                };
+                
+                // BOUTON 2 : J'ai mangé ça
+                const eatBtn = document.createElement('button');
+                eatBtn.className = 'eat-btn';
+                eatBtn.innerHTML = '🍽️ J\'ai mangé';
+                eatBtn.onclick = function(e) {
+                    e.preventDefault();
+                    addToCalories(recipeName);
+                };
+                
+                // CONTENEUR des 2 boutons
+                const buttonsContainer = document.createElement('div');
+                buttonsContainer.className = 'modal-buttons';
+                
+                buttonsContainer.appendChild(shoppingBtn);
+                buttonsContainer.appendChild(eatBtn);
+                
+                section.appendChild(buttonsContainer);
             }
         });
     });
 }
+
 
 function toggleRecipe(recipeId, buttonElement) {
     if (selectedRecipes.has(recipeId)) {

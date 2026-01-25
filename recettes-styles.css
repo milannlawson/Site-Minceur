@@ -735,10 +735,11 @@ footer p {
 }
 
 /* Pour garder l'aspect ratio sur mobile */
-@media (max-width: 600px) {
+@media (max-width: 480px) {
     .tiktok-video-container iframe {
         width: 100%;
         max-width: 325px;
-        height: auto;
+        height: 700px;
+        margin: 0 auto;
     }
 }

@@ -1,0 +1,120 @@
+.sport-planning {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: 2rem var(--spacing-24);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.planning-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+}
+
+.planning-header h2 {
+    font-size: 1.3rem;
+    color: var(--color-text);
+}
+
+.btn-secondary {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text);
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background: var(--color-gray-light);
+}
+
+/* Grid */
+.planning-grid {
+    display: grid;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+}
+
+.planning-row {
+    display: grid;
+    grid-template-columns: 120px 1.5fr 0.8fr 0.8fr;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.planning-row:last-child {
+    border-bottom: none;
+}
+
+.planning-row-header {
+    background: var(--color-primary-light);
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.planning-cell {
+    padding: 0.75rem 0.9rem;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid var(--color-border);
+}
+
+.planning-row .planning-cell:last-child {
+    border-right: none;
+}
+
+.planning-day {
+    font-weight: 600;
+    background: #f9fbfb;
+}
+
+/* Inputs */
+.planning-input {
+    width: 100%;
+    padding: 0.45rem 0.6rem;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    font-size: 0.9rem;
+    font-family: inherit;
+    color: var(--color-text);
+    background-color: #fff;
+}
+
+.planning-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(50,160,132,0.15);
+}
+
+.planning-note {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .planning-row {
+        grid-template-columns: 1fr;
+    }
+
+    .planning-cell {
+        border-right: none !important;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .planning-row:last-child .planning-cell:last-child {
+        border-bottom: none;
+    }
+
+    .planning-day {
+        background: var(--color-primary-light);
+    }
+}

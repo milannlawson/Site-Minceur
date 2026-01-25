@@ -696,3 +696,49 @@ footer p {
         justify-content: center;
     }
 }
+
+/* ===== STYLE VIDÉO TIKTOK ===== */
+/* Conteneur de la vidéo */
+.tiktok-video-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2.5rem auto;
+    padding: 2rem 1rem;
+    max-width: 100%;
+    background: linear-gradient(135deg, #f8f6f3 0%, #fafaf8 100%);
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+    .tiktok-video-container {
+        padding: 1.5rem 0.5rem;
+        margin: 1.5rem auto;
+    }
+}
+
+/* iFrame TikTok */
+.tiktok-video-container iframe {
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 325px;
+    height: 700px;
+}
+
+/* Effet hover subtil */
+.tiktok-video-container iframe:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
+}
+
+/* Pour garder l'aspect ratio sur mobile */
+@media (max-width: 600px) {
+    .tiktok-video-container iframe {
+        width: 100%;
+        max-width: 325px;
+        height: auto;
+    }
+}

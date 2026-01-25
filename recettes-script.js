@@ -203,6 +203,21 @@ const recipes = {
             'Paprika fumé',
             'Ail en poudre'
         ]
+    },
+    'cheesecake1': {
+        name: 'Cheesecake à la goyave',
+        ingredients: [
+            '200 g de biscuits Petit-Beurre ou Spéculoos',
+            '80 g de beurre fondu',
+            '600 g de Philadelphia',
+            '200 g de mascarpone',
+            '120 g de sucre',
+            '3 œufs',
+            '10 g de maïzena',
+            'Essance vanille',
+            '200 g de coulis de goyave ou purée de goyave',
+            'Optionnel : quelques dés de goyave fraîche pour décor'
+        ]
     }
 };
 
@@ -234,7 +249,8 @@ function openModal(recipeName) {
         'pancakes1': 'pancakes1Modal',
         'yaourt1': 'yaourt1Modal',
         'wrap2': 'wrap2Modal',
-        'poulet_frit1': 'poulet_frit1Modal'
+        'poulet_frit1': 'poulet_frit1Modal',
+        'cheesecake1': 'cheesecake1Modal'
     };
     
     const modal = document.getElementById(modalMap[recipeName]);
@@ -263,7 +279,8 @@ function closeModal(recipeName) {
         'pancakes1': 'pancakes1Modal',
         'yaourt1': 'yaourt1Modal',
         'wrap2': 'wrap2Modal',
-        'poulet_frit1': 'poulet_frit1Modal'
+        'poulet_frit1': 'poulet_frit1Modal',
+        'cheesecake1': 'cheesecake1Modal'
     };
     
     const modal = document.getElementById(modalMap[recipeName]);

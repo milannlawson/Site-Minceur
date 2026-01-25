@@ -333,9 +333,26 @@
                     <div class="recipe-content">
                         <h3 class="recipe-title">Poulet frit, riz et légumes</h3>
                         <span class="recipe-time">⏱️ 25 min</span>
-                        <p class="recipe-description"></p>
+                        <p class="recipe-description">Cette recette inspirée de la vidéo TikTok de @cooklikedaiki propose un poulet frit coréen simple et croustillant. Rapide à préparer pour un résultat savoureux.</p>
                         <div class="recipe-footer">
                             <span class="calories">450 kcal</span>
+                            <span class="difficulty">Facile</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cheesecake à la goyave -->
+                <div class="recipe-card" onclick="openModal('cheesecake1')">
+                    <img 
+                        src="images/Cheesecake%20Goyave.jpeg" 
+                        alt="Cheesecake à la goyave" 
+                        class="recipe-image">
+                    <div class="recipe-content">
+                        <h3 class="recipe-title">Cheesecake à la goyave</h3>
+                        <span class="recipe-time">⏱️ 35 min</span>
+                        <p class="recipe-description">Ce cheesecake crémeux à la goyave est un dessert tropical, frais et peu sucré. Parfait pour terminer un repas en douceur. Inspiré de la vidéo TikTok de @myrlands_cakes.</p>
+                        <div class="recipe-footer">
+                            <span class="calories">320 kcal (par part)</span>
                             <span class="difficulty">Facile</span>
                         </div>
                     </div>
@@ -1466,6 +1483,102 @@
                     <div class="recipe-section">
                         <h3>💡 Conseil</h3>
                         <p>Pour plus de croustillant, doublez la panure ou ajoutez du bicarbonate ; accompagnez de riz et légumes pour équilibrer.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="cheesecake1Modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Cheesecake à la goyave</h2>
+                    <button class="close-btn" onclick="closeModal('cheesecake1')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <img 
+                        src="images/Cheesecake%20Goyave.jpeg" 
+                        alt="Poulet frit, riz et légumes" 
+                        class="modal-image" />
+
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Temps</div>
+                            <div class="meta-value">25 min</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Calories</div>
+                            <div class="meta-value">450</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Portion</div>
+                            <div class="meta-value">1</div>
+                        </div>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>🛒 Ingrédients</h3>
+                        <h4>Base biscuitée</h4>
+                        <ul>
+                            <li>200 g de biscuits Petit‑Beurre ou spéculoos</li>
+                            <li>80 g de beurre fondu</li>
+                        </ul>
+                        <h4>Appareil cheesecake</h4>
+                        <ul>
+                            <li>600 g de Philadelphia <i>(à température ambiante)</i></li>
+                            <li>200 g de mascarpone <i>(optionnel pour plus de légèreté)</i></li>
+                            <li>120–150 g de sucre <i>(selon goût)</i></li>
+                            <li>2 œufs + 1 jaune</li>
+                            <li>10 g de maïzena</li>
+                            <li>1 c. à c. d’essence de vanille</li>
+                        </ul>
+                        <h4>Garniture goyave</h4>
+                        <ul>
+                            <li>200 g de coulis de goyave ou purée de goyave</li>
+                            <li><i>Optionnel : quelques dés de goyave fraîche pour décor</i></li>
+                        </ul>
+                    </div>
+
+                    <div class="recipe-section">
+                        <h3>👨‍🍳 Préparation</h3>
+                        <h4>Base biscuitée</h4>
+                        <ol>
+                            <li>Mixez les biscuits en poudre.</li>
+                            <li>Ajoutez le beurre fondu.</li>
+                            <li>Mélangez et tassez au fond d’un moule à charnière.</li>
+                            <li>Laissez au frais 10 minutes.</li>
+                        </ol>
+                        <h4>Appareil à Cheesecake</h4>
+                        <ol>
+                            <li>Fouettez le cream cheese.</li>
+                            <li>Ajoutez la mascarpone, le sucre, la vanille, les œufs et le jaune.</li>
+                            <li>Incorporez la maïzena et mélangez jusqu’à lisse.</li>
+                        </ol>
+                        <h4>Cuisson</h4>
+                        <ol>
+                            <li>Versez l’appareil à Cheesecake sur la base en biscuit.</li>
+                            <li>Enfournez à 160 °C pendant 70 min <i>(jusqu’à ce que le centre soit légèrement tremblotant).</i></li>
+                            <li>Laissez refroidir puis placez 2h au réfrigérateur.</li>
+                        </ol>
+                        <h4>Garniture</h4>
+                        <ol>
+                            <li>Étalez le coulis de goyave sur le cheesecake froid.</li>
+                            <li>Décorez avec de la goyave si vous le souhaitez.</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="tiktok-video-container">
+                        <iframe
+                            src="https://www.tiktok.com/embed/v2/7595264068945382678" 
+                            width="325" 
+                            height="700" 
+                            title="Recette Cheesecake à la goyave par myrlands_cakes"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    
+                    <div class="recipe-section">
+                        <h3>💡 Conseil</h3>
+                        <p>Pour une version plus légère, remplacez une partie du cream cheese par du fromage blanc 0% et réduisez légèrement le sucre. Le cheesecake se conserve 3 jours au frais.</p>
                     </div>
                 </div>
             </div>

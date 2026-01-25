@@ -222,62 +222,60 @@ function setupShopping() {
 }
 
 function addShoppingButtons() {
-    const modalElements = document.querySelectorAll('.modal-body');
+    // Parcourir TOUTES les modales
+    const allModals = document.querySelectorAll('.modal');
     
-    modalElements.forEach(modalBody => {
-        const ingredientsSections = modalBody.querySelectorAll('.recipe-section');
-        ingredientsSections.forEach((section, index) => {
+    allModals.forEach(modal => {
+        // Trouver le nom de la recette depuis l'ID de la modale
+        const modalId = modal.id;
+        const recipeName = modalId.replace('Modal', '');
+        
+        // Trouver la section Ingrédients
+        const modalBody = modal.querySelector('.modal-body');
+        if (!modalBody) return;
+        
+        const sections = modalBody.querySelectorAll('.recipe-section');
+        
+        sections.forEach(section => {
             const h3 = section.querySelector('h3');
-            if (h3 && h3.textContent.includes('🛒')) {
-                // Vérifier si le bouton existe déjà
-                if (!section.querySelector('.add-to-shopping')) {
-                    // Bouton liste de courses
-                    const shoppingBtn = document.createElement('button');
-                    shoppingBtn.className = 'add-to-shopping';
-                    shoppingBtn.innerHTML = '➕ Ajouter ma liste';
-                    shoppingBtn.onclick = function(e) {
-                        e.preventDefault();
-                        toggleRecipe(recipeName, shoppingBtn);
-                    };
-                    
-                    // NOUVEAU BOUTON "J'AI MANGÉ ÇA"
-                    const eatBtn = document.createElement('button');
-                    eatBtn.className = 'eat-btn';
-                    eatBtn.innerHTML = '🍽️ J\'ai mangé ça';
-                    eatBtn.onclick = function(e) {
-                        e.preventDefault();
-                        addToCalories(recipeName);
-                    };
-                    
-                    const buttonsContainer = document.createElement('div');
-                    buttonsContainer.style.display = 'flex';
-                    buttonsContainer.style.gap = '0.5rem';
-                    buttonsContainer.style.marginTop = '1rem';
-                    
-                    buttonsContainer.appendChild(shoppingBtn);
-                    buttonsContainer.appendChild(eatBtn);
-                    
-                    section.appendChild(buttonsContainer);
-                    
-                    // Trouver l'ID de la recette
-                    const modal = modalBody.closest('.modal');
-                    const recipeName = Object.keys(recipes).find(key => {
-                        return document.getElementById(recipes[key].name.toLowerCase().replace(/\s+/g, '') + 'Modal') === modal ||
-                               modal.id === (key + 'Modal');
-                    });
-                    
-                    if (recipeName) {
-                        button.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            toggleRecipe(recipeName, button);
-                        });
-                        section.appendChild(button);
-                    }
-                }
+            
+            // Vérifier si c'est la section Ingrédients
+            if (h3 && h3.textContent.includes('Ingrédients')) {
+                
+                // Vérifier si les boutons existent déjà
+                if (section.querySelector('.modal-buttons')) return;
+                
+                // BOUTON 1 : Liste de courses
+                const shoppingBtn = document.createElement('button');
+                shoppingBtn.className = 'add-to-shopping';
+                shoppingBtn.innerHTML = '➕ Liste courses';
+                shoppingBtn.onclick = function(e) {
+                    e.preventDefault();
+                    toggleRecipe(recipeName, shoppingBtn);
+                };
+                
+                // BOUTON 2 : J'ai mangé ça
+                const eatBtn = document.createElement('button');
+                eatBtn.className = 'eat-btn';
+                eatBtn.innerHTML = '🍽️ J\'ai mangé';
+                eatBtn.onclick = function(e) {
+                    e.preventDefault();
+                    addToCalories(recipeName);
+                };
+                
+                // CONTENEUR des 2 boutons
+                const buttonsContainer = document.createElement('div');
+                buttonsContainer.className = 'modal-buttons';
+                
+                buttonsContainer.appendChild(shoppingBtn);
+                buttonsContainer.appendChild(eatBtn);
+                
+                section.appendChild(buttonsContainer);
             }
         });
     });
 }
+
 
 function toggleRecipe(recipeId, buttonElement) {
     if (selectedRecipes.has(recipeId)) {

@@ -34,116 +34,121 @@
             <div class="planning-row planning-row-header">
                 <div class="planning-cell">Jour</div>
                 <div class="planning-cell">Séance</div>
-                <div class="planning-cell">Heure</div>
-                <div class="planning-cell">Intensité</div>
+                <div class="planning-cell">Début</div>
+                <div class="planning-cell">Fin</div>
+                <div class="planning-cell">Durée</div>
             </div>
 
             <!-- Une ligne par jour -->
             <div class="planning-row" data-day="Lundi">
                 <div class="planning-cell planning-day">Lundi</div>
                 <div class="planning-cell">
-                    <input type="text" class="planning-input" placeholder="Ex : Haut du corps 💪">
+                    <input type="text" class="planning-input planning-session" placeholder="Ex : Haut du corps 💪🏾">
                 </div>
                 <div class="planning-cell">
-                    <input type="time" class="planning-input">
+                    <input type="time" class="planning-input planning-start">
                 </div>
                 <div class="planning-cell">
-                    <select class="planning-input">
-                        <option value="">–</option>
-                        <option value="faible">Faible</option>
-                        <option value="modérée">Modérée</option>
-                        <option value="élevée">Élevée</option>
-                    </select>
+                    <input type="time" class="planning-input planning-end">
+                </div>
+                <div class="planning-cell">
+                    <span class="planning-duration">–</span>
                 </div>
             </div>
 
             <div class="planning-row" data-day="Mardi">
                 <div class="planning-cell planning-day">Mardi</div>
                 <div class="planning-cell">
-                    <input type="text" class="planning-input" placeholder="Ex : Cardio 🏃‍♀️">
+                    <input type="text" class="planning-input planning-session" placeholder="Ex : Cardio 🏃🏾‍♂️">
                 </div>
                 <div class="planning-cell">
-                    <input type="time" class="planning-input">
+                    <input type="time" class="planning-input planning-start">
                 </div>
                 <div class="planning-cell">
-                    <select class="planning-input">
-                        <option value="">–</option>
-                        <option value="faible">Faible</option>
-                        <option value="modérée">Modérée</option>
-                        <option value="élevée">Élevée</option>
-                    </select>
+                    <input type="time" class="planning-input planning-end">
+                </div>
+                <div class="planning-cell">
+                    <span class="planning-duration">–</span>
                 </div>
             </div>
 
             <div class="planning-row" data-day="Mercredi">
                 <div class="planning-cell planning-day">Mercredi</div>
                 <div class="planning-cell">
-                    <input type="text" class="planning-input" placeholder="Ex : Bas du corps 🦵">
+                    <input type="text" class="planning-input planning-session" placeholder="Ex : Bas du corps 🦵🏾">
                 </div>
                 <div class="planning-cell">
-                    <input type="time" class="planning-input">
+                    <input type="time" class="planning-input planning-start">
                 </div>
                 <div class="planning-cell">
-                    <select class="planning-input">
-                        <option value="">–</option>
-                        <option value="faible">Faible</option>
-                        <option value="modérée">Modérée</option>
-                        <option value="élevée">Élevée</option>
-                    </select>
+                    <input type="time" class="planning-input planning-end">
+                </div>
+                <div class="planning-cell">
+                    <span class="planning-duration">–</span>
                 </div>
             </div>
 
             <div class="planning-row" data-day="Jeudi">
                 <div class="planning-cell planning-day">Jeudi</div>
                 <div class="planning-cell">
-                    <input type="text" class="planning-input" placeholder="Ex : Yoga 🧘‍♀️">
+                    <input type="text" class="planning-input planning-session" placeholder="Ex : Yoga 🧘🏾‍♂️">
                 </div>
                 <div class="planning-cell">
-                    <input type="time" class="planning-input">
+                    <input type="time" class="planning-input planning-start">
                 </div>
                 <div class="planning-cell">
-                    <select class="planning-input">
-                        <option value="">–</option>
-                        <option value="faible">Faible</option>
-                        <option value="modérée">Modérée</option>
-                        <option value="élevée">Élevée</option>
-                    </select>
+                    <input type="time" class="planning-input planning-end">
+                </div>
+                <div class="planning-cell">
+                    <span class="planning-duration">–</span>
                 </div>
             </div>
 
             <div class="planning-row" data-day="Vendredi">
                 <div class="planning-cell planning-day">Vendredi</div>
                 <div class="planning-cell">
-                    <input type="text" class="planning-input" placeholder="Ex : Full body 💥">
+                    <input type="text" class="planning-input planning-session" placeholder="Ex : Full body 💥">
                 </div>
                 <div class="planning-cell">
-                    <input type="time" class="planning-input">
+                    <input type="time" class="planning-input planning-start">
                 </div>
                 <div class="planning-cell">
-                    <select class="planning-input">
-                        <option value="">–</option>
-                        <option value="faible">Faible</option>
-                        <option value="modérée">Modérée</option>
-                        <option value="élevée">Élevée</option>
-                    </select>
+                    <input type="time" class="planning-input planning-end">
+                </div>
+                <div class="planning-cell">
+                    <span class="planning-duration">–</span>
                 </div>
             </div>
 
             <div class="planning-row" data-day="Samedi">
                 <div class="planning-cell planning-day">Samedi</div>
                 <div class="planning-cell">
-                    <input type="text" class="planning-input" placeholder="Ex : Cardio + abdos 🔥">
+                    <input type="text" class="planning-input planning-session" placeholder="Ex : Cardio + abdos 🔥">
                 </div>
                 <div class="planning-cell">
-                    <input type="time" class="planning-input">
+                    <input type="time" class="planning-input planning-start">
                 </div>
                 <div class="planning-cell">
-                    <select class="planning-input">
-                        <option value="">–</option>
-                        <option value="faible">Faible</option>
-                        <option value="modérée">Modérée</option>
-                        <option value="élevée">Élevée</option>
-                    </select>
+                    <input type="time" class="planning-input planning-end">
+                </div>
+                <div class="planning-cell">
+                    <span class="planning-duration">–</span>
+                </div>
+            </div>
+
+            <div class="planning-row" data-day="Dimanche">
+                <div class="planning-cell planning-day">Dimanche</div>
+                <div class="planning-cell">
+                    <input type="text" class="planning-input planning-session" placeholder="Ex : Repos / marche 🚶🏾‍♂️">
+                </div>
+                <div class="planning-cell">
+                    <input type="time" class="planning-input planning-start">
+                </div>
+                <div class="planning-cell">
+                    <input type="time" class="planning-input planning-end">
+                </div>
+                <div class="planning-cell">
+                    <span class="planning-duration">–</span>
                 </div>
             </div>
 

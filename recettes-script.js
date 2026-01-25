@@ -114,6 +114,95 @@ const recipes = {
             '1 poignée de myrtilles fraîches',
             '1 c. à soupe de beurre amande'
         ]
+    },
+    'porridge1': {
+        name: 'Porridge Pome Cannelle',
+        ingredients: [
+            '50 g de flocons avoine',
+            '200 ml de lait amande',
+            '1 pomme râpée',
+            '1 c. à café de canelle',
+            '1 c. à soupe de miel',
+            'Pincée de sel',
+            '1 poignée amandes effilées'
+        ]
+    },
+    'rillettes1': {
+        name: 'Rillettes de Thon et Chips Patates Douces',
+        ingredients: [
+            '250 g de thon frais',
+            'Huile olive',
+            'Sel, poivre',
+            'Persil/ciboulette frais',
+            'Citron vert',
+            'Moutarde (optionnel)',
+            'Crème fraiche allégée (optionnel)'
+        ]
+    },
+    'avocado1': {
+        name: 'Tartines Avocado et Œuf Poché',
+        ingredients: [
+            'Pain complet',
+            '1 avocat',
+            '2 œufs',
+            'Jus de citron',
+            'Piment de Cayenne',
+            'Tomate cerise (5-6)'
+        ]
+    },
+    'pancakes1': {
+        name: 'Pancakes Protéinés Myrtilles',
+        ingredients: [
+            'Farine complète',
+            'Poudre protéinée',
+            '2 œufs',
+            '1 banane',
+            'Lait ammande',
+            'Levure chimique',
+            '100 g de myrtilles fraîches'
+        ]
+    },
+    'yaourt1': {
+        name: 'Yaourt Grec, Granola et Fruits',
+        ingredients: [
+            'Yaourt grec',
+            '50 g de granola maison',
+            '1 poignée de fruits rouges',
+            'Miel',
+            'Amandes',
+            'Graines de chia'
+        ]
+    },
+    'wrap2': {
+        name: 'Wrap aux Œufs Brouillés',
+        ingredients: [
+            'Tortillas de blé complet',
+            '3 œufs',
+            'Avocat',
+            'Epinards',
+            '1 tomate',
+            'Fromage blanc',
+            'Ciboulette'
+        ]
+    },
+    'poulet_frit1': {
+        name: 'Poulet frit, riz et légumes',
+        ingredients: [
+            '400 g d’escalopes de poulet',
+            '1 œuf',
+            'Fécule de maïs',
+            'Carottes',
+            'Concombre',
+            'Sauce teriyaki',
+            'Sauce soja sucrée',
+            'Sauce soja salée',
+            'Vinaigre de riz',
+            'Miel',
+            'Gochujang',
+            'Sucre de canne',
+            'Paprika fumé',
+            'Ail en poudre'
+        ]
     }
 };
 

@@ -651,6 +651,168 @@ const RECIPES = [
       "Parsemer de persil et servir."
     ],
     tip: "Ne pas trop cuire les crevettes, elles deviennent caoutchouteuses. 2 min par face suffisent."
+  },
+  // Curry de Pois Chiches
+  {
+    id: "curry_pois_chiches",
+    name: "Curry de Pois Chiches",
+    image: "images/curry de pois chiches.png",
+    time: "20 min",
+    calories: 330,
+    difficulty: "Facile",
+    category: "plat",
+    description: "Un curry végétarien parfumé, rassasiant et riche en protéines végétales.",
+    ingredients: [
+      "1 boîte de pois chiches (400 g), égouttés",
+      "1 boîte de tomates concassées (400 ml)",
+      "1 oignon, 3 gousses d'ail",
+      "1 c. à café de curry, 1 c. à café de curcuma",
+      "100 ml de lait de coco allégé",
+      "1 c. à café d'huile d'olive",
+      "Coriandre fraîche, sel, poivre"
+    ],
+    steps: [
+      "Faire revenir l'oignon et l'ail dans l'huile 3 min.",
+      "Ajouter les épices et mélanger 1 min.",
+      "Verser les tomates concassées et les pois chiches.",
+      "Ajouter le lait de coco, laisser mijoter 12 min.",
+      "Servir avec du riz complet ou du pain naan complet, parsemer de coriandre."
+    ],
+    tip: "Le lait de coco allégé donne toute la richesse du curry sans exploser les calories. Prépare-en une grande quantité, c'est encore meilleur réchauffé le lendemain."
+  },
+  // Tabboulé Libanais Frais
+  {
+    id: "tabboule",
+    name: "Tabboulé Libanais Frais",
+    image: "images/tabboule libanais frais.png",
+    time: "15 min",
+    calories: 200,
+    difficulty: "Très facile",
+    category: "plat",
+    description: "Le vrai tabboulé libanais : herbes fraîches, boulgour et citron.",
+    ingredients: [
+      "80 g de boulgour fin (ou quinoa pour version sans gluten)",
+      "1 gros bouquet de persil plat haché finement",
+      "Quelques feuilles de menthe fraîche",
+      "2 tomates, 1/4 de concombre",
+      "2 oignons verts",
+      "Jus de 2 citrons",
+      "1 c. à soupe d'huile d'olive, sel, poivre"
+    ],
+    steps: [
+      "Réhydrater le boulgour dans de l'eau bouillante 10 min, égoutter et laisser refroidir.",
+      "Hacher finement le persil, la menthe et les oignons verts.",
+      "Couper les tomates et le concombre en tout petits dés.",
+      "Mélanger tous les ingrédients, assaisonner généreusement avec citron, sel et poivre.",
+      "Laisser reposer 15 min au frais avant de servir."
+    ],
+    tip: "Dans le vrai tabboulé libanais, il y a beaucoup plus d'herbes que de boulgour — c'est là tout son secret minceur !"
+  },
+  // Energy Balls Dattes & Noix
+  {
+    id: "energy_balls",
+    name: "Energy Balls Dattes & Noix",
+    image: "images/energy balls.png",
+    time: "15 min + repos",
+    calories: 120,
+    difficulty: "Très facile",
+    category: "snack",
+    description: "Des boules d'énergie naturelles sans sucre ajouté, parfaites pour l'effort.",
+    ingredients: [
+      "150 g de dattes Medjool dénoyautées",
+      "100 g de flocons d'avoine",
+      "50 g de noisettes ou amandes",
+      "2 c. à soupe de cacao en poudre non sucré",
+      "1 c. à soupe de beurre d'amande",
+      "Noix de coco râpée pour rouler (optionnel)"
+    ],
+    steps: [
+      "Mixer les dattes, noix et flocons d'avoine jusqu'à obtenir une pâte.",
+      "Ajouter le cacao et le beurre d'amande, mixer encore.",
+      "Former des boules de la taille d'une noix avec les mains.",
+      "Rouler dans la noix de coco si souhaité.",
+      "Réfrigérer 30 min avant de déguster."
+    ],
+    tip: "Une boule = environ 120 kcal. Prépare une vingtaine de boules et garde-les au frigo toute la semaine pour les fringales."
+  },
+  // Mousse au Chocolat Noir Légère
+  {
+    id: "mousse_chocolat",
+    name: "Mousse au Chocolat Noir Légère",
+    image: "images/mousse chocolat.png",
+    time: "15 min + repos",
+    calories: 190,
+    difficulty: "Facile",
+    category: "dessert",
+    description: "Une mousse au chocolat aérienne et légère sans crème fraîche.",
+    ingredients: [
+      "100 g de chocolat noir 70 % (minimum)",
+      "4 blancs d'œufs",
+      "2 c. à soupe de cacao en poudre non sucré",
+      "1 c. à soupe de miel",
+      "1 pincée de sel"
+    ],
+    steps: [
+      "Faire fondre le chocolat au bain-marie, laisser tiédir.",
+      "Monter les blancs en neige ferme avec la pincée de sel.",
+      "Incorporer le miel et le cacao dans le chocolat fondu.",
+      "Incorporer 1/4 des blancs vigoureusement, puis le reste délicatement.",
+      "Verser dans des ramequins et réfrigérer minimum 2h."
+    ],
+    tip: "Sans crème fraîche ni jaune d'œuf, cette mousse est bien plus légère que la version classique. Le chocolat à 70 % est moins sucré mais plus intense — quelques cuillères suffisent."
+  },
+  // Bowl Açaí Maison
+  {
+    id: "acai_bowl",
+    name: "Bowl Açaí Maison",
+    image: "images/Acai Bowl.png",
+    time: "5 min",
+    calories: 300,
+    difficulty: "Très facile",
+    category: "petit-dejeuner",
+    description: "Le bowl tendance, ultra coloré, plein d'antioxydants et rassasiant.",
+    ingredients: [
+      "100 g de purée d'açaï surgelée (ou myrtilles)",
+      "1 banane congelée",
+      "100 ml de lait d'amande",
+      "Toppings : granola, fruits rouges, rondelles de banane, noix de coco râpée",
+      "1 c. à café de miel"
+    ],
+    steps: [
+      "Mixer la purée d'açaï + banane congelée + lait d'amande jusqu'à texture épaisse.",
+      "Verser dans un bol (la consistance doit être ferme, pas liquide).",
+      "Disposer les toppings : granola, fruits, banane, noix de coco.",
+      "Arroser d'un filet de miel et servir immédiatement."
+    ],
+    tip: "La clé : utiliser le minimum de lait pour garder une texture épaisse. Si la base est trop liquide, remets 15 min au congélateur avant d'ajouter les toppings."
+  },
+  // Galettes de Légumes
+  {
+    id: "galettes_legumes",
+    name: "Galettes de Légumes",
+    image: "images/Galettes Legumes.png",
+    time: "20 min",
+    calories: 230,
+    difficulty: "Facile",
+    category: "plat",
+    description: "Des galettes croustillantes et savoureuses pour varier les repas.",
+    ingredients: [
+      "2 courgettes râpées",
+      "2 carottes râpées",
+      "2 œufs",
+      "3 c. à soupe de flocons d'avoine ou farine complète",
+      "Herbes fraîches (ciboulette, persil)",
+      "Sel, poivre, ail en poudre",
+      "1 c. à café d'huile pour la cuisson"
+    ],
+    steps: [
+      "Râper les légumes et bien les essorer avec un torchon propre.",
+      "Mélanger avec les œufs, la farine, les herbes et les épices.",
+      "Former des galettes et les aplatir légèrement.",
+      "Faire dorer à la poêle 3–4 min de chaque côté à feu moyen.",
+      "Servir avec du yaourt nature ou une sauce légère."
+    ],
+    tip: "L'étape d'essorer les légumes est cruciale : si tu sautes cette étape, les galettes seront molles et ne tiendront pas. Bien presser pour enlever le maximum d'eau !"
   }
 ];
 

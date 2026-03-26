@@ -656,7 +656,7 @@ const RECIPES = [
   {
     id: "curry_pois_chiches",
     name: "Curry de Pois Chiches",
-    image: "images/curry de pois chiches.png",
+    image: "images/Curry de pois chiches.png",
     time: "20 min",
     calories: 330,
     difficulty: "Facile",
@@ -684,7 +684,7 @@ const RECIPES = [
   {
     id: "tabboule",
     name: "Tabboulé Libanais Frais",
-    image: "images/tabboule libanais frais.png",
+    image: "images/Tabboule Libanais Frais.png",
     time: "15 min",
     calories: 200,
     difficulty: "Très facile",
@@ -712,7 +712,7 @@ const RECIPES = [
   {
     id: "energy_balls",
     name: "Energy Balls Dattes & Noix",
-    image: "images/energy balls.png",
+    image: "images/Energy Balls.png",
     time: "15 min + repos",
     calories: 120,
     difficulty: "Très facile",
@@ -739,7 +739,7 @@ const RECIPES = [
   {
     id: "mousse_chocolat",
     name: "Mousse au Chocolat Noir Légère",
-    image: "images/mousse chocolat.png",
+    image: "images/Mousse chocolat.png",
     time: "15 min + repos",
     calories: 190,
     difficulty: "Facile",
@@ -765,7 +765,7 @@ const RECIPES = [
   {
     id: "acai_bowl",
     name: "Bowl Açaí Maison",
-    image: "images/Acai Bowl.png",
+    image: "images/Acai bowl.png",
     time: "5 min",
     calories: 300,
     difficulty: "Très facile",
@@ -790,7 +790,7 @@ const RECIPES = [
   {
     id: "galettes_legumes",
     name: "Galettes de Légumes",
-    image: "images/Galettes Legumes.png",
+    image: "images/Galettes legumes.png",
     time: "20 min",
     calories: 230,
     difficulty: "Facile",

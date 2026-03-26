@@ -6,6 +6,7 @@
 // ═══════════════════════════════════════════════════════════
 
 const RECIPES = [
+  // Bowl Poulet Minceur
   {
     id: "bowl",
     name: "Bowl Poulet Minceur",
@@ -30,10 +31,11 @@ const RECIPES = [
     ],
     tip: "Plus tu mets de légumes, plus l'assiette est grosse pour un total calorique raisonnable. C'est l'astuce idéale pour te sentir rassasié(e) sans culpabilité !"
   },
+  // Omelette Full Légumes
   {
     id: "omelett",
     name: "Omelette Full Légumes",
-    image: "images/Omelette Full Légumes.jpeg",
+    image: "images/omelette full legumes.jpeg",
     time: "7–10 min",
     calories: 200,
     difficulty: "Très facile",
@@ -54,10 +56,11 @@ const RECIPES = [
     ],
     tip: "Le blanc d'œuf ajouté augmente les protéines pour la satiété sans ajouter beaucoup de calories. Tu peux ajouter un peu de fromage ou de viande des Grisons pour plus de goût sans dépasser 220 kcal."
   },
+  // Poisson & Légumes au Four
   {
     id: "poisson",
     name: "Poisson & Légumes au Four",
-    image: "images/Poisson & Légumes au Four.jpeg",
+    image: "images/Poisson & Legumes au Four.jpeg",
     time: "20 min",
     calories: 280,
     difficulty: "Facile",
@@ -78,10 +81,11 @@ const RECIPES = [
     ],
     tip: "Très pratique pour le soir : tu lances au four et tu fais autre chose pendant que ça cuit ! La papillote rend le poisson super tendre et concentre les saveurs."
   },
+  // Wrap Grison & Crudités
   {
     id: "wrap1",
-    name: "Wrap Grison & Crudités",
-    image: "images/Wrap Grison & Crudités.jpeg",
+    name: "Wrap Grison & Crudites",
+    image: "images/Wrap Grison & Crudites.jpeg",
     time: "5 min",
     calories: 280,
     difficulty: "Très facile",
@@ -102,10 +106,11 @@ const RECIPES = [
     ],
     tip: "Tu as le côté snack/sandwich mais beaucoup plus léger qu'un vrai sandwich gras. Parfait pour un déjeuner rapide ou même pour grignoter devant la télé sans culpabilité."
   },
+  // Yaourt Protéiné Dessert
   {
     id: "yaourt",
     name: "Yaourt Protéiné Dessert",
-    image: "images/Yaourt Protéiné Dessert.jpeg",
+    image: "images/Yaourt Proteine Dessert.jpeg",
     time: "3 min",
     calories: 180,
     difficulty: "Très facile",
@@ -124,6 +129,7 @@ const RECIPES = [
     ],
     tip: "Ça cale super bien en fin de repas ou en collation grâce aux protéines. Le ratio protéines/calories est excellent. Idéal quand tu as une petite fringale sucrée !"
   },
+  // Salade Thon Light
   {
     id: "thon",
     name: "Salade Thon Light",
@@ -149,10 +155,11 @@ const RECIPES = [
     ],
     tip: "Tu peux préparer la sauce en plus grosse quantité et la garder 2 jours au frigo pour gagner du temps."
   },
+  // Œufs Cocotte Légumes
   {
     id: "cocotte",
     name: "Œufs Cocotte Légumes",
-    image: "images/Œufs Cocotte Légumes.png",
+    image: "images/Oeufs Cocotte Legumes.png",
     time: "12 min",
     calories: 240,
     difficulty: "Facile",
@@ -173,10 +180,11 @@ const RECIPES = [
     ],
     tip: "Parfait pour un brunch léger. Tu peux varier les légumes selon la saison."
   },
+  // Soupe Minceur Détox
   {
     id: "soupe",
     name: "Soupe Minceur Détox",
-    image: "images/Soupe Minceur Détox.png",
+    image: "images/Soupe Minceur Detox.png",
     time: "25 min",
     calories: 150,
     difficulty: "Facile",
@@ -198,10 +206,11 @@ const RECIPES = [
     ],
     tip: "Prépare une grosse quantité et congèle en portions. Idéal pour un dîner express les soirs de flemme."
   },
+  // Pâtes Courgettes Légères
   {
     id: "pates",
     name: "Pâtes Courgettes Légères",
-    image: "images/Pâtes Courgettes Légères.png",
+    image: "images/Pates Courgettes Legeres.png",
     time: "15 min",
     calories: 320,
     difficulty: "Très facile",
@@ -223,10 +232,11 @@ const RECIPES = [
     ],
     tip: "Le secret c'est de bien assaisonner la sauce. N'hésite pas à ajouter du basilic frais en fin de cuisson."
   },
+  // Poulet Gingembre Sauce Légère
   {
     id: "gingembre",
     name: "Poulet Gingembre Sauce Légère",
-    image: "images/Poulet Gingembre Sauce Légère.png",
+    image: "images/Poulet Gingembre Sauce Legere.png",
     time: "18 min",
     calories: 310,
     difficulty: "Facile",
@@ -250,10 +260,11 @@ const RECIPES = [
     ],
     tip: "Le gingembre frais fait toute la différence. Si tu n'en as pas, le gingembre en poudre marche aussi (1/2 c. à café)."
   },
+  // Smoothie Protéiné Fruité
   {
     id: "smoothie1",
     name: "Smoothie Protéiné Fruité",
-    image: "images/Smoothie Protéiné.png",
+    image: "images/Smoothie Proteine.png",
     time: "5 min",
     calories: 280,
     difficulty: "Très facile",
@@ -276,6 +287,7 @@ const RECIPES = [
     ],
     tip: "Prépare les fruits en sachets au congélateur pour gagner du temps le matin."
   },
+  // Porridge Pomme Cannelle
   {
     id: "porridge1",
     name: "Porridge Pomme Cannelle",
@@ -302,6 +314,7 @@ const RECIPES = [
     ],
     tip: "Tu peux préparer la base la veille au frigo (overnight oats) et réchauffer le matin."
   },
+  // Rillettes de Thon & Chips Patates Douces
   {
     id: "rillettes1",
     name: "Rillettes de Thon & Chips Patates Douces",
@@ -329,6 +342,7 @@ const RECIPES = [
     ],
     tip: "Pour des chips bien croustillantes, coupe-les le plus fin possible et retourne-les à mi-cuisson."
   },
+  // Tartines Avocat & Œuf Poché
   {
     id: "avocado1",
     name: "Tartines Avocat & Œuf Poché",
@@ -355,6 +369,7 @@ const RECIPES = [
     ],
     tip: "Pour un œuf poché parfait, crée un tourbillon dans l'eau avant d'y glisser l'œuf."
   },
+  // Pancakes Protéinés Myrtilles
   {
     id: "pancakes1",
     name: "Pancakes Protéinés Myrtilles",
@@ -381,6 +396,7 @@ const RECIPES = [
     ],
     tip: "Ajoute un filet de miel ou de sirop d'érable pour le gourmandise."
   },
+  // Yaourt Grec, Granola & Fruits
   {
     id: "yaourt1",
     name: "Yaourt Grec, Granola & Fruits",
@@ -406,10 +422,11 @@ const RECIPES = [
     ],
     tip: "Prépare ton granola maison le week-end pour la semaine : flocons d'avoine, miel, huile de coco, noix — 20 min au four à 160 °C."
   },
+  // Wrap aux Œufs Brouillés
   {
     id: "wrap2",
     name: "Wrap aux Œufs Brouillés",
-    image: "images/Wrap Œufs.jpg",
+    image: "images/Wrap Oeufs.jpg",
     time: "10 min",
     calories: 420,
     difficulty: "Facile",
@@ -432,10 +449,11 @@ const RECIPES = [
     ],
     tip: "Le secret des œufs brouillés crémeux : cuire à feu très doux en remuant constamment."
   },
+  // Poulet Frit, Riz & Légumes
   {
     id: "poulet_frit1",
     name: "Poulet Frit, Riz & Légumes",
-    image: "images/Poulet frit, riz et légumes.png",
+    image: "images/Poulet frit, riz et legumes.png",
     time: "25 min",
     calories: 450,
     difficulty: "Facile",
@@ -472,6 +490,7 @@ const RECIPES = [
     tip: "Pour plus de croustillant, double la panure ou ajoute du bicarbonate. Accompagne de riz et légumes pour équilibrer.",
     tiktok: "https://www.tiktok.com/embed/v2/7595264068945382678"
   },
+  // Cheesecake à la Goyave
   {
     id: "cheesecake1",
     name: "Cheesecake à la Goyave",
@@ -506,6 +525,7 @@ const RECIPES = [
     tip: "Pour une version plus légère, remplace une partie du cream cheese par du fromage blanc 0 %. Se conserve 3 jours au frais.",
     tiktok: "https://www.tiktok.com/embed/v2/7595264068945382678"
   },
+  // Salade Quinoa Complète
   {
     id: "salade_quinoa",
     name: "Salade Quinoa Complète",
@@ -531,6 +551,7 @@ const RECIPES = [
     ],
     tip: "Prépare le quinoa à l'avance pour un meal prep express."
   },
+  // Bowl Poulet Quinoa
   {
     id: "bowl_quinoa",
     name: "Bowl Poulet Quinoa",
@@ -555,6 +576,7 @@ const RECIPES = [
     ],
     tip: "Varie les toppings selon les saisons pour ne jamais te lasser."
   },
+  // Chia Pudding Onctueux
   {
     id: "chia_pudding",
     name: "Chia Pudding",
@@ -579,10 +601,11 @@ const RECIPES = [
     ],
     tip: "La texture idéale s'obtient après 6-8h au frigo. Prépare plusieurs pots pour la semaine."
   },
+  // Wrap Crudités Fraîcheur
   {
     id: "wrap_crudites",
     name: "Wrap Crudités Fraîcheur",
-    image: "images/Wrap Crudités.jpg",
+    image: "images/Wrap Crudites.jpg",
     time: "5 min",
     calories: 260,
     difficulty: "Très facile",
@@ -603,10 +626,11 @@ const RECIPES = [
     ],
     tip: "Idéal à emporter. Emballe-le dans du papier aluminium pour qu'il tienne bien."
   },
+  // Poêlée de Crevettes
   {
     id: "poelee_crevettes",
     name: "Poêlée de Crevettes",
-    image: "images/Poêlée Crevettes.jpg",
+    image: "images/Poelee Crevettes.jpg",
     time: "12 min",
     calories: 260,
     difficulty: "Facile",

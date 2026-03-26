@@ -35,7 +35,7 @@ const RECIPES = [
   {
     id: "omelett",
     name: "Omelette Full Légumes",
-    image: "images/omelette full legumes.jpeg",
+    image: "images/Omelette Full Legumes.jpg",
     time: "7–10 min",
     calories: 200,
     difficulty: "Très facile",

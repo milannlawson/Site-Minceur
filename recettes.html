@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recettes — Minceur Light</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">Minceur Light</a>
+      <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="recettes.html" class="active">Recettes</a></li>
+        <li><a href="calories.html">Mes Calories</a></li>
+        <li><a href="sport.html">Sport</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page header -->
+  <div class="container">
+    <div class="filters-bar">
+      <div id="filterBtns"></div>
+      <input
+        type="text"
+        class="search-input"
+        id="searchInput"
+        placeholder="Rechercher une recette…"
+      >
+    </div>
+
+    <!-- Cards -->
+    <div class="recipes-grid" id="recipesGrid"></div>
+
+    <!-- Shopping list -->
+    <div class="shopping-section">
+      <div class="shopping-toggle">
+        <button class="btn btn-primary" id="shoppingToggleBtn">
+          🛒 Ma Liste de Courses
+        </button>
+      </div>
+      <div class="shopping-panel" id="shoppingPanel">
+        <div class="shopping-head">
+          <h3>Mes Ingrédients</h3>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+            <button class="btn btn-sm btn-secondary" id="printListBtn">🖨 Imprimer</button>
+            <button class="btn btn-sm btn-danger" id="clearListBtn">Vider</button>
+          </div>
+        </div>
+        <ul class="shopping-items" id="shoppingItems"></ul>
+        <div class="shopping-foot">
+          Sélectionnées : <strong id="selectedCount">0</strong> recette(s)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal (single, reused) -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-card" id="modalCard">
+      <img class="modal-img" id="modalImg" src="" alt="">
+      <div class="modal-header">
+        <h2 id="modalTitle"></h2>
+        <button class="modal-close" id="modalClose">&times;</button>
+      </div>
+      <div class="modal-meta" id="modalMeta"></div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>Minceur Light — Prendre soin de toi, un plat à la fois.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

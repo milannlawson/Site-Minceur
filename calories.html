@@ -1,74 +1,294 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mes Calories - Recettes Minceur</title>
-    <link rel="stylesheet" href="calories-styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mes Calories — Minceur Light</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <header>
-        <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto;">
+
+  <!-- Nav -->
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">Minceur Light</a>
+      <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="recettes.html">Recettes</a></li>
+        <li><a href="calories.html" class="active">Mes Calories</a></li>
+        <li><a href="sport.html">Sport</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <div class="cal-header">
+    <h1>Mes Calories</h1>
+    <div class="cal-stats">
+      <div class="cal-stat">
+        <div class="cal-stat-val" id="todayCal">0</div>
+        <div class="cal-stat-lab">Aujourd'hui</div>
+      </div>
+      <div class="cal-stat">
+        <div class="cal-stat-val" id="weekCal">0</div>
+        <div class="cal-stat-lab">Cette semaine</div>
+      </div>
+      <div class="cal-stat">
+        <div class="cal-stat-val" id="monthCal">0</div>
+        <div class="cal-stat-lab">Ce mois</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cal-content">
+    <!-- Period selector -->
+    <div class="period-tabs">
+      <button class="period-tab active" data-period="week">Semaine</button>
+      <button class="period-tab" data-period="month">Mois</button>
+      <button class="period-tab" data-period="all">Tout</button>
+    </div>
+
+    <!-- Chart -->
+    <div class="chart-wrap">
+      <canvas id="calChart"></canvas>
+    </div>
+
+    <!-- Goal -->
+    <div class="goal-row">
+      <label>Objectif journalier :</label>
+      <input type="number" id="goalInput" value="1800" min="1000" max="4000">
+      <span>kcal</span>
+      <button class="btn btn-sm btn-primary" id="saveGoalBtn">Sauvegarder</button>
+    </div>
+
+    <!-- Recent days -->
+    <div class="days-section">
+      <h3>Derniers repas</h3>
+      <div id="daysList"></div>
+    </div>
+
+    <!-- Actions -->
+    <div class="cal-actions">
+      <button class="btn btn-secondary" id="exportBtn">📄 Exporter</button>
+      <button class="btn btn-danger" id="clearBtn">Effacer tout</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>Minceur Light — Prendre soin de toi, un plat à la fois.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script>
+  (function() {
+    "use strict";
+
+    let chart = null;
+    let currentPeriod = "week";
+
+    function getData() {
+      return JSON.parse(localStorage.getItem("caloriesData") || "{}");
+    }
+    function getGoal() {
+      return parseInt(localStorage.getItem("dailyGoal") || "1800");
+    }
+    function todayKey() {
+      return new Date().toISOString().split("T")[0];
+    }
+
+    function dayTotal(entries) {
+      return entries.reduce((sum, e) => sum + (e.calories || 0), 0);
+    }
+
+    // ── Summary stats ──
+    function updateSummary() {
+      const data = getData();
+      const today = todayKey();
+      const todayEntries = data[today] || [];
+      document.getElementById("todayCal").textContent = dayTotal(todayEntries);
+
+      const now = new Date();
+      let weekTotal = 0, monthTotal = 0;
+      Object.entries(data).forEach(([key, entries]) => {
+        const d = new Date(key);
+        const diffDays = (now - d) / (1000 * 60 * 60 * 24);
+        const t = dayTotal(entries);
+        if (diffDays <= 7) weekTotal += t;
+        if (d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear()) monthTotal += t;
+      });
+      document.getElementById("weekCal").textContent = weekTotal;
+      document.getElementById("monthCal").textContent = monthTotal;
+    }
+
+    // ── Chart ──
+    function updateChart() {
+      const data = getData();
+      const goal = getGoal();
+      const allDates = Object.keys(data).sort();
+
+      let dates = allDates;
+      const now = new Date();
+      if (currentPeriod === "week") {
+        dates = allDates.filter((d) => (now - new Date(d)) / 86400000 <= 7);
+      } else if (currentPeriod === "month") {
+        dates = allDates.filter((d) => {
+          const dd = new Date(d);
+          return dd.getMonth() === now.getMonth() && dd.getFullYear() === now.getFullYear();
+        });
+      }
+
+      // Fill in missing days for week view
+      if (currentPeriod === "week" && dates.length < 7) {
+        const filled = [];
+        for (let i = 6; i >= 0; i--) {
+          const d = new Date();
+          d.setDate(d.getDate() - i);
+          filled.push(d.toISOString().split("T")[0]);
+        }
+        dates = filled;
+      }
+
+      const labels = dates.map((d) =>
+        new Date(d).toLocaleDateString("fr-FR", { weekday: "short", day: "numeric" })
+      );
+      const values = dates.map((d) => dayTotal(data[d] || []));
+
+      const ctx = document.getElementById("calChart").getContext("2d");
+      if (chart) chart.destroy();
+
+      chart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels,
+          datasets: [
+            {
+              label: "Calories",
+              data: values,
+              backgroundColor: values.map((v) =>
+                v > goal ? "rgba(193,122,74,.7)" : "rgba(94,122,82,.65)"
+              ),
+              borderRadius: 6,
+              barPercentage: 0.6,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            annotation: null,
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: "rgba(0,0,0,.04)" },
+              ticks: { font: { family: "Plus Jakarta Sans", size: 12 } },
+            },
+            x: {
+              grid: { display: false },
+              ticks: { font: { family: "Plus Jakarta Sans", size: 12 } },
+            },
+          },
+        },
+      });
+    }
+
+    // ── Days list ──
+    function updateDaysList() {
+      const data = getData();
+      const list = document.getElementById("daysList");
+      const days = Object.keys(data).sort((a, b) => b.localeCompare(a)).slice(0, 14);
+
+      if (days.length === 0) {
+        list.innerHTML = '<p style="color:var(--c-text-3);padding:1rem 0">Clique « J\'ai mangé ça » depuis une recette pour commencer le suivi.</p>';
+        return;
+      }
+
+      list.innerHTML = days.map((d) => {
+        const total = dayTotal(data[d]);
+        const label = new Date(d).toLocaleDateString("fr-FR", {
+          weekday: "short", day: "numeric", month: "short"
+        });
+        const entries = data[d];
+        const names = entries.map((e) => e.name).join(", ");
+        return `
+          <div class="day-entry">
             <div>
-                <div class="back-btn" onclick="window.location.href='index.html'">← Retour Recettes</div>
-                <h1>📊 Mes Calories</h1>
-                <div class="stats-summary">
-                    <div class="stat-card">
-                        <div class="stat-number" id="todayCalories">0</div>
-                        <div class="stat-label">Aujourd'hui</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="weekCalories">0</div>
-                        <div class="stat-label">Cette semaine</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="monthCalories">0</div>
-                        <div class="stat-label">Ce mois</div>
-                    </div>
-                </div>
+              <div class="day-date">${label}</div>
+              <div style="font-size:.78rem;color:var(--c-text-3);margin-top:.15rem">${names}</div>
             </div>
-            <a href="home.html" class="header-home-btn">🏠 Accueil</a>
-        </div>
-    </header>
+            <div class="day-cals">${total} kcal</div>
+          </div>`;
+      }).join("");
+    }
 
-    <main>
-        <!-- Période -->
-        <div class="period-selector">
-            <button class="period-btn active" data-period="day">Jour</button>
-            <button class="period-btn" data-period="week">Semaine</button>
-            <button class="period-btn" data-period="month">Mois</button>
-            <button class="period-btn" data-period="year">Année</button>
-            <button class="period-btn" data-period="all">Tout</button>
-        </div>
+    // ── Goal ──
+    const goalInput = document.getElementById("goalInput");
+    goalInput.value = getGoal();
+    document.getElementById("saveGoalBtn").addEventListener("click", () => {
+      localStorage.setItem("dailyGoal", goalInput.value);
+      updateChart();
+      showToast("Objectif sauvegardé");
+    });
 
-        <!-- Graphique -->
-        <div class="chart-container">
-            <canvas id="caloriesChart"></canvas>
-        </div>
+    // ── Period tabs ──
+    document.querySelectorAll(".period-tab").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelector(".period-tab.active").classList.remove("active");
+        btn.classList.add("active");
+        currentPeriod = btn.dataset.period;
+        updateChart();
+      });
+    });
 
-        <!-- Objectif journalier -->
-        <div class="goal-section">
-            <label>Objectif journalier : 
-                <input type="number" id="dailyGoal" value="1800" min="1000" max="4000">
-                kcal
-            </label>
-            <button id="saveGoal" class="btn-primary">Sauvegarder</button>
-        </div>
+    // ── Export ──
+    document.getElementById("exportBtn").addEventListener("click", () => {
+      const data = getData();
+      const lines = ["Date,Recette,Calories"];
+      Object.entries(data).sort().forEach(([date, entries]) => {
+        entries.forEach((e) => {
+          lines.push(`${date},${e.name},${e.calories}`);
+        });
+      });
+      const blob = new Blob([lines.join("\n")], { type: "text/csv" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `calories-${todayKey()}.csv`;
+      a.click();
+      showToast("Export CSV téléchargé");
+    });
 
-        <!-- Liste des jours -->
-        <div class="days-list">
-            <h3>📅 Derniers repas</h3>
-            <div id="daysList">Clique sur une recette pour commencer !</div>
-        </div>
+    // ── Clear ──
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      if (confirm("Effacer toutes les données de calories ?")) {
+        localStorage.removeItem("caloriesData");
+        updateSummary();
+        updateChart();
+        updateDaysList();
+        showToast("Données effacées");
+      }
+    });
 
-        <!-- Actions -->
-        <div class="actions">
-            <button id="exportPDF" class="btn-primary">📄 Exporter PDF</button>
-            <button id="clearAll" class="btn-danger">🗑️ Effacer tout</button>
-        </div>
-    </main>
+    // ── Toast ──
+    function showToast(msg) {
+      const el = document.createElement("div");
+      el.className = "toast";
+      el.textContent = msg;
+      document.body.appendChild(el);
+      requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add("show")));
+      setTimeout(() => { el.classList.remove("show"); setTimeout(() => el.remove(), 400); }, 2500);
+    }
 
-    <script src="calories-script.js"></script>
+    // ── Init ──
+    updateSummary();
+    updateChart();
+    updateDaysList();
+  })();
+  </script>
 </body>
 </html>

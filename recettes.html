@@ -35,34 +35,32 @@
         placeholder="Rechercher une recette…"
       >
     </div>
-    
+
     <!-- Cards -->
     <div class="recipes-grid" id="recipesGrid"></div>
 
-    <!-- Bouton flottant liste de courses -->
-    <button class="btn btn-primary shopping-fab" id="shoppingToggleBtn">
-      🛒 Ma Liste de Courses
-      <span class="shopping-fab-count" id="selectedCount">0</span>
-    </button>
+  </div><!-- fin .container -->
 
-    <!-- Shopping list -->
-    <div class="shopping-section">
-      <div class="shopping-toggle" style="display:none">
-        <div class="shopping-panel" id="shoppingPanel">
-          <div class="shopping-head">
-            <h3>Mes Ingrédients</h3>
-            <div style="display:flex;gap:.5rem;flex-wrap:wrap">
-              <button class="btn btn-sm btn-secondary" id="printListBtn">🖨 Imprimer</button>
-              <button class="btn btn-sm btn-danger" id="clearListBtn">Vider</button>
-            </div>
-          </div>
-          <ul class="shopping-items" id="shoppingItems"></ul>
-          <div class="shopping-foot">
-            Sélectionnées : <strong id="selectedCountFoot">0</strong> recette(s)
-          </div>
-        </div>
+  <!-- Bouton flottant liste de courses (hors du container, fixé à la fenêtre) -->
+  <button class="btn btn-primary shopping-fab" id="shoppingToggleBtn">
+    🛒 Ma Liste de Courses
+    <span class="shopping-fab-count" id="selectedCount">0</span>
+  </button>
+
+  <!-- Panneau liste de courses (flottant, hors du flux) -->
+  <div class="shopping-panel" id="shoppingPanel">
+    <div class="shopping-head">
+      <h3>Mes Ingrédients</h3>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <button class="btn btn-sm btn-secondary" id="printListBtn">🖨 Imprimer</button>
+        <button class="btn btn-sm btn-danger" id="clearListBtn">Vider</button>
       </div>
     </div>
+    <ul class="shopping-items" id="shoppingItems"></ul>
+    <div class="shopping-foot">
+      Sélectionnées : <strong id="selectedCountFoot">0</strong> recette(s)
+    </div>
+  </div>
 
   <!-- Modal (single, reused) -->
   <div class="modal-overlay" id="modalOverlay">

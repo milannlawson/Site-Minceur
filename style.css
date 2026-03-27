@@ -676,15 +676,29 @@ body {
 }
 
 .shopping-panel {
+  position: fixed;           /* Fixé à la fenêtre, comme le bouton */
+  bottom: 5.5rem;            /* Juste au-dessus du bouton FAB */
+  right: 2rem;               /* Aligné à droite avec le bouton */
+  width: 380px;              /* Largeur fixe */
+  max-width: calc(100vw - 4rem); /* Sur mobile : jamais plus large que l'écran */
   background: var(--c-white);
   border-radius: var(--r-xl);
   border: 1px solid var(--c-border);
-  max-width: 650px;
-  margin: 0 auto;
+  box-shadow: var(--shadow-lg);
   overflow: hidden;
-  display: none;
+  display: none;             /* Caché par défaut */
+  z-index: 501;              /* Au-dessus du bouton FAB (z-index 500) */
+
+  /* Animation d'apparition */
+  animation: slideUpPanel .25s ease;
 }
+
 .shopping-panel.open { display: block; }
+
+@keyframes slideUpPanel {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
 .shopping-head {
   padding: 1.25rem 1.5rem;
@@ -1043,3 +1057,37 @@ body {
 .stagger-2 { animation-delay: .2s; }
 .stagger-3 { animation-delay: .3s; }
 .stagger-4 { animation-delay: .4s; }
+
+/* ═══════════════════════════
+   BOUTON LISTE DE COURSES FLOTTANT
+   ═══════════════════════════ */
+.shopping-fab {
+  position: fixed;        /* Sort du flux, se fixe sur la fenêtre */
+  bottom: 2rem;           /* 2rem depuis le bas de l'écran */
+  right: 2rem;            /* 2rem depuis le bord droit */
+  z-index: 500;           /* Au-dessus du contenu, sous le modal (z-index 1000) */
+  box-shadow: 0 8px 30px rgba(94,122,82,.35);
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+
+.shopping-fab-count {
+  background: var(--c-white);
+  color: var(--c-olive);
+  font-size: .75rem;
+  font-weight: 800;
+  min-width: 22px;
+  height: 22px;
+  border-radius: var(--r-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+}
+
+/* Cache le badge si 0 recette sélectionnée */
+.shopping-fab-count:empty,
+.shopping-fab-count[data-zero] {
+  display: none;
+}

@@ -46,6 +46,16 @@
   </div>
 
   <div class="cal-content">
+
+    <!-- Ajout manuel -->
+    <div class="weight-form">
+      <input type="text" id="manualName" placeholder="Nom du plat" class="manual-name-input">
+      <input type="number" id="manualCal" placeholder="Calories" min="1" max="9999">
+      <span>kcal</span>
+      <input type="date" id="manualDate">
+      <button class="btn btn-sm btn-primary" id="addManualBtn">Ajouter</button>
+    </div>
+
     <!-- Period selector -->
     <div class="period-tabs">
       <button class="period-tab active" data-period="week">Semaine</button>
@@ -250,6 +260,28 @@
           </div>`;
       }).join("");
     }
+
+    // ── Ajout manuel ──
+    document.getElementById("manualDate").value = todayKey();
+    document.getElementById("addManualBtn").addEventListener("click", () => {
+      const name = document.getElementById("manualName").value.trim();
+      const cal  = parseInt(document.getElementById("manualCal").value);
+      const date = document.getElementById("manualDate").value;
+      if (!name || isNaN(cal) || cal <= 0 || !date) {
+        showToast("Renseigne un nom, des calories et une date.");
+        return;
+      }
+      const data = getData();
+      if (!data[date]) data[date] = [];
+      data[date].push({ name, calories: cal, time: new Date().toLocaleTimeString("fr-FR") });
+      localStorage.setItem("caloriesData", JSON.stringify(data));
+      document.getElementById("manualName").value = "";
+      document.getElementById("manualCal").value  = "";
+      updateSummary();
+      updateChart();
+      updateDaysList();
+      showToast(`${name} ajouté ! +${cal} kcal`);
+    });
 
     // ── Goal ──
     const goalInput = document.getElementById("goalInput");

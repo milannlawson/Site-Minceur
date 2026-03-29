@@ -143,22 +143,36 @@
     function updateChart() {
       const all  = getData().sort((a, b) => a.date.localeCompare(b.date));
       const now  = new Date();
-      let entries = all;
+      const goal = getGoal();
+      let dates, values;
 
       if (currentPeriod === "week") {
-        entries = all.filter(e => (now - new Date(e.date)) / 86400000 <= 7);
-      } else if (currentPeriod === "month") {
-        entries = all.filter(e => {
-          const d = new Date(e.date);
-          return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+        // Toujours afficher les 7 derniers jours
+        dates = [];
+        for (let i = 6; i >= 0; i--) {
+          const d = new Date();
+          d.setDate(d.getDate() - i);
+          dates.push(d.toISOString().split("T")[0]);
+        }
+        values = dates.map(key => {
+          const e = all.find(e => e.date === key);
+          return e ? e.weight : null;
         });
+      } else {
+        let entries = all;
+        if (currentPeriod === "month") {
+          entries = all.filter(e => {
+            const d = new Date(e.date);
+            return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+          });
+        }
+        dates  = entries.map(e => e.date);
+        values = entries.map(e => e.weight);
       }
 
-      const labels = entries.map(e =>
-        new Date(e.date).toLocaleDateString("fr-FR", { weekday: "short", day: "numeric" })
+      const labels = dates.map(d =>
+        new Date(d).toLocaleDateString("fr-FR", { weekday: "short", day: "numeric" })
       );
-      const values = entries.map(e => e.weight);
-      const goal   = getGoal();
 
       const datasets = [
         {
@@ -171,24 +185,27 @@
           pointBackgroundColor: "rgba(94,122,82,1)",
           tension: 0.35,
           fill: true,
+          spanGaps: false,
         }
       ];
 
-      if (goal && entries.length) {
+      if (goal && labels.length) {
         datasets.push({
-          label: "Objectif",
+          label: `Objectif (${goal} kg)`,
           data: Array(labels.length).fill(goal),
-          borderColor: "rgba(193,122,74,.7)",
-          borderWidth: 1.5,
+          borderColor: "rgba(193,122,74,.9)",
+          borderWidth: 2,
           borderDash: [6, 4],
           pointRadius: 0,
           fill: false,
+          tension: 0,
         });
       }
 
       if (chart) {
         chart.data.labels = labels;
-        chart.data.datasets = datasets;
+        chart.data.datasets.splice(0, chart.data.datasets.length, ...datasets);
+        chart.options.plugins.legend.display = goal !== null;
         chart.update();
       } else {
         const ctx = document.getElementById("weightChart").getContext("2d");
@@ -197,10 +214,15 @@
           data: { labels, datasets },
           options: {
             responsive: true,
-            plugins: { legend: { display: goal !== null } },
+            plugins: {
+              legend: {
+                display: goal !== null,
+                labels: { font: { family: "Plus Jakarta Sans", size: 12 } },
+              },
+            },
             scales: {
               y: {
-                beginAtZero: false,
+                beginAtZero: true,
                 grid: { color: "rgba(0,0,0,.04)" },
                 ticks: { font: { family: "Plus Jakarta Sans", size: 12 } },
               },

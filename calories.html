@@ -163,32 +163,48 @@
         v > goal ? "rgba(193,122,74,.7)" : "rgba(94,122,82,.65)"
       );
 
+      const datasets = [
+        {
+          type: "bar",
+          label: "Calories",
+          data: values,
+          backgroundColor: colors,
+          borderRadius: 6,
+          barPercentage: 0.6,
+          order: 2,
+        },
+        {
+          type: "line",
+          label: `Objectif (${goal} kcal)`,
+          data: Array(labels.length).fill(goal),
+          borderColor: "rgba(193,122,74,.9)",
+          borderWidth: 2,
+          borderDash: [6, 4],
+          pointRadius: 0,
+          fill: false,
+          order: 1,
+        },
+      ];
+
       if (chart) {
         chart.data.labels = labels;
         chart.data.datasets[0].data = values;
         chart.data.datasets[0].backgroundColor = colors;
+        chart.data.datasets[1].data = Array(labels.length).fill(goal);
+        chart.data.datasets[1].label = `Objectif (${goal} kcal)`;
         chart.update();
       } else {
         const ctx = document.getElementById("calChart").getContext("2d");
         chart = new Chart(ctx, {
           type: "bar",
-          data: {
-            labels,
-            datasets: [
-              {
-                label: "Calories",
-                data: values,
-                backgroundColor: colors,
-                borderRadius: 6,
-                barPercentage: 0.6,
-              },
-            ],
-          },
+          data: { labels, datasets },
           options: {
             responsive: true,
             plugins: {
-              legend: { display: false },
-              annotation: null,
+              legend: {
+                display: true,
+                labels: { font: { family: "Plus Jakarta Sans", size: 12 } },
+              },
             },
             scales: {
               y: {

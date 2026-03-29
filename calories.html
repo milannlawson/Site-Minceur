@@ -32,15 +32,23 @@
     <div class="cal-stats">
       <div class="cal-stat">
         <div class="cal-stat-val" id="todayCal">0</div>
-        <div class="cal-stat-lab">Aujourd'hui</div>
+        <div class="cal-stat-lab">Mangées aujourd'hui</div>
+      </div>
+      <div class="cal-stat">
+        <div class="cal-stat-val" id="todayBurned">0</div>
+        <div class="cal-stat-lab">Brûlées aujourd'hui</div>
+      </div>
+      <div class="cal-stat">
+        <div class="cal-stat-val" id="todayNet">0</div>
+        <div class="cal-stat-lab">Nettes aujourd'hui</div>
       </div>
       <div class="cal-stat">
         <div class="cal-stat-val" id="weekCal">0</div>
-        <div class="cal-stat-lab">Cette semaine</div>
+        <div class="cal-stat-lab">Cette semaine (net)</div>
       </div>
       <div class="cal-stat">
         <div class="cal-stat-val" id="monthCal">0</div>
-        <div class="cal-stat-lab">Ce mois</div>
+        <div class="cal-stat-lab">Ce mois (net)</div>
       </div>
     </div>
   </div>
@@ -116,24 +124,44 @@
       return entries.reduce((sum, e) => sum + (e.calories || 0), 0);
     }
 
+    // ── Calories brûlées (depuis le planning sport) ──
+    function getDayKey(dateStr) {
+      const days = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
+      return days[new Date(dateStr).getDay()];
+    }
+    function getBurned(dateStr) {
+      const sport = JSON.parse(localStorage.getItem("sportPlanning") || "{}");
+      return parseInt(sport[getDayKey(dateStr)]?.calories || 0);
+    }
+
     // ── Summary stats ──
     function updateSummary() {
       const data = getData();
       const today = todayKey();
-      const todayEntries = data[today] || [];
-      document.getElementById("todayCal").textContent = dayTotal(todayEntries);
+      const todayEaten  = dayTotal(data[today] || []);
+      const todayBurned = getBurned(today);
+      document.getElementById("todayCal").textContent    = todayEaten;
+      document.getElementById("todayBurned").textContent = todayBurned;
+      document.getElementById("todayNet").textContent    = todayEaten - todayBurned;
 
       const now = new Date();
-      let weekTotal = 0, monthTotal = 0;
-      Object.entries(data).forEach(([key, entries]) => {
+      let weekNet = 0, monthNet = 0;
+      const allDates = new Set([
+        ...Object.keys(data),
+        ...Array.from({length: 7}, (_, i) => {
+          const d = new Date(); d.setDate(d.getDate() - i);
+          return d.toISOString().split("T")[0];
+        })
+      ]);
+      allDates.forEach((key) => {
         const d = new Date(key);
         const diffDays = (now - d) / (1000 * 60 * 60 * 24);
-        const t = dayTotal(entries);
-        if (diffDays <= 7) weekTotal += t;
-        if (d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear()) monthTotal += t;
+        const net = dayTotal(data[key] || []) - getBurned(key);
+        if (diffDays <= 7)  weekNet  += net;
+        if (d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear()) monthNet += net;
       });
-      document.getElementById("weekCal").textContent = weekTotal;
-      document.getElementById("monthCal").textContent = monthTotal;
+      document.getElementById("weekCal").textContent  = weekNet;
+      document.getElementById("monthCal").textContent = monthNet;
     }
 
     // ── Chart ──
@@ -167,7 +195,7 @@
       const labels = dates.map((d) =>
         new Date(d).toLocaleDateString("fr-FR", { weekday: "short", day: "numeric" })
       );
-      const values = dates.map((d) => dayTotal(data[d] || []));
+      const values = dates.map((d) => Math.max(0, dayTotal(data[d] || []) - getBurned(d)));
 
       const colors = values.map((v) =>
         v > goal ? "rgba(193,122,74,.7)" : "rgba(94,122,82,.65)"

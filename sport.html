@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Planning Sport — Minceur Light</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-db.js"></script>
 </head>
 <body>
 
@@ -82,7 +85,7 @@
       return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
     }
     function save(data) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      window.dbSet(STORAGE_KEY, JSON.stringify(data));
     }
 
     function calcDuration(start, end) {
@@ -147,10 +150,13 @@
 
     document.getElementById("clearPlanBtn").addEventListener("click", () => {
       if (confirm("Vider tout le planning ?")) {
-        localStorage.removeItem(STORAGE_KEY);
+        window.dbRemove(STORAGE_KEY);
         render();
       }
     });
+
+    // ── Sync Firestore → re-render ──
+    window.__onDbSync = render;
 
     render();
   })();

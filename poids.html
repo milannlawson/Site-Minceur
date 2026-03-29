@@ -6,6 +6,9 @@
   <title>Mon Poids — Minceur Light</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-db.js"></script>
 </head>
 <body>
 
@@ -107,7 +110,7 @@
       return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
     }
     function saveData(arr) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+      window.dbSet(STORAGE_KEY, JSON.stringify(arr));
     }
     function getGoal() {
       return parseFloat(localStorage.getItem(GOAL_KEY) || "") || null;
@@ -296,7 +299,7 @@
     document.getElementById("saveGoalBtn").addEventListener("click", () => {
       const v = parseFloat(goalInput.value);
       if (isNaN(v) || v <= 0) { showToast("Objectif invalide."); return; }
-      localStorage.setItem(GOAL_KEY, v);
+      window.dbSet(GOAL_KEY, String(v));
       updateChart();
       showToast("Objectif sauvegardé !");
     });
@@ -341,6 +344,9 @@
       requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add("show")));
       setTimeout(() => { el.classList.remove("show"); setTimeout(() => el.remove(), 400); }, 2500);
     }
+
+    // ── Sync Firestore → re-render ──
+    window.__onDbSync = refresh;
 
     // ── Init ──
     document.getElementById("weightDate").value = todayKey();

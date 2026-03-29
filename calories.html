@@ -102,6 +102,9 @@
     <p>Minceur Light — Prendre soin de toi, un plat à la fois.</p>
   </footer>
 
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-db.js"></script>
   <script src="data.js"></script>
   <script>
   (function() {
@@ -302,7 +305,7 @@
       const data = getData();
       if (!data[date]) data[date] = [];
       data[date].push({ name, calories: cal, time: new Date().toLocaleTimeString("fr-FR") });
-      localStorage.setItem("caloriesData", JSON.stringify(data));
+      window.dbSet("caloriesData", JSON.stringify(data));
       document.getElementById("manualName").value = "";
       document.getElementById("manualCal").value  = "";
       updateSummary();
@@ -315,7 +318,7 @@
     const goalInput = document.getElementById("goalInput");
     goalInput.value = getGoal();
     document.getElementById("saveGoalBtn").addEventListener("click", () => {
-      localStorage.setItem("dailyGoal", goalInput.value);
+      window.dbSet("dailyGoal", goalInput.value);
       updateChart();
       showToast("Objectif sauvegardé");
     });
@@ -350,7 +353,7 @@
     // ── Clear ──
     document.getElementById("clearBtn").addEventListener("click", () => {
       if (confirm("Effacer toutes les données de calories ?")) {
-        localStorage.removeItem("caloriesData");
+        window.dbRemove("caloriesData");
         updateSummary();
         updateChart();
         updateDaysList();
@@ -367,6 +370,13 @@
       requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add("show")));
       setTimeout(() => { el.classList.remove("show"); setTimeout(() => el.remove(), 400); }, 2500);
     }
+
+    // ── Sync Firestore → re-render ──
+    window.__onDbSync = function () {
+      updateSummary();
+      updateChart();
+      updateDaysList();
+    };
 
     // ── Init ──
     updateSummary();

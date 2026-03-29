@@ -354,7 +354,7 @@
       calories: recipe.calories,
       time: new Date().toLocaleTimeString("fr-FR"),
     });
-    localStorage.setItem("caloriesData", JSON.stringify(data));
+    window.dbSet("caloriesData", JSON.stringify(data));
     toast(`${recipe.name} ajouté ! +${recipe.calories} kcal`);
     closeModalFn();
   }

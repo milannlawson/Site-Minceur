@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Poids — Minceur Light</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">Minceur Light</a>
+      <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="recettes.html">Recettes</a></li>
+        <li><a href="calories.html">Mes Calories</a></li>
+        <li><a href="sport.html">Sport</a></li>
+        <li><a href="poids.html" class="active">Mon Poids</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <div class="cal-header">
+    <h1>Mon Poids</h1>
+    <div class="cal-stats">
+      <div class="cal-stat">
+        <div class="cal-stat-val" id="currentWeight">–</div>
+        <div class="cal-stat-lab">Poids actuel (kg)</div>
+      </div>
+      <div class="cal-stat">
+        <div class="cal-stat-val" id="startWeight">–</div>
+        <div class="cal-stat-lab">Poids de départ (kg)</div>
+      </div>
+      <div class="cal-stat">
+        <div class="cal-stat-val" id="diffWeight">–</div>
+        <div class="cal-stat-lab">Évolution (kg)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cal-content">
+
+    <!-- Formulaire d'ajout -->
+    <div class="weight-form">
+      <input type="date" id="weightDate">
+      <input type="number" id="weightVal" placeholder="Ex : 72.5" min="30" max="300" step="0.1">
+      <span>kg</span>
+      <button class="btn btn-sm btn-primary" id="addWeightBtn">Ajouter</button>
+    </div>
+
+    <!-- Period selector -->
+    <div class="period-tabs">
+      <button class="period-tab active" data-period="week">Semaine</button>
+      <button class="period-tab" data-period="month">Mois</button>
+      <button class="period-tab" data-period="all">Tout</button>
+    </div>
+
+    <!-- Chart -->
+    <div class="chart-wrap">
+      <canvas id="weightChart"></canvas>
+    </div>
+
+    <!-- Objectif -->
+    <div class="goal-row">
+      <label>Objectif :</label>
+      <input type="number" id="goalInput" placeholder="Ex : 65" min="30" max="300" step="0.1">
+      <span>kg</span>
+      <button class="btn btn-sm btn-primary" id="saveGoalBtn">Sauvegarder</button>
+    </div>
+
+    <!-- Historique -->
+    <div class="days-section">
+      <h3>Historique</h3>
+      <div id="weightList"></div>
+    </div>
+
+    <!-- Actions -->
+    <div class="cal-actions">
+      <button class="btn btn-secondary" id="exportBtn">📄 Exporter</button>
+      <button class="btn btn-danger" id="clearBtn">Effacer tout</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>Minceur Light — Prendre soin de toi, un plat à la fois.</p>
+  </footer>
+
+  <script>
+  (function () {
+    "use strict";
+
+    const STORAGE_KEY = "poidsData";
+    const GOAL_KEY    = "poidsGoal";
+    let chart = null;
+    let currentPeriod = "week";
+
+    // ── Helpers ──
+    function getData() {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    }
+    function saveData(arr) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+    }
+    function getGoal() {
+      return parseFloat(localStorage.getItem(GOAL_KEY) || "") || null;
+    }
+    function todayKey() {
+      return new Date().toISOString().split("T")[0];
+    }
+    function fmtDate(d) {
+      return new Date(d).toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" });
+    }
+
+    // ── Stats ──
+    function updateSummary() {
+      const data = getData().sort((a, b) => a.date.localeCompare(b.date));
+      const cur  = data.length ? data[data.length - 1].weight : null;
+      const start = data.length ? data[0].weight : null;
+
+      document.getElementById("currentWeight").textContent = cur !== null ? cur : "–";
+      document.getElementById("startWeight").textContent   = start !== null ? start : "–";
+
+      const diffEl = document.getElementById("diffWeight");
+      if (cur !== null && start !== null && data.length > 1) {
+        const diff = (cur - start).toFixed(1);
+        diffEl.textContent = (diff > 0 ? "+" : "") + diff;
+        diffEl.style.color = diff < 0 ? "#5e7a52" : diff > 0 ? "#c17a4a" : "inherit";
+      } else {
+        diffEl.textContent = "–";
+        diffEl.style.color = "";
+      }
+    }
+
+    // ── Chart ──
+    function updateChart() {
+      const all  = getData().sort((a, b) => a.date.localeCompare(b.date));
+      const now  = new Date();
+      let entries = all;
+
+      if (currentPeriod === "week") {
+        entries = all.filter(e => (now - new Date(e.date)) / 86400000 <= 7);
+      } else if (currentPeriod === "month") {
+        entries = all.filter(e => {
+          const d = new Date(e.date);
+          return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+        });
+      }
+
+      const labels = entries.map(e =>
+        new Date(e.date).toLocaleDateString("fr-FR", { weekday: "short", day: "numeric" })
+      );
+      const values = entries.map(e => e.weight);
+      const goal   = getGoal();
+
+      const datasets = [
+        {
+          label: "Poids (kg)",
+          data: values,
+          borderColor: "rgba(94,122,82,1)",
+          backgroundColor: "rgba(94,122,82,.12)",
+          borderWidth: 2.5,
+          pointRadius: 5,
+          pointBackgroundColor: "rgba(94,122,82,1)",
+          tension: 0.35,
+          fill: true,
+        }
+      ];
+
+      if (goal && entries.length) {
+        datasets.push({
+          label: "Objectif",
+          data: Array(labels.length).fill(goal),
+          borderColor: "rgba(193,122,74,.7)",
+          borderWidth: 1.5,
+          borderDash: [6, 4],
+          pointRadius: 0,
+          fill: false,
+        });
+      }
+
+      if (chart) {
+        chart.data.labels = labels;
+        chart.data.datasets = datasets;
+        chart.update();
+      } else {
+        const ctx = document.getElementById("weightChart").getContext("2d");
+        chart = new Chart(ctx, {
+          type: "line",
+          data: { labels, datasets },
+          options: {
+            responsive: true,
+            plugins: { legend: { display: goal !== null } },
+            scales: {
+              y: {
+                beginAtZero: false,
+                grid: { color: "rgba(0,0,0,.04)" },
+                ticks: { font: { family: "Plus Jakarta Sans", size: 12 } },
+              },
+              x: {
+                grid: { display: false },
+                ticks: { font: { family: "Plus Jakarta Sans", size: 12 } },
+              },
+            },
+          },
+        });
+      }
+    }
+
+    // ── Liste ──
+    function updateList() {
+      const data = getData().sort((a, b) => b.date.localeCompare(a.date)).slice(0, 20);
+      const list = document.getElementById("weightList");
+
+      if (!data.length) {
+        list.innerHTML = '<p style="color:var(--c-text-3);padding:1rem 0">Aucune entrée pour le moment. Ajoute ton premier poids !</p>';
+        return;
+      }
+
+      list.innerHTML = data.map(e => `
+        <div class="day-entry">
+          <div>
+            <div class="day-date">${fmtDate(e.date)}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1rem">
+            <div class="day-cals">${e.weight} kg</div>
+            <button class="weight-delete-btn" data-date="${e.date}" title="Supprimer">✕</button>
+          </div>
+        </div>`).join("");
+
+      list.querySelectorAll(".weight-delete-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const filtered = getData().filter(e => e.date !== btn.dataset.date);
+          saveData(filtered);
+          refresh();
+        });
+      });
+    }
+
+    function refresh() {
+      updateSummary();
+      updateChart();
+      updateList();
+    }
+
+    // ── Ajouter un poids ──
+    document.getElementById("addWeightBtn").addEventListener("click", () => {
+      const dateInput = document.getElementById("weightDate").value;
+      const valInput  = parseFloat(document.getElementById("weightVal").value);
+
+      if (!dateInput || isNaN(valInput) || valInput <= 0) {
+        showToast("Renseigne une date et un poids valide.");
+        return;
+      }
+
+      const data = getData().filter(e => e.date !== dateInput);
+      data.push({ date: dateInput, weight: valInput });
+      saveData(data);
+      document.getElementById("weightVal").value = "";
+      refresh();
+      showToast(`${valInput} kg ajouté !`);
+    });
+
+    // ── Objectif ──
+    const goalInput = document.getElementById("goalInput");
+    goalInput.value = getGoal() || "";
+    document.getElementById("saveGoalBtn").addEventListener("click", () => {
+      const v = parseFloat(goalInput.value);
+      if (isNaN(v) || v <= 0) { showToast("Objectif invalide."); return; }
+      localStorage.setItem(GOAL_KEY, v);
+      updateChart();
+      showToast("Objectif sauvegardé !");
+    });
+
+    // ── Period tabs ──
+    document.querySelectorAll(".period-tab").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelector(".period-tab.active").classList.remove("active");
+        btn.classList.add("active");
+        currentPeriod = btn.dataset.period;
+        updateChart();
+      });
+    });
+
+    // ── Export ──
+    document.getElementById("exportBtn").addEventListener("click", () => {
+      const data = getData().sort((a, b) => a.date.localeCompare(b.date));
+      const lines = ["Date,Poids (kg)", ...data.map(e => `${e.date},${e.weight}`)];
+      const blob = new Blob([lines.join("\n")], { type: "text/csv" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `poids-${todayKey()}.csv`;
+      a.click();
+      showToast("Export CSV téléchargé");
+    });
+
+    // ── Effacer ──
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      if (confirm("Effacer toutes les données de poids ?")) {
+        saveData([]);
+        refresh();
+        showToast("Données effacées");
+      }
+    });
+
+    // ── Toast ──
+    function showToast(msg) {
+      const el = document.createElement("div");
+      el.className = "toast";
+      el.textContent = msg;
+      document.body.appendChild(el);
+      requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add("show")));
+      setTimeout(() => { el.classList.remove("show"); setTimeout(() => el.remove(), 400); }, 2500);
+    }
+
+    // ── Init ──
+    document.getElementById("weightDate").value = todayKey();
+    refresh();
+  })();
+  </script>
+</body>
+</html>

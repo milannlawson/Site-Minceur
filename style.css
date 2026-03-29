@@ -1139,3 +1139,49 @@ body {
   background: var(--c-terra-l);
   border-color: var(--c-terra);
 }
+
+/* ═══════════════════════════
+   PAGE POIDS
+   ═══════════════════════════ */
+.weight-form {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.weight-form input[type="date"],
+.weight-form input[type="number"] {
+  padding: .5rem .75rem;
+  border: 1.5px solid var(--c-border);
+  border-radius: var(--r-sm);
+  font-family: var(--font-body);
+  font-size: .95rem;
+  color: var(--c-text);
+  outline: none;
+  background: var(--c-white);
+}
+
+.weight-form input[type="date"] { width: 160px; }
+.weight-form input[type="number"] { width: 110px; text-align: center; }
+
+.weight-form input:focus {
+  border-color: var(--c-olive);
+}
+
+.weight-delete-btn {
+  background: none;
+  border: none;
+  color: var(--c-text-3);
+  cursor: pointer;
+  font-size: .85rem;
+  padding: .2rem .4rem;
+  border-radius: var(--r-sm);
+  transition: var(--transition);
+}
+
+.weight-delete-btn:hover {
+  color: #c0392b;
+  background: #fdf0ef;
+}

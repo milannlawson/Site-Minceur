@@ -813,6 +813,849 @@ const RECIPES = [
       "Servir avec du yaourt nature ou une sauce légère."
     ],
     tip: "L'étape d'essorer les légumes est cruciale : si tu sautes cette étape, les galettes seront molles et ne tiendront pas. Bien presser pour enlever le maximum d'eau !"
+  },
+
+  // ── PLATS ──────────────────────────────────────────────
+
+  // Saumon Teriyaki & Brocoli
+  {
+    id: "saumon_teriyaki",
+    name: "Saumon Teriyaki & Brocoli",
+    image: "images/Saumon Teriyaki.jpg",
+    time: "15 min",
+    calories: 380,
+    difficulty: "Facile",
+    category: "plat",
+    description: "Saumon laqué façon teriyaki maison avec brocoli vapeur.",
+    ingredients: [
+      "1 pavé de saumon (150 g)",
+      "200 g de brocoli en fleurettes",
+      "2 c. à soupe de sauce soja légère",
+      "1 c. à soupe de miel",
+      "1 c. à café d'huile de sésame",
+      "1 gousse d'ail, gingembre frais",
+      "Graines de sésame, riz complet (optionnel)"
+    ],
+    steps: [
+      "Mélanger sauce soja, miel, ail et gingembre pour la marinade.",
+      "Faire mariner le saumon 10 min.",
+      "Cuire le brocoli à la vapeur 5 min.",
+      "Saisir le saumon à la poêle 3 min par face en l'arrosant de marinade.",
+      "Servir avec le brocoli et parsemer de sésame."
+    ],
+    tip: "La sauce teriyaki maison est bien moins sucrée que celle du commerce. Tu peux préparer une grosse quantité et la garder au frigo 1 semaine."
+  },
+
+  // Wok de Légumes au Tofu
+  {
+    id: "wok_tofu",
+    name: "Wok de Légumes au Tofu",
+    image: "images/Wok Tofu.jpg",
+    time: "18 min",
+    calories: 290,
+    difficulty: "Facile",
+    category: "plat",
+    description: "Tofu croustillant sauté avec légumes croquants à l'asiatique.",
+    ingredients: [
+      "200 g de tofu ferme, coupé en dés",
+      "Carottes, poivron, chou chinois, pois gourmands",
+      "2 c. à soupe de sauce soja",
+      "1 c. à café d'huile de sésame",
+      "1 c. à café de gingembre râpé",
+      "2 gousses d'ail",
+      "Piment (optionnel), coriandre"
+    ],
+    steps: [
+      "Éponger le tofu et le faire dorer dans une poêle très chaude sans matière grasse.",
+      "Réserver le tofu. Faire sauter les légumes à feu vif 4 min.",
+      "Ajouter ail, gingembre, sauce soja et huile de sésame.",
+      "Remettre le tofu, mélanger 1 min et servir."
+    ],
+    tip: "Pour un tofu vraiment croustillant, presse-le 30 min dans un torchon avant cuisson pour enlever l'excès d'eau."
+  },
+
+  // Buddha Bowl Végétarien
+  {
+    id: "buddha_bowl",
+    name: "Buddha Bowl Végétarien",
+    image: "images/Buddha Bowl.jpg",
+    time: "20 min",
+    calories: 400,
+    difficulty: "Facile",
+    category: "plat",
+    description: "Un bowl coloré et complet, 100 % végétal et rassasiant.",
+    ingredients: [
+      "100 g de quinoa ou riz complet cuit",
+      "1/2 avocat",
+      "100 g de pois chiches rôtis",
+      "Carottes râpées, concombre, épinards",
+      "1 betterave cuite",
+      "Sauce tahini : 1 c. à soupe de tahini, citron, ail, eau"
+    ],
+    steps: [
+      "Rôtir les pois chiches au four à 200 °C 15 min avec paprika et cumin.",
+      "Préparer la sauce tahini en mélangeant tous les ingrédients.",
+      "Disposer tous les éléments en sections dans un bol.",
+      "Napper de sauce tahini et servir."
+    ],
+    tip: "La sauce tahini transforme tout bowl banal en quelque chose d'exceptionnel. Prépare-en un pot pour la semaine."
+  },
+
+  // Chili con Carne Léger
+  {
+    id: "chili",
+    name: "Chili con Carne Léger",
+    image: "images/Chili con Carne.jpg",
+    time: "30 min",
+    calories: 360,
+    difficulty: "Facile",
+    category: "plat",
+    description: "Un chili savoureux avec moins de gras, autant de goût.",
+    ingredients: [
+      "200 g de bœuf haché 5 % MG",
+      "1 boîte de haricots rouges (400 g)",
+      "1 boîte de tomates concassées (400 ml)",
+      "1 oignon, 2 gousses d'ail",
+      "1 c. à café de cumin, paprika fumé, piment en poudre",
+      "Sel, poivre"
+    ],
+    steps: [
+      "Faire revenir l'oignon et l'ail, ajouter le bœuf et cuire 5 min.",
+      "Ajouter les épices, mélanger 1 min.",
+      "Verser tomates et haricots, laisser mijoter 20 min.",
+      "Rectifier l'assaisonnement et servir avec riz ou pain complet."
+    ],
+    tip: "Le chili est encore meilleur réchauffé le lendemain : les saveurs se développent. Prépare-en une grande quantité et congèle."
+  },
+
+  // Salade César Légère au Poulet
+  {
+    id: "salade_cesar",
+    name: "Salade César Légère",
+    image: "images/Salade Cesar.jpg",
+    time: "12 min",
+    calories: 300,
+    difficulty: "Facile",
+    category: "plat",
+    description: "La classique César revisitée avec une sauce allégée maison.",
+    ingredients: [
+      "120 g de blanc de poulet grillé en lamelles",
+      "Cœur de laitue romaine",
+      "Parmesan râpé (10 g)",
+      "Croûtons complets (optionnel)",
+      "Sauce : yaourt grec, jus de citron, moutarde, ail, anchois (optionnel)"
+    ],
+    steps: [
+      "Préparer la sauce en mélangeant yaourt, citron, moutarde et ail.",
+      "Couper la salade en morceaux, disposer dans un saladier.",
+      "Ajouter le poulet grillé, le parmesan et les croûtons.",
+      "Napper de sauce et servir immédiatement."
+    ],
+    tip: "La sauce au yaourt remplace avantageusement la mayo classique : même crémosité pour 3x moins de calories."
+  },
+
+  // Tartare de Saumon Avocat
+  {
+    id: "tartare_saumon",
+    name: "Tartare de Saumon & Avocat",
+    image: "images/Tartare Saumon.jpg",
+    time: "10 min",
+    calories: 320,
+    difficulty: "Facile",
+    category: "plat",
+    description: "Fraîcheur et élégance avec ce tartare express au saumon.",
+    ingredients: [
+      "150 g de saumon frais (qualité sashimi)",
+      "1/2 avocat",
+      "1 c. à soupe de sauce soja",
+      "1 c. à café d'huile de sésame",
+      "Jus de citron vert",
+      "Ciboulette, sésame, piment (optionnel)"
+    ],
+    steps: [
+      "Couper le saumon en petits dés réguliers.",
+      "Couper l'avocat en dés de même taille.",
+      "Mélanger délicatement avec sauce soja, citron, huile de sésame.",
+      "Dresser à l'emporte-pièce, parsemer de ciboulette et sésame."
+    ],
+    tip: "Achète du saumon estampillé 'sashimi grade' chez le poissonnier. Pour un tartare plus sûr, congèle le saumon 24h avant."
+  },
+
+  // Papillote de Cabillaud Citron-Herbes
+  {
+    id: "papillote_cabillaud",
+    name: "Papillote de Cabillaud Citron",
+    image: "images/Papillote Cabillaud.jpg",
+    time: "20 min",
+    calories: 240,
+    difficulty: "Très facile",
+    category: "plat",
+    description: "Cuisson en papillote pour un poisson ultra moelleux et parfumé.",
+    ingredients: [
+      "2 filets de cabillaud (130 g chacun)",
+      "1 citron en rondelles",
+      "Tomates cerises, haricots verts",
+      "1 c. à café d'huile d'olive",
+      "Herbes de Provence, aneth, sel, poivre",
+      "2 gousses d'ail"
+    ],
+    steps: [
+      "Préchauffer le four à 190 °C.",
+      "Disposer chaque filet sur une feuille de papier cuisson.",
+      "Ajouter les légumes, citron, herbes, ail et un filet d'huile.",
+      "Fermer hermétiquement la papillote et enfourner 15 min."
+    ],
+    tip: "La papillote garde toute l'humidité et les arômes. Ouvre-la à table pour un effet waouh garanti !"
+  },
+
+  // Steak Haché & Patate Douce Rôtie
+  {
+    id: "steak_patate_douce",
+    name: "Steak Haché & Patate Douce",
+    image: "images/Steak Patate Douce.jpg",
+    time: "25 min",
+    calories: 420,
+    difficulty: "Facile",
+    category: "plat",
+    description: "Le combo protéines-glucides idéal post-entraînement.",
+    ingredients: [
+      "1 steak haché 5 % MG (150 g)",
+      "1 patate douce moyenne",
+      "Salade verte, tomate",
+      "1 c. à café d'huile d'olive",
+      "Paprika, cumin, sel, poivre",
+      "Sauce : yaourt grec, moutarde, citron"
+    ],
+    steps: [
+      "Couper la patate douce en cubes, assaisonner et rôtir au four 20 min à 200 °C.",
+      "Assaisonner le steak et le cuire à la poêle selon ton goût.",
+      "Préparer la sauce yaourt-moutarde.",
+      "Dresser avec la salade et la patate douce rôtie."
+    ],
+    tip: "La patate douce remplace avantageusement les frites : index glycémique plus bas et bien plus de nutriments."
+  },
+
+  // Soupe Thaï Coco-Citronnelle
+  {
+    id: "soupe_thai",
+    name: "Soupe Thaï Coco-Citronnelle",
+    image: "images/Soupe Thai.jpg",
+    time: "20 min",
+    calories: 280,
+    difficulty: "Facile",
+    category: "plat",
+    description: "Une soupe parfumée inspirée du tom kha avec crevettes.",
+    ingredients: [
+      "150 g de crevettes décortiquées",
+      "400 ml de lait de coco allégé",
+      "300 ml de bouillon de poulet",
+      "1 tige de citronnelle, 3 feuilles de kaffir",
+      "Champignons, poivron, pousses de bambou",
+      "Jus de citron vert, coriandre, piment"
+    ],
+    steps: [
+      "Faire chauffer le bouillon avec citronnelle et feuilles de kaffir 5 min.",
+      "Ajouter le lait de coco et les légumes, cuire 5 min.",
+      "Ajouter les crevettes, cuire 3 min.",
+      "Terminer avec citron vert et coriandre fraîche."
+    ],
+    tip: "Si tu n'as pas de kaffir, utilise du zeste de citron vert. La citronnelle doit juste infuser, ne la mange pas."
+  },
+
+  // Gratin de Courgettes Léger
+  {
+    id: "gratin_courgettes",
+    name: "Gratin de Courgettes Léger",
+    image: "images/Gratin Courgettes.jpg",
+    time: "30 min",
+    calories: 250,
+    difficulty: "Facile",
+    category: "plat",
+    description: "Un gratin réconfortant et léger, parfait pour l'été.",
+    ingredients: [
+      "3 courgettes moyennes",
+      "2 œufs",
+      "100 g de fromage blanc 0 %",
+      "30 g de parmesan râpé",
+      "1 gousse d'ail, persil",
+      "Sel, poivre, muscade"
+    ],
+    steps: [
+      "Couper les courgettes en rondelles et les faire sauter 5 min.",
+      "Mélanger œufs, fromage blanc, parmesan, ail et herbes.",
+      "Disposer les courgettes dans un plat, verser l'appareil dessus.",
+      "Enfourner 20 min à 180 °C jusqu'à gratinage."
+    ],
+    tip: "Le fromage blanc remplace la crème fraîche : même onctuosité, 5x moins de matières grasses. Ajoute de la ricotta pour plus de douceur."
+  },
+
+  // Salade Niçoise
+  {
+    id: "salade_nicoise",
+    name: "Salade Niçoise",
+    image: "images/Salade Nicoise.jpg",
+    time: "15 min",
+    calories: 310,
+    difficulty: "Très facile",
+    category: "plat",
+    description: "La vraie niçoise : complète, fraîche et sans fioritures.",
+    ingredients: [
+      "1 boîte de thon au naturel (100 g)",
+      "2 œufs durs",
+      "Haricots verts cuits, tomates, concombre",
+      "Olives noires, anchois (optionnel)",
+      "Salade verte",
+      "Vinaigrette : huile d'olive, vinaigre, moutarde, sel"
+    ],
+    steps: [
+      "Cuire les œufs 10 min, les passer sous l'eau froide et écaler.",
+      "Disposer la salade dans un grand plat.",
+      "Ajouter tous les éléments en sections distinctes.",
+      "Arroser de vinaigrette et servir."
+    ],
+    tip: "La vraie niçoise ne contient pas de pommes de terre ni de riz. C'est ce qui en fait une salade si légère et complète."
+  },
+
+  // Spaghetti Bolognaise Light
+  {
+    id: "bolognaise",
+    name: "Spaghetti Bolognaise Light",
+    image: "images/Bolognaise.jpg",
+    time: "30 min",
+    calories: 390,
+    difficulty: "Facile",
+    category: "plat",
+    description: "La bolognaise de la semaine, allégée et tout aussi savoureuse.",
+    ingredients: [
+      "80 g de spaghetti complets",
+      "150 g de bœuf haché 5 % MG",
+      "1 boîte de tomates concassées",
+      "1 oignon, 2 gousses d'ail, 1 carotte",
+      "1 c. à café d'huile d'olive",
+      "Basilic, origan, sel, poivre"
+    ],
+    steps: [
+      "Faire revenir oignon, ail et carotte en brunoise.",
+      "Ajouter le bœuf, cuire jusqu'à coloration.",
+      "Verser les tomates, assaisonner, laisser mijoter 20 min.",
+      "Cuire les pâtes, égoutter et mélanger avec la sauce."
+    ],
+    tip: "La carotte dans la bolognaise absorbe l'acidité des tomates naturellement — pas besoin de sucre."
+  },
+
+  // Poulet Tikka Masala Light
+  {
+    id: "tikka_masala",
+    name: "Poulet Tikka Masala Light",
+    image: "images/Tikka Masala.jpg",
+    time: "25 min",
+    calories: 340,
+    difficulty: "Facile",
+    category: "plat",
+    description: "Le plat indien préféré au monde, version allégée.",
+    ingredients: [
+      "150 g de blanc de poulet en cubes",
+      "100 ml de lait de coco allégé",
+      "1 boîte de tomates concassées (200 ml)",
+      "1 oignon, 2 gousses d'ail, gingembre frais",
+      "1 c. à café de garam masala, curcuma, cumin, paprika",
+      "Coriandre fraîche"
+    ],
+    steps: [
+      "Mariner le poulet avec épices, ail et gingembre 10 min.",
+      "Faire revenir l'oignon, ajouter le poulet et colorer 5 min.",
+      "Verser tomates et lait de coco, laisser mijoter 15 min.",
+      "Servir avec riz basmati, parsemer de coriandre."
+    ],
+    tip: "Le lait de coco allégé apporte la douceur sans les calories. Utilise du yaourt grec à la place pour encore plus de légèreté."
+  },
+
+  // Quiche Légère aux Légumes
+  {
+    id: "quiche_legumes",
+    name: "Quiche Légère aux Légumes",
+    image: "images/Quiche Legumes.jpg",
+    time: "40 min",
+    calories: 290,
+    difficulty: "Facile",
+    category: "plat",
+    description: "Une quiche sans pâte, moelleuse et pleine de légumes.",
+    ingredients: [
+      "3 œufs",
+      "200 ml de lait demi-écrémé",
+      "Légumes : épinards, champignons, poivron, oignon",
+      "50 g de fromage râpé allégé",
+      "Sel, poivre, muscade",
+      "1 c. à café d'huile"
+    ],
+    steps: [
+      "Préchauffer le four à 180 °C.",
+      "Faire revenir les légumes, laisser refroidir légèrement.",
+      "Battre œufs, lait, sel, poivre et muscade.",
+      "Mélanger avec les légumes, verser dans un moule huilé.",
+      "Parsemer de fromage et enfourner 30 min."
+    ],
+    tip: "Sans pâte = 150 kcal en moins par part ! La texture reste très moelleuse grâce aux œufs et au lait."
+  },
+
+  // Risotto aux Champignons Léger
+  {
+    id: "risotto_champignons",
+    name: "Risotto aux Champignons",
+    image: "images/Risotto Champignons.jpg",
+    time: "30 min",
+    calories: 350,
+    difficulty: "Facile",
+    category: "plat",
+    description: "Un risotto crémeux allégé, sans beurre ni crème.",
+    ingredients: [
+      "80 g de riz arborio",
+      "200 g de champignons (Paris ou shiitaké)",
+      "500 ml de bouillon de légumes chaud",
+      "1 échalote, 2 gousses d'ail",
+      "30 g de parmesan râpé",
+      "1 c. à café d'huile d'olive, persil, sel, poivre"
+    ],
+    steps: [
+      "Faire revenir l'échalote et l'ail, ajouter les champignons.",
+      "Ajouter le riz, nacrer 2 min à feu vif.",
+      "Verser le bouillon chaud louche par louche en remuant constamment.",
+      "Hors du feu, incorporer le parmesan et servir."
+    ],
+    tip: "Le secret du risotto léger : le parmesan en petite quantité et un bouillon très aromatique remplacent le beurre."
+  },
+
+  // ── PETIT-DÉJEUNER ──────────────────────────────────────
+
+  // Overnight Oats Chocolat-Banane
+  {
+    id: "overnight_choco",
+    name: "Overnight Oats Chocolat-Banane",
+    image: "images/Overnight Oats.jpg",
+    time: "5 min + nuit",
+    calories: 340,
+    difficulty: "Très facile",
+    category: "petit-dejeuner",
+    description: "La version choco du petit-dej qui se prépare la veille.",
+    ingredients: [
+      "50 g de flocons d'avoine",
+      "200 ml de lait d'amande",
+      "1 c. à soupe de cacao non sucré",
+      "1 banane (moitié dedans, moitié sur le dessus)",
+      "1 c. à soupe de beurre d'amande",
+      "1 c. à café de miel"
+    ],
+    steps: [
+      "Mélanger flocons, lait, cacao, miel et beurre d'amande.",
+      "Écraser la moitié de la banane et l'incorporer.",
+      "Couvrir et réfrigérer toute la nuit.",
+      "Le matin, garnir avec le reste de banane en rondelles."
+    ],
+    tip: "Prépare 3 ou 4 pots le dimanche soir pour toute la semaine. Le matin c'est prêt en 0 seconde."
+  },
+
+  // Crêpes Complètes Protéinées
+  {
+    id: "crepes_proteinees",
+    name: "Crêpes Complètes Protéinées",
+    image: "images/Crepes Proteinees.jpg",
+    time: "20 min",
+    calories: 310,
+    difficulty: "Facile",
+    category: "petit-dejeuner",
+    description: "Des crêpes moelleuses à la farine complète, riches en protéines.",
+    ingredients: [
+      "80 g de farine complète",
+      "30 g de poudre protéinée vanille",
+      "2 œufs",
+      "200 ml de lait d'amande",
+      "1 c. à soupe de miel",
+      "Garniture : fruits rouges, yaourt grec"
+    ],
+    steps: [
+      "Mélanger farine et protéines dans un bol.",
+      "Ajouter les œufs, puis le lait petit à petit en fouettant.",
+      "Laisser reposer 10 min.",
+      "Cuire les crêpes dans une poêle anti-adhésive sans matière grasse.",
+      "Garnir de yaourt grec et fruits rouges."
+    ],
+    tip: "La pâte doit être très fluide pour des crêpes fines. Si elle est trop épaisse, ajoute un peu de lait."
+  },
+
+  // Muffins Avoine & Myrtilles
+  {
+    id: "muffins_avoine",
+    name: "Muffins Avoine & Myrtilles",
+    image: "images/Muffins Avoine.jpg",
+    time: "25 min",
+    calories: 180,
+    difficulty: "Facile",
+    category: "petit-dejeuner",
+    description: "Des muffins moelleux sans sucre raffiné, parfaits à emporter.",
+    ingredients: [
+      "100 g de flocons d'avoine mixés",
+      "2 œufs",
+      "1 banane mûre écrasée",
+      "100 ml de lait d'amande",
+      "2 c. à soupe de miel",
+      "1 c. à café de levure",
+      "100 g de myrtilles fraîches ou surgelées"
+    ],
+    steps: [
+      "Préchauffer le four à 180 °C.",
+      "Mixer les flocons en farine, mélanger avec la levure.",
+      "Battre œufs, banane, lait et miel, incorporer à la farine.",
+      "Ajouter les myrtilles délicatement.",
+      "Verser dans des moules à muffins, enfourner 18 min."
+    ],
+    tip: "Ces muffins se conservent 3 jours dans une boîte hermétique ou 1 mois au congélateur. Réchauffer 30 sec au micro-ondes."
+  },
+
+  // Toast Saumon & Œuf Poché
+  {
+    id: "toast_saumon",
+    name: "Toast Saumon & Œuf Poché",
+    image: "images/Toast Saumon.jpg",
+    time: "10 min",
+    calories: 330,
+    difficulty: "Facile",
+    category: "petit-dejeuner",
+    description: "Un brunch protéiné élégant et facile à préparer.",
+    ingredients: [
+      "2 tranches de pain complet",
+      "80 g de saumon fumé",
+      "2 œufs",
+      "2 c. à soupe de fromage frais allégé",
+      "Aneth, câpres",
+      "Jus de citron, poivre"
+    ],
+    steps: [
+      "Toaster le pain complet.",
+      "Étaler le fromage frais, poser les tranches de saumon.",
+      "Pocher les œufs 3 min dans l'eau frémissante vinaigrée.",
+      "Poser l'œuf poché sur le saumon, parsemer d'aneth et câpres.",
+      "Terminer avec un filet de citron et du poivre."
+    ],
+    tip: "Prépare tous les ingrédients avant de pocher les œufs — ils n'attendent pas !"
+  },
+
+  // Smoothie Bowl Mangue-Passion
+  {
+    id: "smoothie_bowl_mangue",
+    name: "Smoothie Bowl Mangue-Passion",
+    image: "images/Smoothie Bowl Mangue.jpg",
+    time: "5 min",
+    calories: 270,
+    difficulty: "Très facile",
+    category: "petit-dejeuner",
+    description: "Un bowl tropical vitaminé pour un réveil ensoleillé.",
+    ingredients: [
+      "150 g de mangue surgelée",
+      "1 banane congelée",
+      "100 ml de jus d'orange",
+      "1 fruit de la passion",
+      "Toppings : granola, noix de coco, kiwi"
+    ],
+    steps: [
+      "Mixer mangue, banane et jus d'orange jusqu'à texture épaisse.",
+      "Verser dans un bol.",
+      "Déposer le fruit de la passion, granola et noix de coco.",
+      "Ajouter les rondelles de kiwi et servir immédiatement."
+    ],
+    tip: "Utilise le minimum de jus pour garder une texture épaisse. Si ça coule, c'est que tu as mis trop de liquide — ajoute plus de fruits congelés."
+  },
+
+  // Granola Maison Protéiné
+  {
+    id: "granola_maison",
+    name: "Granola Maison Protéiné",
+    image: "images/Granola Maison.jpg",
+    time: "25 min",
+    calories: 220,
+    difficulty: "Très facile",
+    category: "petit-dejeuner",
+    description: "Ton granola maison, croustillant et sans conservateurs.",
+    ingredients: [
+      "200 g de flocons d'avoine",
+      "50 g d'amandes et noix mélangées",
+      "2 c. à soupe de miel ou sirop d'érable",
+      "2 c. à soupe d'huile de coco",
+      "1 c. à café de cannelle",
+      "50 g de raisins secs ou cranberries"
+    ],
+    steps: [
+      "Préchauffer le four à 160 °C.",
+      "Mélanger flocons, noix, miel, huile et cannelle.",
+      "Étaler sur une plaque en couche uniforme.",
+      "Enfourner 20 min en remuant à mi-cuisson.",
+      "Laisser refroidir complètement avant d'ajouter les fruits secs."
+    ],
+    tip: "Ne remue pas pendant la cuisson si tu veux des grosses touffes de granola croustillantes. Laisse vraiment refroidir avant de casser — il durcit en refroidissant."
+  },
+
+  // ── SNACKS ─────────────────────────────────────────────
+
+  // Houmous Maison & Crudités
+  {
+    id: "houmous_maison",
+    name: "Houmous Maison & Crudités",
+    image: "images/Houmous Maison.jpg",
+    time: "10 min",
+    calories: 160,
+    difficulty: "Très facile",
+    category: "snack",
+    description: "Un houmous crémeux maison avec ses crudités croquantes.",
+    ingredients: [
+      "1 boîte de pois chiches (400 g), égouttés",
+      "2 c. à soupe de tahini",
+      "Jus d'1 citron",
+      "1 gousse d'ail",
+      "2 c. à soupe d'huile d'olive",
+      "Sel, cumin, paprika pour décorer",
+      "Crudités : carottes, concombre, céleri, poivron"
+    ],
+    steps: [
+      "Mixer pois chiches, tahini, citron, ail et huile jusqu'à texture lisse.",
+      "Ajouter 2–3 c. à soupe d'eau froide pour la texture souhaitée.",
+      "Dresser dans un bol, faire un puits et verser un filet d'huile.",
+      "Saupoudrer de paprika et servir avec les crudités."
+    ],
+    tip: "Le secret d'un houmous ultra lisse : peler les pois chiches un par un (long mais ça vaut le coup). Ou utiliser des pois chiches en conserve bien rincés."
+  },
+
+  // Edamame Épicés
+  {
+    id: "edamame",
+    name: "Edamame Épicés",
+    image: "images/Edamame.jpg",
+    time: "8 min",
+    calories: 140,
+    difficulty: "Très facile",
+    category: "snack",
+    description: "Le snack japonais : riche en protéines, rapide et addictif.",
+    ingredients: [
+      "200 g d'edamame surgelés (dans leurs cosses)",
+      "Fleur de sel",
+      "Optionnel : piment, ail en poudre, citron"
+    ],
+    steps: [
+      "Faire bouillir de l'eau salée.",
+      "Plonger les edamame 5 min.",
+      "Égoutter et rincer à l'eau froide.",
+      "Saupoudrer de fleur de sel et servir."
+    ],
+    tip: "On mange les fèves en pressant la cosse avec les dents — on ne mange pas la cosse elle-même. Parfait devant un film !"
+  },
+
+  // Crackers Graines Maison
+  {
+    id: "crackers_graines",
+    name: "Crackers Graines Maison",
+    image: "images/Crackers Graines.jpg",
+    time: "30 min",
+    calories: 130,
+    difficulty: "Facile",
+    category: "snack",
+    description: "Des crackers croustillants aux graines, sans farine.",
+    ingredients: [
+      "50 g de graines de tournesol",
+      "50 g de graines de sésame",
+      "30 g de graines de lin",
+      "30 g de graines de chia",
+      "1 c. à soupe de sauce soja",
+      "Eau, sel, herbes"
+    ],
+    steps: [
+      "Préchauffer le four à 160 °C.",
+      "Mélanger toutes les graines avec eau et sauce soja pour lier.",
+      "Étaler finement sur une plaque avec papier cuisson.",
+      "Enfourner 20–25 min jusqu'à ce que ce soit doré et croustillant.",
+      "Laisser refroidir et casser en morceaux."
+    ],
+    tip: "Ces crackers se conservent 2 semaines dans une boîte hermétique. Parfaits avec du houmous ou du guacamole."
+  },
+
+  // Guacamole Maison
+  {
+    id: "guacamole",
+    name: "Guacamole Maison",
+    image: "images/Guacamole.jpg",
+    time: "8 min",
+    calories: 150,
+    difficulty: "Très facile",
+    category: "snack",
+    description: "Le vrai guacamole mexicain, frais et sans fioritures.",
+    ingredients: [
+      "2 avocats mûrs",
+      "Jus d'1 citron vert",
+      "1/2 oignon rouge haché fin",
+      "1 tomate épépinée en dés",
+      "Coriandre fraîche",
+      "Sel, piment (optionnel)"
+    ],
+    steps: [
+      "Écraser les avocats à la fourchette (pas trop lisse).",
+      "Ajouter le citron vert pour éviter l'oxydation.",
+      "Incorporer oignon, tomate et coriandre.",
+      "Assaisonner, goûter et ajuster le citron."
+    ],
+    tip: "Le guacamole doit être légèrement grumeleux, pas en purée. Le citron vert est indispensable : il empêche le noircissement et équilibre le gras de l'avocat."
+  },
+
+  // Verrines Concombre-Fromage Frais
+  {
+    id: "verrines_concombre",
+    name: "Verrines Concombre-Fromage Frais",
+    image: "images/Verrines Concombre.jpg",
+    time: "8 min",
+    calories: 90,
+    difficulty: "Très facile",
+    category: "snack",
+    description: "Un snack frais et léger en quelques minutes.",
+    ingredients: [
+      "1/2 concombre",
+      "100 g de fromage frais allégé (St Môret ou Philadelphia light)",
+      "Aneth ou menthe fraîche",
+      "Jus de citron",
+      "Sel, poivre",
+      "Quelques radis pour décorer"
+    ],
+    steps: [
+      "Éplucher et couper le concombre en dés ou en rondelles.",
+      "Mélanger le fromage frais avec citron, aneth, sel et poivre.",
+      "Dresser en verrines : concombre, crème fraîche, décorer.",
+      "Réfrigérer 10 min avant de servir."
+    ],
+    tip: "Idéal pour l'apéritif ou une collation rafraîchissante. Remplace le fromage frais par du tzatziki pour varier."
+  },
+
+  // ── DESSERTS ────────────────────────────────────────────
+
+  // Banana Nice Cream
+  {
+    id: "banana_nice_cream",
+    name: "Banana Nice Cream",
+    image: "images/Banana Nice Cream.jpg",
+    time: "5 min + congélo",
+    calories: 160,
+    difficulty: "Très facile",
+    category: "dessert",
+    description: "Une glace à la banane 1 ingrédient, crémeuse comme du vrai ice cream.",
+    ingredients: [
+      "3 bananes bien mûres, congelées en rondelles",
+      "Optionnel : cacao, beurre d'amande, fruits rouges, vanille"
+    ],
+    steps: [
+      "Congeler les rondelles de banane au moins 4h.",
+      "Mixer les bananes congelées jusqu'à obtenir une texture crémeuse.",
+      "Ajouter un ingrédient au choix pour varier les saveurs.",
+      "Servir immédiatement ou remettre 30 min au congélo pour plus de fermeté."
+    ],
+    tip: "Plus les bananes sont mûres (avec des taches noires), plus la glace sera sucrée et crémeuse. Ne lésine pas sur la maturité !"
+  },
+
+  // Compote Maison Pomme-Cannelle
+  {
+    id: "compote_pomme",
+    name: "Compote Pomme-Cannelle Maison",
+    image: "images/Compote Pomme.jpg",
+    time: "20 min",
+    calories: 100,
+    difficulty: "Très facile",
+    category: "dessert",
+    description: "La compote maison : zéro sucre ajouté, 100 % pommes.",
+    ingredients: [
+      "4 pommes (Golden ou Fuji)",
+      "1 c. à café de cannelle",
+      "Jus d'1/2 citron",
+      "Optionnel : vanille, cardamome"
+    ],
+    steps: [
+      "Éplucher et couper les pommes en morceaux.",
+      "Mettre dans une casserole avec 3 c. à soupe d'eau.",
+      "Cuire à feu doux 15 min jusqu'à ce que les pommes soient fondantes.",
+      "Mixer ou écraser à la fourchette, ajouter cannelle et citron."
+    ],
+    tip: "Sans sucre ajouté, les pommes Golden sont naturellement assez sucrées. En pot stérilisé, cette compote se conserve 1 mois."
+  },
+
+  // Tarte aux Fruits Légère
+  {
+    id: "tarte_fruits",
+    name: "Tarte aux Fruits Légère",
+    image: "images/Tarte Fruits.jpg",
+    time: "35 min",
+    calories: 240,
+    difficulty: "Facile",
+    category: "dessert",
+    description: "Une tarte légère avec crème pâtissière allégée et fruits frais.",
+    ingredients: [
+      "1 pâte brisée allégée (ou maison avec farine complète)",
+      "Crème allégée : 250 ml de lait demi-écrémé, 2 jaunes, 30 g de maïzena, 1 c. à soupe de miel, vanille",
+      "Fruits frais : fraises, kiwi, framboises, myrtilles"
+    ],
+    steps: [
+      "Cuire la pâte à blanc 15 min à 180 °C.",
+      "Préparer la crème pâtissière : chauffer le lait, mélanger jaunes-maïzena, verser le lait chaud, recuire jusqu'à épaississement.",
+      "Étaler la crème froide sur la pâte.",
+      "Disposer les fruits harmonieusement et réfrigérer 1h."
+    ],
+    tip: "Le miel remplace le sucre dans la crème : saveur plus complexe et index glycémique plus bas."
+  },
+
+  // Panna Cotta Légère Coulis Framboise
+  {
+    id: "panna_cotta",
+    name: "Panna Cotta Légère & Coulis Framboise",
+    image: "images/Panna Cotta.jpg",
+    time: "15 min + repos",
+    calories: 170,
+    difficulty: "Facile",
+    category: "dessert",
+    description: "Un dessert italien délicat, léger et frais.",
+    ingredients: [
+      "400 ml de lait d'amande",
+      "2 feuilles de gélatine",
+      "2 c. à soupe de miel",
+      "1 c. à café d'extrait de vanille",
+      "Coulis : 150 g de framboises, 1 c. à soupe de miel"
+    ],
+    steps: [
+      "Faire tremper la gélatine dans l'eau froide 5 min.",
+      "Chauffer le lait avec miel et vanille sans bouillir.",
+      "Essorer la gélatine et la dissoudre dans le lait chaud.",
+      "Verser dans des ramequins, réfrigérer 4h minimum.",
+      "Mixer les framboises avec le miel pour le coulis, démouler et servir."
+    ],
+    tip: "Le lait d'amande remplace la crème entière : même texture gélifiée, 4x moins de calories. Parsème de quelques framboises fraîches pour la présentation."
+  },
+
+  // Clafoutis Cerises Léger
+  {
+    id: "clafoutis",
+    name: "Clafoutis aux Cerises Léger",
+    image: "images/Clafoutis Cerises.jpg",
+    time: "40 min",
+    calories: 200,
+    difficulty: "Facile",
+    category: "dessert",
+    description: "Le clafoutis traditionnel revisité plus léger et tout aussi gourmand.",
+    ingredients: [
+      "300 g de cerises fraîches ou surgelées",
+      "3 œufs",
+      "40 g de farine complète",
+      "200 ml de lait demi-écrémé",
+      "2 c. à soupe de miel",
+      "1 c. à café de vanille"
+    ],
+    steps: [
+      "Préchauffer le four à 180 °C.",
+      "Fouetter œufs, miel, vanille puis incorporer farine et lait.",
+      "Disposer les cerises dans un plat légèrement huilé.",
+      "Verser l'appareil et enfourner 30–35 min.",
+      "Servir tiède, saupoudrer de sucre glace si souhaité."
+    ],
+    tip: "Les cerises avec noyaux rendent le clafoutis plus savoureux (les noyaux libèrent un goût d'amande) — mais pense à prévenir tes convives !"
   }
 ];
 

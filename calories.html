@@ -158,44 +158,51 @@
       );
       const values = dates.map((d) => dayTotal(data[d] || []));
 
-      const ctx = document.getElementById("calChart").getContext("2d");
-      if (chart) chart.destroy();
+      const colors = values.map((v) =>
+        v > goal ? "rgba(193,122,74,.7)" : "rgba(94,122,82,.65)"
+      );
 
-      chart = new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels,
-          datasets: [
-            {
-              label: "Calories",
-              data: values,
-              backgroundColor: values.map((v) =>
-                v > goal ? "rgba(193,122,74,.7)" : "rgba(94,122,82,.65)"
-              ),
-              borderRadius: 6,
-              barPercentage: 0.6,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { display: false },
-            annotation: null,
+      if (chart) {
+        chart.data.labels = labels;
+        chart.data.datasets[0].data = values;
+        chart.data.datasets[0].backgroundColor = colors;
+        chart.update();
+      } else {
+        const ctx = document.getElementById("calChart").getContext("2d");
+        chart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels,
+            datasets: [
+              {
+                label: "Calories",
+                data: values,
+                backgroundColor: colors,
+                borderRadius: 6,
+                barPercentage: 0.6,
+              },
+            ],
           },
-          scales: {
-            y: {
-              beginAtZero: true,
-              grid: { color: "rgba(0,0,0,.04)" },
-              ticks: { font: { family: "Plus Jakarta Sans", size: 12 } },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { display: false },
+              annotation: null,
             },
-            x: {
-              grid: { display: false },
-              ticks: { font: { family: "Plus Jakarta Sans", size: 12 } },
+            scales: {
+              y: {
+                beginAtZero: true,
+                grid: { color: "rgba(0,0,0,.04)" },
+                ticks: { font: { family: "Plus Jakarta Sans", size: 12 } },
+              },
+              x: {
+                grid: { display: false },
+                ticks: { font: { family: "Plus Jakarta Sans", size: 12 } },
+              },
             },
           },
-        },
-      });
+        });
+      }
     }
 
     // ── Days list ──

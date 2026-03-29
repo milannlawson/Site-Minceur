@@ -1091,3 +1091,51 @@ body {
 .shopping-fab-count[data-zero] {
   display: none;
 }
+
+/* ═══════════════════════════
+   BOUTONS D'ACTION SUR LES CARTES
+   ═══════════════════════════ */
+.card-actions {
+  display: flex;
+  gap: .5rem;
+  margin-top: .85rem;
+  padding-top: .85rem;
+  border-top: 1px solid var(--c-border);
+}
+
+.card-btn {
+  flex: 1;                        /* Les deux boutons partagent l'espace équitablement */
+  padding: .5rem;
+  border: 1.5px solid var(--c-border);
+  border-radius: var(--r-md);
+  background: var(--c-cream);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .35rem;
+}
+
+.card-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Bouton liste de courses — devient vert quand actif */
+.card-btn-shop:hover {
+  background: var(--c-olive-l);
+  border-color: var(--c-olive);
+}
+
+.card-btn-shop.active {
+  background: var(--c-olive-l);
+  border-color: var(--c-olive);
+}
+
+/* Bouton manger — devient terra (orange) au hover */
+.card-btn-eat:hover {
+  background: var(--c-terra-l);
+  border-color: var(--c-terra);
+}

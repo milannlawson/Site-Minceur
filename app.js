@@ -93,9 +93,28 @@
             <span class="card-time">⏱ ${r.time}</span>
             <span class="card-difficulty">${r.difficulty}</span>
           </div>
+          <div class="card-actions">
+            <button class="card-btn card-btn-shop" data-id="${r.id}" title="Ajouter à la liste de courses">
+              🛒
+            </button>
+            <button class="card-btn card-btn-eat" data-id="${r.id}" title="J'ai mangé ça">
+              🍽
+            </button>
+          </div>
         </div>
       `;
       card.addEventListener("click", () => openModal(r));
+      // Bouton 🛒 — stopPropagation empêche l'ouverture du modal
+      card.querySelector('.card-btn-shop').addEventListener('click', (e) => {
+        e.stopPropagation(); // ← Le clic reste sur le bouton, ne remonte pas à la carte
+        toggleShoppingRecipe(r.id, e.currentTarget);
+      });
+
+      // Bouton 🍽 — idem
+      card.querySelector('.card-btn-eat').addEventListener('click', (e) => {
+        e.stopPropagation();
+        addToCalories(r);
+      });
       frag.appendChild(card);
     });
     grid.appendChild(frag);
@@ -215,17 +234,25 @@
   function toggleShoppingRecipe(recipeId, btnEl) {
     if (selectedRecipes.has(recipeId)) {
       selectedRecipes.delete(recipeId);
-      if (btnEl) {
-        btnEl.textContent = "🛒 Ajouter à la liste";
-        btnEl.classList.remove("btn-primary");
-        btnEl.classList.add("btn-secondary");
+      // Retire la classe active sur TOUS les boutons shop de cette recette
+      document.querySelectorAll(`.card-btn-shop[data-id="${recipeId}"]`)
+        .forEach(b => b.classList.remove('active'));
+      // Met à jour le bouton dans le modal si ouvert
+      const modalBtn = document.getElementById('modalShopBtn');
+      if (modalBtn && modalBtn.dataset.id === recipeId) {
+        modalBtn.textContent = "🛒 Ajouter à la liste";
+        modalBtn.classList.remove("btn-primary");
+        modalBtn.classList.add("btn-secondary");
       }
     } else {
       selectedRecipes.add(recipeId);
-      if (btnEl) {
-        btnEl.textContent = "✅ Dans la liste";
-        btnEl.classList.remove("btn-secondary");
-        btnEl.classList.add("btn-primary");
+      document.querySelectorAll(`.card-btn-shop[data-id="${recipeId}"]`)
+        .forEach(b => b.classList.add('active'));
+      const modalBtn = document.getElementById('modalShopBtn');
+      if (modalBtn && modalBtn.dataset.id === recipeId) {
+        modalBtn.textContent = "✅ Dans la liste";
+        modalBtn.classList.remove("btn-secondary");
+        modalBtn.classList.add("btn-primary");
       }
     }
     renderShoppingList();

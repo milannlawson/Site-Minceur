@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>On the Road — Dans mon assiette</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="theme.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-db.js"></script>
+  <style>
+  .run-pace { font-size:.72rem; color:var(--c-text-3); margin-top:.1rem }
+  .run-badge { display:inline-flex; align-items:center; gap:.3rem; font-size:.72rem; font-weight:700; padding:.2rem .6rem; border-radius:var(--r-full); background:var(--c-green-xl); color:var(--c-green); border:1px solid rgba(74,222,128,.15) }
+  .run-delete-btn { background:none; border:none; color:var(--c-text-3); cursor:pointer; font-size:.9rem; padding:.2rem .4rem; border-radius:var(--r-sm); transition:color .2s }
+  .run-delete-btn:hover { color:var(--c-danger) }
+  .run-notes { font-size:.75rem; color:var(--c-text-3); font-style:italic; margin-top:.15rem }
+  .run-entry { display:flex; justify-content:space-between; align-items:center; padding:.85rem 0; border-bottom:1px solid var(--c-border-l); gap:1rem }
+  .run-entry:last-child { border-bottom:none }
+  .run-entry-left { flex:1; min-width:0 }
+  .run-entry-right { display:flex; align-items:center; gap:.75rem; flex-shrink:0 }
+  .run-dist { font-size:1.05rem; font-weight:800; color:var(--c-green); letter-spacing:-.02em }
+  .run-dur { font-size:.78rem; color:var(--c-text-2); font-weight:600 }
+  .run-allure { font-size:.72rem; color:var(--c-text-3) }
+  .duration-inputs { display:flex; align-items:center; gap:.35rem }
+  .duration-inputs input { width:62px; text-align:center }
+  .duration-inputs span { color:var(--c-text-3); font-weight:700; font-size:.9rem }
+  .pb-banner { background:var(--c-green-xl); border:1px solid rgba(74,222,128,.25); border-radius:var(--r-lg); padding:.65rem 1rem; font-size:.82rem; color:var(--c-green); font-weight:700; margin-bottom:1.25rem; display:none }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">Dans mon assiette</a>
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Changer le thème">☀️</button>
+      <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="recettes.html">Recettes</a></li>
+        <li><a href="calories.html">Mes Calories</a></li>
+        <li><a href="sport.html">Sport</a></li>
+        <li><a href="poids.html">Mon Poids</a></li>
+        <li><a href="running.html" class="active">On the Road</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <div class="cal-header">
+    <h1>On the Road 🏃</h1>
+    <div class="cal-stats">
+      <div class="cal-stat">
+        <div class="cal-stat-val" id="totalKm">0</div>
+        <div class="cal-stat-lab">Km au total</div>
+      </div>
+      <div class="cal-stat">
+        <div class="cal-stat-val" id="totalRuns">0</div>
+        <div class="cal-stat-lab">Sorties</div>
+      </div>
+      <div class="cal-stat">
+        <div class="cal-stat-val" id="bestPace">–</div>
+        <div class="cal-stat-lab">Meilleure allure</div>
+      </div>
+      <div class="cal-stat">
+        <div class="cal-stat-val" id="weekKm">0</div>
+        <div class="cal-stat-lab">Km cette semaine</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cal-content">
+
+    <!-- Nouveau run -->
+    <div class="weight-form" style="flex-wrap:wrap;gap:.65rem">
+      <input type="date" id="runDate" style="min-width:140px">
+      <input type="number" id="runDist" placeholder="Distance (km)" min="0.1" max="200" step="0.01" style="width:150px">
+      <span style="color:var(--c-text-3);font-size:.85rem">km</span>
+      <div class="duration-inputs">
+        <input type="number" id="runMin" placeholder="min" min="0" max="999">
+        <span>:</span>
+        <input type="number" id="runSec" placeholder="ss" min="0" max="59" style="width:52px">
+      </div>
+      <input type="text" id="runNotes" placeholder="Notes (optionnel)" style="flex:1;min-width:150px">
+      <button class="btn btn-sm btn-primary" id="addRunBtn">Ajouter</button>
+    </div>
+
+    <div id="pbBanner" class="pb-banner">🏅 Nouveau record d'allure !</div>
+
+    <!-- Period selector -->
+    <div class="period-tabs">
+      <button class="period-tab active" data-period="week">Semaine</button>
+      <button class="period-tab" data-period="month">Mois</button>
+      <button class="period-tab" data-period="all">Tout</button>
+    </div>
+
+    <!-- Chart -->
+    <div class="chart-wrap">
+      <canvas id="runChart"></canvas>
+    </div>
+
+    <!-- Objectif -->
+    <div class="goal-row">
+      <label>Objectif hebdo :</label>
+      <input type="number" id="goalInput" placeholder="Ex : 20" min="1" max="500" step="0.5">
+      <span>km/semaine</span>
+      <button class="btn btn-sm btn-primary" id="saveGoalBtn">Sauvegarder</button>
+    </div>
+
+    <!-- Historique -->
+    <div class="days-section">
+      <h3>Mes sorties</h3>
+      <div id="runList"></div>
+    </div>
+
+    <!-- Actions -->
+    <div class="cal-actions">
+      <button class="btn btn-secondary" id="exportBtn">📄 Exporter</button>
+      <button class="btn btn-danger" id="clearBtn">Effacer tout</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>Dans mon assiette — Prendre soin de toi, un plat à la fois.</p>
+  </footer>
+
+  <script>
+  (function () {
+    "use strict";
+
+    const STORAGE_KEY = "runningData";
+    const GOAL_KEY    = "runningGoal";
+    let chart = null;
+    let currentPeriod = "week";
+
+    function getData() {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    }
+    function saveData(arr) {
+      window.dbSet(STORAGE_KEY, JSON.stringify(arr));
+    }
+    function getGoal() {
+      return parseFloat(localStorage.getItem(GOAL_KEY) || "") || null;
+    }
+    function todayKey() {
+      return new Date().toISOString().split("T")[0];
+    }
+    function fmtDate(d) {
+      return new Date(d).toLocaleDateString("fr-FR", { weekday:"short", day:"numeric", month:"short", year:"numeric" });
+    }
+    // Allure en min/km → "X'YY''"
+    function calcPace(distKm, totalSec) {
+      if (!distKm || !totalSec) return null;
+      const secPerKm = totalSec / distKm;
+      const m = Math.floor(secPerKm / 60);
+      const s = Math.round(secPerKm % 60);
+      return `${m}'${String(s).padStart(2,"0")}''`;
+    }
+    function paceToSec(paceStr) {
+      if (!paceStr) return Infinity;
+      const [m, rest] = paceStr.split("'");
+      return parseInt(m) * 60 + parseInt(rest);
+    }
+    function fmtDuration(totalSec) {
+      const h = Math.floor(totalSec / 3600);
+      const m = Math.floor((totalSec % 3600) / 60);
+      const s = totalSec % 60;
+      if (h > 0) return `${h}h${String(m).padStart(2,"0")}'${String(s).padStart(2,"0")}''`;
+      return `${m}'${String(s).padStart(2,"0")}''`;
+    }
+
+    // ── Stats ──
+    function updateSummary() {
+      const data = getData().sort((a, b) => a.date.localeCompare(b.date));
+      const total = data.reduce((s, e) => s + e.dist, 0);
+      document.getElementById("totalKm").textContent   = Math.round(total * 10) / 10;
+      document.getElementById("totalRuns").textContent = data.length;
+
+      const paces = data.filter(e => e.pace).map(e => paceToSec(e.pace));
+      const best  = paces.length ? Math.min(...paces) : null;
+      document.getElementById("bestPace").textContent = best
+        ? `${Math.floor(best/60)}'${String(best%60).padStart(2,"0")}''`
+        : "–";
+
+      const now = new Date();
+      let weekKm = 0;
+      data.forEach(e => {
+        const d = new Date(e.date);
+        const diff = (now - d) / (1000 * 60 * 60 * 24);
+        if (diff <= 7) weekKm += e.dist;
+      });
+      document.getElementById("weekKm").textContent = Math.round(weekKm * 10) / 10;
+    }
+
+    // ── Chart ──
+    function updateChart() {
+      const all  = getData().sort((a, b) => a.date.localeCompare(b.date));
+      const goal = getGoal();
+      const now  = new Date();
+      let entries = all;
+
+      if (currentPeriod === "week") {
+        const dates = [];
+        for (let i = 6; i >= 0; i--) {
+          const d = new Date(); d.setDate(d.getDate() - i);
+          dates.push(d.toISOString().split("T")[0]);
+        }
+        const labels = dates.map(d => new Date(d).toLocaleDateString("fr-FR", { weekday:"short", day:"numeric" }));
+        const values = dates.map(key => {
+          const runs = all.filter(e => e.date === key);
+          return runs.length ? Math.round(runs.reduce((s, e) => s + e.dist, 0) * 100) / 100 : null;
+        });
+        drawChart(labels, values, goal ? Array(7).fill(goal / 7) : null, goal);
+        return;
+      }
+
+      if (currentPeriod === "month") {
+        entries = all.filter(e => {
+          const d = new Date(e.date);
+          return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+        });
+      }
+
+      const labels = entries.map(e => new Date(e.date).toLocaleDateString("fr-FR", { day:"numeric", month:"short" }));
+      const values = entries.map(e => e.dist);
+      drawChart(labels, values, null, goal);
+    }
+
+    function drawChart(labels, values, goalLine, goalTotal) {
+      const datasets = [
+        {
+          label: "Distance (km)",
+          data: values,
+          backgroundColor: values.map(v => v ? "rgba(74,222,128,.6)" : "transparent"),
+          borderColor: "rgba(74,222,128,1)",
+          borderRadius: 6,
+          barPercentage: 0.6,
+          type: "bar",
+          order: 2,
+        }
+      ];
+      if (goalLine) {
+        datasets.push({
+          label: `Objectif/jour (${Math.round(goalLine[0]*10)/10} km)`,
+          data: goalLine,
+          borderColor: "rgba(251,146,60,.9)",
+          borderWidth: 2,
+          borderDash: [6, 4],
+          pointRadius: 0,
+          fill: false,
+          type: "line",
+          order: 1,
+        });
+      }
+
+      if (chart) {
+        chart.data.labels = labels;
+        chart.data.datasets.splice(0, chart.data.datasets.length, ...datasets);
+        chart.update();
+      } else {
+        const ctx = document.getElementById("runChart").getContext("2d");
+        chart = new Chart(ctx, {
+          type: "bar",
+          data: { labels, datasets },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { display: !!goalLine, labels: { font: { family:"Plus Jakarta Sans", size:12 } } },
+              tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y ?? 0} km` } }
+            },
+            scales: {
+              y: { beginAtZero: true, grid: { color:"rgba(0,0,0,.04)" }, ticks: { font:{family:"Plus Jakarta Sans",size:12} } },
+              x: { grid: { display:false }, ticks: { font:{family:"Plus Jakarta Sans",size:12} } },
+            },
+          },
+        });
+      }
+    }
+
+    // ── Liste ──
+    function updateList() {
+      const data = getData().sort((a, b) => b.date.localeCompare(a.date));
+      const list = document.getElementById("runList");
+
+      if (!data.length) {
+        list.innerHTML = '<p style="color:var(--c-text-3);padding:1rem 0">Aucune sortie pour le moment. Lance-toi !</p>';
+        return;
+      }
+
+      list.innerHTML = data.map(e => `
+        <div class="run-entry">
+          <div class="run-entry-left">
+            <div class="day-date">${fmtDate(e.date)}</div>
+            ${e.notes ? `<div class="run-notes">${e.notes}</div>` : ""}
+          </div>
+          <div class="run-entry-right">
+            <div style="text-align:right">
+              <div class="run-dist">${e.dist} km</div>
+              <div class="run-dur">${fmtDuration(e.duration)}</div>
+              ${e.pace ? `<div class="run-allure">Allure : ${e.pace}/km</div>` : ""}
+            </div>
+            <button class="run-delete-btn" data-id="${e.id}" title="Supprimer">✕</button>
+          </div>
+        </div>`).join("");
+
+      list.querySelectorAll(".run-delete-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const filtered = getData().filter(e => e.id !== btn.dataset.id);
+          saveData(filtered);
+          refresh();
+        });
+      });
+    }
+
+    function refresh() {
+      updateSummary();
+      updateChart();
+      updateList();
+    }
+
+    // ── Ajouter une sortie ──
+    document.getElementById("addRunBtn").addEventListener("click", () => {
+      const date  = document.getElementById("runDate").value;
+      const dist  = parseFloat(document.getElementById("runDist").value);
+      const min   = parseInt(document.getElementById("runMin").value) || 0;
+      const sec   = parseInt(document.getElementById("runSec").value) || 0;
+      const notes = document.getElementById("runNotes").value.trim();
+
+      if (!date || isNaN(dist) || dist <= 0) {
+        showToast("Renseigne une date et une distance valide.");
+        return;
+      }
+      if (min === 0 && sec === 0) {
+        showToast("Renseigne la durée de ta sortie.");
+        return;
+      }
+
+      const totalSec = min * 60 + sec;
+      const pace = calcPace(dist, totalSec);
+
+      // Vérifier record d'allure
+      const prevBest = getData().filter(e => e.pace).map(e => paceToSec(e.pace));
+      const isNewPB  = pace && (prevBest.length === 0 || paceToSec(pace) < Math.min(...prevBest));
+
+      const entry = { id: Date.now().toString(), date, dist, duration: totalSec, pace, notes };
+      const data  = getData();
+      data.push(entry);
+      saveData(data);
+
+      document.getElementById("runDist").value  = "";
+      document.getElementById("runMin").value   = "";
+      document.getElementById("runSec").value   = "";
+      document.getElementById("runNotes").value = "";
+
+      refresh();
+
+      if (isNewPB) {
+        const banner = document.getElementById("pbBanner");
+        banner.style.display = "block";
+        banner.textContent = `🏅 Nouveau record d'allure : ${pace}/km !`;
+        setTimeout(() => banner.style.display = "none", 4000);
+      }
+      showToast(`Sortie ajoutée : ${dist} km en ${fmtDuration(totalSec)}${pace ? ` (${pace}/km)` : ""}`);
+    });
+
+    // ── Objectif ──
+    const goalInput = document.getElementById("goalInput");
+    goalInput.value = getGoal() || "";
+    document.getElementById("saveGoalBtn").addEventListener("click", () => {
+      const v = parseFloat(goalInput.value);
+      if (isNaN(v) || v <= 0) { showToast("Objectif invalide."); return; }
+      window.dbSet(GOAL_KEY, String(v));
+      updateChart();
+      showToast("Objectif sauvegardé !");
+    });
+
+    // ── Period tabs ──
+    document.querySelectorAll(".period-tab").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelector(".period-tab.active").classList.remove("active");
+        btn.classList.add("active");
+        currentPeriod = btn.dataset.period;
+        updateChart();
+      });
+    });
+
+    // ── Export ──
+    document.getElementById("exportBtn").addEventListener("click", () => {
+      const data = getData().sort((a, b) => a.date.localeCompare(b.date));
+      const lines = ["Date,Distance (km),Durée (s),Allure (min/km),Notes",
+        ...data.map(e => `${e.date},${e.dist},${e.duration},${e.pace || ""},${e.notes || ""}`)];
+      const blob = new Blob([lines.join("\n")], { type: "text/csv" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `running-${todayKey()}.csv`;
+      a.click();
+      showToast("Export CSV téléchargé");
+    });
+
+    // ── Effacer ──
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      if (confirm("Effacer toutes les données de running ?")) {
+        saveData([]);
+        refresh();
+        showToast("Données effacées");
+      }
+    });
+
+    // ── Toast ──
+    function showToast(msg) {
+      const el = document.createElement("div");
+      el.className = "toast";
+      el.textContent = msg;
+      document.body.appendChild(el);
+      requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add("show")));
+      setTimeout(() => { el.classList.remove("show"); setTimeout(() => el.remove(), 400); }, 2500);
+    }
+
+    // ── Sync Firestore → re-render ──
+    window.__onDbSync = refresh;
+
+    // ── Init ──
+    document.getElementById("runDate").value = todayKey();
+    refresh();
+  })();
+  </script>
+</body>
+</html>

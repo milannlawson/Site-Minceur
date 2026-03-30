@@ -11,32 +11,948 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <script src="firebase-db.js"></script>
   <style>
-  .run-pace { font-size:.72rem; color:var(--c-text-3); margin-top:.1rem }
-  .run-badge { display:inline-flex; align-items:center; gap:.3rem; font-size:.72rem; font-weight:700; padding:.2rem .6rem; border-radius:var(--r-full); background:var(--c-green-xl); color:var(--c-green); border:1px solid rgba(74,222,128,.15) }
-  .run-delete-btn { background:none; border:none; color:var(--c-text-3); cursor:pointer; font-size:.9rem; padding:.2rem .4rem; border-radius:var(--r-sm); transition:color .2s }
-  .run-delete-btn:hover { color:var(--c-danger) }
-  .run-notes { font-size:.75rem; color:var(--c-text-3); font-style:italic; margin-top:.15rem }
-  .run-entry { display:flex; justify-content:space-between; align-items:center; padding:.85rem 0; border-bottom:1px solid var(--c-border-l); gap:1rem }
-  .run-entry:last-child { border-bottom:none }
-  .run-entry-left { flex:1; min-width:0 }
-  .run-entry-right { display:flex; align-items:center; gap:.75rem; flex-shrink:0 }
-  .run-dist { font-size:1.05rem; font-weight:800; color:var(--c-green); letter-spacing:-.02em }
-  .run-dur { font-size:.78rem; color:var(--c-text-2); font-weight:600 }
-  .run-allure { font-size:.72rem; color:var(--c-text-3) }
-  .duration-inputs { display:flex; align-items:center; gap:.35rem }
-  .duration-inputs input { width:62px; text-align:center }
-  .duration-inputs span { color:var(--c-text-3); font-weight:700; font-size:.9rem }
-  .pb-banner { background:var(--c-green-xl); border:1px solid rgba(74,222,128,.25); border-radius:var(--r-lg); padding:.65rem 1rem; font-size:.82rem; color:var(--c-green); font-weight:700; margin-bottom:1.25rem; display:none }
+  /* ─── Reset page ─── */
+  body { overflow-x: hidden }
+
+  /* ─── Hero ─── */
+  .run-hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #060b10;
+  }
+
+  /* Ciel dégradé animé */
+  .run-hero-sky {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(170deg, #060b10 0%, #0d1f2d 35%, #1a3a2e 65%, #0a1a10 100%);
+    animation: skyPulse 8s ease-in-out infinite alternate;
+    transition: background 1.6s ease;
+  }
+  [data-theme="light"] .run-hero-sky {
+    background: linear-gradient(170deg, #1a6fa8 0%, #3a9fd4 20%, #87ceeb 45%, #c8e8f5 60%, #fce38a 80%, #f5a94a 100%);
+    animation: none;
+  }
+  @keyframes skyPulse {
+    from { filter: brightness(1) }
+    to   { filter: brightness(1.12) }
+  }
+
+  /* Étoiles */
+  .run-stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    transition: opacity 1s ease;
+  }
+  [data-theme="light"] .run-stars { opacity: 0; pointer-events: none }
+  .run-star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--d, 3s) ease-in-out infinite alternate;
+  }
+  @keyframes twinkle {
+    from { opacity: var(--o1, .2); transform: scale(1) }
+    to   { opacity: var(--o2, .9); transform: scale(1.4) }
+  }
+
+  /* ── Corps céleste : wrapper qui slide ── */
+  .run-celestial-wrap {
+    position: absolute;
+    top: 10%;
+    left: 78%;   /* mode sombre : côté droit */
+    z-index: 6;
+    pointer-events: none;
+    transition: left 1.6s cubic-bezier(.4, 0, .2, 1),
+                top  1.0s cubic-bezier(.4, 0, .2, 1);
+  }
+  [data-theme="light"] .run-celestial-wrap {
+    left: 6%;    /* mode clair : côté gauche */
+    top: 7%;
+  }
+
+  /* Rayons solaires — visibles uniquement en mode clair */
+  .run-sun-rays {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 260px;
+    height: 260px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: repeating-conic-gradient(
+      rgba(255, 210, 60, .22) 0deg 12deg,
+      transparent 12deg 24deg
+    );
+    opacity: 0;
+    transition: opacity .8s ease .6s;
+    animation: raysRotate 30s linear infinite;
+  }
+  [data-theme="light"] .run-sun-rays { opacity: 1 }
+  @keyframes raysRotate {
+    from { transform: translate(-50%, -50%) rotate(0deg) }
+    to   { transform: translate(-50%, -50%) rotate(360deg) }
+  }
+
+  /* Halo externe */
+  .run-sun-halo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 160px;
+    height: 160px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,200,50,.18) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity .8s ease .4s;
+    animation: haloBreath 3s ease-in-out infinite alternate;
+  }
+  [data-theme="light"] .run-sun-halo { opacity: 1 }
+  @keyframes haloBreath {
+    from { transform: translate(-50%, -50%) scale(1) }
+    to   { transform: translate(-50%, -50%) scale(1.15) }
+  }
+
+  /* Lune / Soleil */
+  .run-moon {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fffbe6, #f5d97a);
+    box-shadow: 0 0 60px 20px rgba(245,217,122,.18), 0 0 120px 50px rgba(245,217,122,.07);
+    animation: moonFloat 6s ease-in-out infinite alternate;
+    transition: width .9s ease, height .9s ease, background 1.2s ease, box-shadow 1.2s ease;
+    z-index: 2;
+  }
+  [data-theme="light"] .run-moon {
+    width: 96px;
+    height: 96px;
+    background: radial-gradient(circle at 50% 50%, #fff9c4 0%, #ffd54f 50%, #ffb300 100%);
+    box-shadow: 0 0 60px 24px rgba(255,185,0,.45), 0 0 140px 60px rgba(255,185,0,.2), 0 0 250px 100px rgba(255,185,0,.08);
+  }
+  @keyframes moonFloat {
+    from { transform: translateY(0) }
+    to   { transform: translateY(-12px) }
+  }
+
+  /* Montagnes — couches parallaxe */
+  .run-mountains {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+  }
+  .run-mtn-far {
+    position: absolute;
+    bottom: 18%;
+    left: 0; right: 0;
+    height: 220px;
+    background: #0d2218;
+    clip-path: polygon(0 100%, 0 70%, 8% 45%, 16% 65%, 24% 30%, 32% 55%, 40% 20%, 50% 50%, 58% 28%, 66% 48%, 74% 22%, 83% 50%, 90% 35%, 100% 55%, 100% 100%);
+    will-change: transform;
+    transition: background 1.6s ease;
+  }
+  [data-theme="light"] .run-mtn-far  { background: #2e6e44 }
+  .run-mtn-mid {
+    position: absolute;
+    bottom: 12%;
+    left: 0; right: 0;
+    height: 200px;
+    background: #0a1c13;
+    clip-path: polygon(0 100%, 0 60%, 10% 40%, 20% 58%, 30% 25%, 42% 52%, 54% 18%, 64% 44%, 75% 32%, 86% 55%, 93% 38%, 100% 50%, 100% 100%);
+    will-change: transform;
+    transition: background 1.6s ease;
+  }
+  [data-theme="light"] .run-mtn-mid  { background: #1e5232 }
+  .run-mtn-close {
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    height: 160px;
+    background: #060e09;
+    clip-path: polygon(0 100%, 0 55%, 12% 35%, 22% 60%, 35% 42%, 46% 65%, 55% 30%, 67% 55%, 78% 38%, 88% 60%, 100% 40%, 100% 100%);
+    will-change: transform;
+    transition: background 1.6s ease;
+  }
+  [data-theme="light"] .run-mtn-close { background: #0f3d1e }
+
+  /* Route */
+  .run-road-wrap {
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    height: 22%;
+  }
+  .run-road-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Arbres */
+  .run-trees {
+    position: absolute;
+    bottom: 18%;
+    left: 0; right: 0;
+    height: 120px;
+    display: flex;
+    align-items: flex-end;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .run-tree {
+    flex-shrink: 0;
+    animation: treeWave var(--tw, 4s) ease-in-out infinite alternate;
+    transform-origin: bottom center;
+  }
+  @keyframes treeWave {
+    from { transform: rotate(var(--r1, -1deg)) }
+    to   { transform: rotate(var(--r2, 1deg)) }
+  }
+
+  /* Lumière du soleil sur les arbres (mode clair) */
+  [data-theme="light"] .run-trees { filter: brightness(1.4) saturate(1.3) }
+
+  /* Silhouette runner */
+  .run-runner-wrap {
+    position: absolute;
+    bottom: 20%;
+    left: 20%;
+    animation: runnerMove 0.55s steps(1) infinite;
+    will-change: transform;
+  }
+  .run-runner-svg {
+    width: 56px;
+    height: 80px;
+    filter: drop-shadow(0 4px 12px rgba(74,222,128,.3));
+  }
+  @keyframes runnerMove {
+    0%   { transform: translateY(0) }
+    50%  { transform: translateY(-3px) }
+    100% { transform: translateY(0) }
+  }
+
+  /* Particules lumineuses */
+  .run-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .run-particle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--c-green);
+    opacity: 0;
+    animation: particleFly var(--pd, 6s) ease-in infinite;
+    animation-delay: var(--pdelay, 0s);
+  }
+  @keyframes particleFly {
+    0%   { opacity: 0; transform: translateY(0) scale(0) }
+    15%  { opacity: .6 }
+    100% { opacity: 0; transform: translateY(-80vh) scale(1) }
+  }
+
+  /* Texte hero */
+  .run-hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 2rem;
+    animation: heroContentIn 1.2s cubic-bezier(.16,1,.3,1) both;
+  }
+  @keyframes heroContentIn {
+    from { opacity: 0; transform: translateY(40px) }
+    to   { opacity: 1; transform: translateY(0) }
+  }
+  .run-hero-eyebrow {
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--c-green);
+    margin-bottom: .75rem;
+    opacity: 0;
+    animation: fadeUp .8s .3s ease both;
+  }
+  .run-hero-title {
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -.04em;
+    color: #fff;
+    margin-bottom: .5rem;
+    opacity: 0;
+    animation: fadeUp .9s .5s ease both;
+  }
+  .run-hero-title span {
+    background: linear-gradient(90deg, #4ade80, #22c55e, #86efac);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .run-hero-sub {
+    font-size: 1rem;
+    color: #22c55e;
+    font-weight: 400;
+    letter-spacing: .02em;
+    opacity: 0;
+    animation: fadeUp .9s .7s ease both;
+  }
+  .run-hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .4rem;
+    opacity: 0;
+    animation: fadeUp .8s 1.2s ease both;
+    cursor: pointer;
+  }
+  .run-hero-scroll span {
+    font-size: .65rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.35);
+    font-weight: 600;
+  }
+  .run-scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(74,222,128,.6), transparent);
+    animation: scrollLine 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0%   { transform: scaleY(0); transform-origin: top }
+    50%  { transform: scaleY(1); transform-origin: top }
+    51%  { transform: scaleY(1); transform-origin: bottom }
+    100% { transform: scaleY(0); transform-origin: bottom }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px) }
+    to   { opacity: 1; transform: translateY(0) }
+  }
+
+  /* ─── Stats bande ─── */
+  .run-stats-strip {
+    background: #060e09;
+    border-top: 1px solid rgba(74,222,128,.1);
+    border-bottom: 1px solid rgba(74,222,128,.08);
+    padding: 2.5rem 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .run-stats-strip::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 100% at 50% 50%, rgba(74,222,128,.04), transparent);
+    pointer-events: none;
+  }
+  .run-stat-item {
+    padding: 1.5rem;
+    text-align: center;
+    border-right: 1px solid rgba(74,222,128,.08);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .run-stat-item:last-child { border-right: none }
+  .run-stat-item.visible { opacity: 1; transform: translateY(0) }
+  .run-stat-num {
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: -.04em;
+    color: var(--c-green);
+    line-height: 1;
+    margin-bottom: .35rem;
+  }
+  .run-stat-unit {
+    font-size: .65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: rgba(255,255,255,.3);
+  }
+  .run-stat-label {
+    font-size: .78rem;
+    color: rgba(255,255,255,.5);
+    margin-top: .2rem;
+  }
+
+  /* ─── Sections ─── */
+  .run-section {
+    background: #060e09;
+    padding: 5rem 1.5rem;
+    position: relative;
+  }
+  .run-section-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .run-section-label {
+    font-size: .65rem;
+    font-weight: 800;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--c-green);
+    margin-bottom: .75rem;
+  }
+  .run-section-title {
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    font-weight: 900;
+    letter-spacing: -.03em;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 2.5rem;
+  }
+  .run-section-title em {
+    font-style: normal;
+    color: var(--c-green);
+  }
+
+  /* Reveal au scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0) }
+  .reveal-delay-1 { transition-delay: .1s }
+  .reveal-delay-2 { transition-delay: .2s }
+  .reveal-delay-3 { transition-delay: .3s }
+  .reveal-delay-4 { transition-delay: .4s }
+
+  /* ─── Formulaire ─── */
+  .run-form-card {
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(74,222,128,.12);
+    border-radius: 20px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .run-form-card::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(74,222,128,.08), transparent 70%);
+    pointer-events: none;
+  }
+  .run-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  .run-field {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+  .run-field label {
+    font-size: .65rem;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.4);
+  }
+  .run-field input {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    font-family: var(--font-body);
+    font-size: .9rem;
+    color: #fff;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s, background .2s;
+    width: 100%;
+  }
+  .run-field input::placeholder { color: rgba(255,255,255,.2) }
+  .run-field input:focus {
+    border-color: rgba(74,222,128,.5);
+    background: rgba(74,222,128,.04);
+    box-shadow: 0 0 0 3px rgba(74,222,128,.08);
+  }
+  .run-duration-row {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .run-duration-row input { flex: 1 }
+  .run-duration-sep {
+    color: rgba(255,255,255,.3);
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  .run-submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    letter-spacing: .02em;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 4px 24px rgba(34,197,94,.25);
+  }
+  .run-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(34,197,94,.35);
+  }
+  .run-submit-btn:active { transform: translateY(0) }
+
+  /* Record PB */
+  .run-pb-banner {
+    display: none;
+    align-items: center;
+    gap: .75rem;
+    background: rgba(74,222,128,.08);
+    border: 1px solid rgba(74,222,128,.25);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    font-size: .9rem;
+    font-weight: 700;
+    color: var(--c-green);
+    animation: pbPop .5s cubic-bezier(.16,1,.3,1);
+  }
+  .run-pb-banner.show { display: flex }
+  .run-pb-icon { font-size: 1.4rem }
+  @keyframes pbPop {
+    from { opacity: 0; transform: scale(.9) }
+    to   { opacity: 1; transform: scale(1) }
+  }
+
+  /* ─── Séparateur visuel ─── */
+  .run-divider {
+    position: relative;
+    height: 200px;
+    background: #060e09;
+    overflow: hidden;
+  }
+  .run-divider-road {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 100%;
+  }
+
+  /* ─── Chart ─── */
+  .run-chart-card {
+    background: rgba(255,255,255,.02);
+    border: 1px solid rgba(74,222,128,.1);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .run-chart-card::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(74,222,128,.06), transparent 70%);
+    pointer-events: none;
+  }
+  .run-period-tabs {
+    display: flex;
+    gap: .25rem;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 100px;
+    padding: .25rem;
+    width: fit-content;
+    margin-bottom: 1.5rem;
+  }
+  .run-period-btn {
+    padding: .45rem 1rem;
+    border: none;
+    border-radius: 100px;
+    font-family: var(--font-body);
+    font-size: .78rem;
+    font-weight: 600;
+    background: transparent;
+    color: rgba(255,255,255,.4);
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .run-period-btn.active {
+    background: rgba(74,222,128,.12);
+    color: var(--c-green);
+    box-shadow: 0 0 0 1px rgba(74,222,128,.2);
+  }
+
+  /* ─── Objectif ─── */
+  .run-goal-card {
+    background: rgba(255,255,255,.02);
+    border: 1px solid rgba(74,222,128,.1);
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .run-goal-icon {
+    font-size: 2.5rem;
+    line-height: 1;
+    animation: goalPulse 2.5s ease-in-out infinite;
+  }
+  @keyframes goalPulse {
+    0%,100% { transform: scale(1) }
+    50%      { transform: scale(1.1) }
+  }
+  .run-goal-text { flex: 1; min-width: 160px }
+  .run-goal-title { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: .2rem }
+  .run-goal-sub { font-size: .78rem; color: rgba(255,255,255,.4) }
+  .run-goal-inputs { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap }
+  .run-goal-inputs input {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px;
+    padding: .65rem .9rem;
+    font-family: var(--font-body);
+    font-size: .9rem;
+    color: #fff;
+    outline: none;
+    width: 110px;
+    transition: border-color .2s;
+  }
+  .run-goal-inputs input:focus { border-color: rgba(74,222,128,.4) }
+  .run-goal-inputs span { font-size: .8rem; color: rgba(255,255,255,.4) }
+  .run-goal-save {
+    padding: .65rem 1.25rem;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    border: none;
+    border-radius: 10px;
+    font-family: var(--font-body);
+    font-size: .82rem;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 2px 16px rgba(34,197,94,.2);
+    white-space: nowrap;
+  }
+  .run-goal-save:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(34,197,94,.3) }
+
+  /* ─── Historique ─── */
+  .run-history-list { display: flex; flex-direction: column; gap: .75rem }
+  .run-history-item {
+    background: rgba(255,255,255,.02);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    transition: border-color .25s, background .25s, transform .25s;
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  .run-history-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .run-history-item:hover {
+    border-color: rgba(74,222,128,.2);
+    background: rgba(74,222,128,.03);
+    transform: translateX(4px);
+  }
+  .run-history-num {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: rgba(74,222,128,.08);
+    border: 1px solid rgba(74,222,128,.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .75rem;
+    font-weight: 800;
+    color: var(--c-green);
+    flex-shrink: 0;
+  }
+  .run-history-body { flex: 1; min-width: 0 }
+  .run-history-date {
+    font-size: .75rem;
+    color: rgba(255,255,255,.4);
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    margin-bottom: .2rem;
+  }
+  .run-history-notes {
+    font-size: .75rem;
+    color: rgba(255,255,255,.3);
+    font-style: italic;
+    margin-top: .15rem;
+  }
+  .run-history-stats { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; flex-wrap: wrap }
+  .run-history-dist {
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: -.03em;
+    color: #fff;
+  }
+  .run-history-dist span { font-size: .7rem; font-weight: 600; color: rgba(255,255,255,.35); margin-left: .1rem }
+  .run-history-meta { text-align: right }
+  .run-history-time { font-size: .82rem; font-weight: 700; color: rgba(255,255,255,.7) }
+  .run-history-pace {
+    font-size: .7rem;
+    color: var(--c-green);
+    font-weight: 700;
+    margin-top: .1rem;
+  }
+  .run-history-del {
+    background: none;
+    border: 1px solid rgba(255,255,255,.08);
+    color: rgba(255,255,255,.2);
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: .8rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .2s;
+    flex-shrink: 0;
+  }
+  .run-history-del:hover { border-color: rgba(239,68,68,.4); color: #ef4444; background: rgba(239,68,68,.06) }
+
+  /* ─── Footer section ─── */
+  .run-footer-section {
+    background: #060e09;
+    border-top: 1px solid rgba(74,222,128,.08);
+    padding: 2rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .run-action-btn {
+    padding: .75rem 1.5rem;
+    border-radius: 12px;
+    font-family: var(--font-body);
+    font-size: .85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .2s;
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.04);
+    color: rgba(255,255,255,.6);
+    letter-spacing: .02em;
+  }
+  .run-action-btn:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.2); color: #fff }
+  .run-action-btn.danger:hover { background: rgba(239,68,68,.08); border-color: rgba(239,68,68,.3); color: #ef4444 }
+
+  /* ─── Toast ─── */
+  .run-toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(10,20,12,.95);
+    border: 1px solid rgba(74,222,128,.25);
+    border-radius: 100px;
+    padding: .75rem 1.5rem;
+    font-size: .85rem;
+    font-weight: 600;
+    color: #fff;
+    z-index: 999;
+    opacity: 0;
+    transition: opacity .35s, transform .35s;
+    white-space: nowrap;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0,0,0,.4);
+  }
+  .run-toast.show { opacity: 1; transform: translateX(-50%) translateY(0) }
+
+  /* ─── Barre nav override dark ─── */
+  .run-page .site-nav {
+    background: rgba(6,14,9,.85);
+    border-bottom: 1px solid rgba(74,222,128,.1);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+  .run-page .site-footer { background: #040a06; border-top: 1px solid rgba(74,222,128,.08) }
+
+  /* ─── Mode clair ─── */
+  [data-theme="light"] .run-stats-strip {
+    background: #f0f5f1;
+    border-color: rgba(34,197,94,.15);
+  }
+  [data-theme="light"] .run-stats-strip::before {
+    background: radial-gradient(ellipse 60% 100% at 50% 50%, rgba(34,197,94,.05), transparent);
+  }
+  [data-theme="light"] .run-stat-item {
+    border-color: rgba(34,197,94,.12);
+  }
+  [data-theme="light"] .run-stat-num { color: #16a34a }
+  [data-theme="light"] .run-stat-unit { color: rgba(0,0,0,.35) }
+  [data-theme="light"] .run-stat-label { color: rgba(0,0,0,.5) }
+
+  [data-theme="light"] .run-section { background: #f7faf8 }
+  [data-theme="light"] .run-section-label { color: #16a34a }
+  [data-theme="light"] .run-section-title { color: #0f1f14 }
+  [data-theme="light"] .run-section-title em { color: #16a34a }
+
+  [data-theme="light"] .run-form-card {
+    background: #fff;
+    border-color: rgba(34,197,94,.2);
+    box-shadow: 0 2px 20px rgba(0,0,0,.06);
+  }
+  [data-theme="light"] .run-form-card::before {
+    background: radial-gradient(circle, rgba(34,197,94,.06), transparent 70%);
+  }
+  [data-theme="light"] .run-field label { color: rgba(0,0,0,.45) }
+  [data-theme="light"] .run-field input {
+    background: #f5f9f6;
+    border-color: rgba(0,0,0,.12);
+    color: #0f1f14;
+  }
+  [data-theme="light"] .run-field input::placeholder { color: rgba(0,0,0,.3) }
+  [data-theme="light"] .run-field input:focus {
+    border-color: rgba(34,197,94,.5);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(34,197,94,.1);
+  }
+  [data-theme="light"] .run-duration-sep { color: rgba(0,0,0,.35) }
+
+  [data-theme="light"] .run-pb-banner {
+    background: rgba(34,197,94,.08);
+    border-color: rgba(34,197,94,.3);
+    color: #15803d;
+  }
+
+  [data-theme="light"] .run-chart-card {
+    background: #fff;
+    border-color: rgba(34,197,94,.18);
+    box-shadow: 0 2px 20px rgba(0,0,0,.06);
+  }
+  [data-theme="light"] .run-period-tabs {
+    background: rgba(0,0,0,.04);
+    border-color: rgba(0,0,0,.08);
+  }
+  [data-theme="light"] .run-period-btn { color: rgba(0,0,0,.4) }
+  [data-theme="light"] .run-period-btn.active {
+    background: rgba(34,197,94,.1);
+    color: #15803d;
+    box-shadow: 0 0 0 1px rgba(34,197,94,.25);
+  }
+
+  [data-theme="light"] .run-goal-card {
+    background: #fff;
+    border-color: rgba(34,197,94,.18);
+    box-shadow: 0 2px 20px rgba(0,0,0,.06);
+  }
+  [data-theme="light"] .run-goal-title { color: #0f1f14 }
+  [data-theme="light"] .run-goal-sub { color: rgba(0,0,0,.4) }
+  [data-theme="light"] .run-goal-inputs input {
+    background: #f5f9f6;
+    border-color: rgba(0,0,0,.12);
+    color: #0f1f14;
+  }
+  [data-theme="light"] .run-goal-inputs span { color: rgba(0,0,0,.45) }
+
+  [data-theme="light"] .run-history-item {
+    background: #fff;
+    border-color: rgba(0,0,0,.08);
+    box-shadow: 0 1px 6px rgba(0,0,0,.04);
+  }
+  [data-theme="light"] .run-history-item:hover {
+    border-color: rgba(34,197,94,.3);
+    background: #f5fdf7;
+    transform: translateX(4px);
+  }
+  [data-theme="light"] .run-history-num {
+    background: rgba(34,197,94,.08);
+    border-color: rgba(34,197,94,.25);
+    color: #15803d;
+  }
+  [data-theme="light"] .run-history-date { color: rgba(0,0,0,.45) }
+  [data-theme="light"] .run-history-notes { color: rgba(0,0,0,.35) }
+  [data-theme="light"] .run-history-dist { color: #0f1f14 }
+  [data-theme="light"] .run-history-time { color: rgba(0,0,0,.65) }
+  [data-theme="light"] .run-history-pace { color: #15803d }
+  [data-theme="light"] .run-history-del {
+    border-color: rgba(0,0,0,.1);
+    color: rgba(0,0,0,.25);
+  }
+
+  [data-theme="light"] .run-footer-section {
+    background: #f0f5f1;
+    border-color: rgba(34,197,94,.12);
+  }
+  [data-theme="light"] .run-action-btn {
+    background: #fff;
+    border-color: rgba(0,0,0,.12);
+    color: rgba(0,0,0,.55);
+  }
+  [data-theme="light"] .run-action-btn:hover {
+    background: #f5f9f6;
+    border-color: rgba(0,0,0,.2);
+    color: #0f1f14;
+  }
+  [data-theme="light"] .run-action-btn.danger:hover {
+    background: #fef2f2;
+    border-color: rgba(239,68,68,.3);
+    color: #dc2626;
+  }
+
+  [data-theme="light"] .run-toast {
+    background: rgba(240,245,241,.95);
+    border-color: rgba(34,197,94,.3);
+    color: #0f1f14;
+  }
+
+  [data-theme="light"] .run-page .site-nav {
+    background: rgba(240,245,241,.9);
+    border-bottom-color: rgba(34,197,94,.15);
+  }
+  [data-theme="light"] .run-page .site-footer {
+    background: #e8f0ea;
+    border-top-color: rgba(34,197,94,.1);
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .run-hero-title { letter-spacing: -.03em }
+    .run-form-card { padding: 1.5rem }
+    .run-history-item { flex-wrap: wrap; gap: .75rem }
+    .run-stats-strip { grid-template-columns: repeat(2, 1fr) }
+    .run-stat-item { border-right: none; border-bottom: 1px solid rgba(74,222,128,.08) }
+    .run-stat-item:nth-child(2n) { border-right: none }
+  }
   </style>
 </head>
-<body>
+<body class="run-page">
 
   <!-- Nav -->
   <nav class="site-nav">
     <div class="nav-inner">
       <a href="index.html" class="nav-brand">Dans mon assiette</a>
       <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Changer le thème">☀️</button>
-      <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" title="Menu" type="button">
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links">
@@ -50,78 +966,194 @@
     </div>
   </nav>
 
-  <!-- Header -->
-  <div class="cal-header">
-    <h1>On the Road 🏃</h1>
-    <div class="cal-stats">
-      <div class="cal-stat">
-        <div class="cal-stat-val" id="totalKm">0</div>
-        <div class="cal-stat-lab">Km au total</div>
-      </div>
-      <div class="cal-stat">
-        <div class="cal-stat-val" id="totalRuns">0</div>
-        <div class="cal-stat-lab">Sorties</div>
-      </div>
-      <div class="cal-stat">
-        <div class="cal-stat-val" id="bestPace">–</div>
-        <div class="cal-stat-lab">Meilleure allure</div>
-      </div>
-      <div class="cal-stat">
-        <div class="cal-stat-val" id="weekKm">0</div>
-        <div class="cal-stat-lab">Km cette semaine</div>
-      </div>
+  <!-- ═══ HERO ═══ -->
+  <section class="run-hero" id="runHero">
+    <div class="run-hero-sky"></div>
+
+    <!-- Étoiles -->
+    <div class="run-stars" id="runStars"></div>
+
+    <!-- Corps céleste (lune ↔ soleil) -->
+    <div class="run-celestial-wrap">
+      <div class="run-sun-rays"></div>
+      <div class="run-sun-halo"></div>
+      <div class="run-moon"></div>
+    </div>
+
+    <!-- Particules -->
+    <div class="run-particles" id="runParticles"></div>
+
+    <!-- Montagnes -->
+    <div class="run-mountains">
+      <div class="run-mtn-far"  id="mtnFar"></div>
+      <div class="run-mtn-mid"  id="mtnMid"></div>
+      <div class="run-mtn-close" id="mtnClose"></div>
+    </div>
+
+    <!-- Arbres -->
+    <div class="run-trees" id="runTrees"></div>
+
+    <!-- Route SVG -->
+    <div class="run-road-wrap">
+      <svg class="run-road-svg" viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="0,200 1440,200 1200,40 240,40" fill="#0a1a10"/>
+        <polygon points="240,40 1200,40 1140,60 300,60" fill="#0d2018"/>
+        <!-- Tirets blancs de la route -->
+        <rect x="560" y="48" width="60" height="5" rx="2.5" fill="rgba(255,255,255,.15)"/>
+        <rect x="680" y="48" width="60" height="5" rx="2.5" fill="rgba(255,255,255,.15)"/>
+        <rect x="800" y="48" width="60" height="5" rx="2.5" fill="rgba(255,255,255,.15)"/>
+        <rect x="920" y="48" width="60" height="5" rx="2.5" fill="rgba(255,255,255,.15)"/>
+      </svg>
+    </div>
+
+    <!-- Runner SVG -->
+    <div class="run-runner-wrap" id="runRunner">
+      <svg class="run-runner-svg" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg">
+        <!-- Tête -->
+        <circle cx="28" cy="10" r="7" fill="#4ade80"/>
+        <!-- Corps -->
+        <line x1="28" y1="17" x2="28" y2="42" stroke="#4ade80" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- Bras gauche (en avant) -->
+        <line x1="28" y1="22" x2="14" y2="32" stroke="#4ade80" stroke-width="3" stroke-linecap="round"/>
+        <!-- Bras droit (en arrière) -->
+        <line x1="28" y1="22" x2="40" y2="28" stroke="#4ade80" stroke-width="3" stroke-linecap="round"/>
+        <!-- Jambe gauche (en avant) -->
+        <line x1="28" y1="42" x2="16" y2="60" stroke="#4ade80" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="16" y1="60" x2="8"  y2="72" stroke="#4ade80" stroke-width="3" stroke-linecap="round"/>
+        <!-- Jambe droite (en arrière) -->
+        <line x1="28" y1="42" x2="38" y2="58" stroke="#4ade80" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="38" y1="58" x2="46" y2="68" stroke="#4ade80" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- Texte -->
+    <div class="run-hero-content">
+      <div class="run-hero-eyebrow">Ton journal de course</div>
+      <h1 class="run-hero-title">On the<br><span>Road</span></h1>
+      <p class="run-hero-sub">Chaque kilomètre compte. Documente ta progression,<br>bats tes records, deviens meilleur.</p>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="run-hero-scroll" onclick="document.getElementById('runStats').scrollIntoView({behavior:'smooth'})">
+      <div class="run-scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ═══ STATS ═══ -->
+  <div class="run-stats-strip" id="runStats">
+    <div class="run-stat-item" style="transition-delay:.0s">
+      <div class="run-stat-num" id="totalKm" data-target="0">0</div>
+      <div class="run-stat-unit">km</div>
+      <div class="run-stat-label">Total parcouru</div>
+    </div>
+    <div class="run-stat-item" style="transition-delay:.1s">
+      <div class="run-stat-num" id="totalRuns" data-target="0">0</div>
+      <div class="run-stat-unit">sorties</div>
+      <div class="run-stat-label">Entraînements</div>
+    </div>
+    <div class="run-stat-item" style="transition-delay:.2s">
+      <div class="run-stat-num" id="bestPace">–</div>
+      <div class="run-stat-unit">min/km</div>
+      <div class="run-stat-label">Meilleure allure</div>
+    </div>
+    <div class="run-stat-item" style="transition-delay:.3s">
+      <div class="run-stat-num" id="weekKm" data-target="0">0</div>
+      <div class="run-stat-unit">km</div>
+      <div class="run-stat-label">Cette semaine</div>
     </div>
   </div>
 
-  <div class="cal-content">
+  <!-- ═══ AJOUTER UNE SORTIE ═══ -->
+  <section class="run-section">
+    <div class="run-section-inner">
+      <div class="run-section-label reveal">Enregistrer</div>
+      <h2 class="run-section-title reveal reveal-delay-1">Nouvelle <em>sortie</em></h2>
 
-    <!-- Nouveau run -->
-    <div class="weight-form" style="flex-wrap:wrap;gap:.65rem">
-      <input type="date" id="runDate" style="min-width:140px">
-      <input type="number" id="runDist" placeholder="Distance (km)" min="0.1" max="200" step="0.01" style="width:150px">
-      <span style="color:var(--c-text-3);font-size:.85rem">km</span>
-      <div class="duration-inputs">
-        <input type="number" id="runMin" placeholder="min" min="0" max="999">
-        <span>:</span>
-        <input type="number" id="runSec" placeholder="ss" min="0" max="59" style="width:52px">
+      <div id="pbBanner" class="run-pb-banner reveal reveal-delay-1">
+        <span class="run-pb-icon">🏅</span>
+        <span id="pbText">Nouveau record d'allure !</span>
       </div>
-      <input type="text" id="runNotes" placeholder="Notes (optionnel)" style="flex:1;min-width:150px">
-      <button class="btn btn-sm btn-primary" id="addRunBtn">Ajouter</button>
-    </div>
 
-    <div id="pbBanner" class="pb-banner">🏅 Nouveau record d'allure !</div>
-
-    <!-- Period selector -->
-    <div class="period-tabs">
-      <button class="period-tab active" data-period="week">Semaine</button>
-      <button class="period-tab" data-period="month">Mois</button>
-      <button class="period-tab" data-period="all">Tout</button>
+      <div class="run-form-card reveal reveal-delay-2">
+        <div class="run-form-grid">
+          <div class="run-field">
+            <label>Date</label>
+            <input type="date" id="runDate" title="Date de la sortie" aria-label="Date de la sortie">
+          </div>
+          <div class="run-field">
+            <label>Distance</label>
+            <input type="number" id="runDist" placeholder="0.00 km" min="0.1" max="500" step="0.01">
+          </div>
+          <div class="run-field">
+            <label>Durée (min : sec)</label>
+            <div class="run-duration-row">
+              <input type="number" id="runMin" placeholder="min" min="0" max="999">
+              <span class="run-duration-sep">:</span>
+              <input type="number" id="runSec" placeholder="ss" min="0" max="59">
+            </div>
+          </div>
+          <div class="run-field">
+            <label>Notes (optionnel)</label>
+            <input type="text" id="runNotes" placeholder="Ressenti, météo…">
+          </div>
+        </div>
+        <button class="run-submit-btn" id="addRunBtn">Enregistrer la sortie →</button>
+      </div>
     </div>
+  </section>
 
-    <!-- Chart -->
-    <div class="chart-wrap">
-      <canvas id="runChart"></canvas>
-    </div>
+  <!-- ═══ GRAPHIQUE ═══ -->
+  <section class="run-section" style="padding-top:0">
+    <div class="run-section-inner">
+      <div class="run-section-label reveal">Progression</div>
+      <h2 class="run-section-title reveal reveal-delay-1">Ta <em>courbe</em></h2>
 
-    <!-- Objectif -->
-    <div class="goal-row">
-      <label>Objectif hebdo :</label>
-      <input type="number" id="goalInput" placeholder="Ex : 20" min="1" max="500" step="0.5">
-      <span>km/semaine</span>
-      <button class="btn btn-sm btn-primary" id="saveGoalBtn">Sauvegarder</button>
+      <div class="run-chart-card reveal reveal-delay-2">
+        <div class="run-period-tabs">
+          <button class="run-period-btn active" data-period="week">Semaine</button>
+          <button class="run-period-btn" data-period="month">Mois</button>
+          <button class="run-period-btn" data-period="all">Tout</button>
+        </div>
+        <canvas id="runChart" style="max-height:300px"></canvas>
+      </div>
     </div>
+  </section>
 
-    <!-- Historique -->
-    <div class="days-section">
-      <h3>Mes sorties</h3>
-      <div id="runList"></div>
-    </div>
+  <!-- ═══ OBJECTIF ═══ -->
+  <section class="run-section" style="padding-top:0">
+    <div class="run-section-inner">
+      <div class="run-section-label reveal">Objectif</div>
+      <h2 class="run-section-title reveal reveal-delay-1">Vise <em>haut</em></h2>
 
-    <!-- Actions -->
-    <div class="cal-actions">
-      <button class="btn btn-secondary" id="exportBtn">📄 Exporter</button>
-      <button class="btn btn-danger" id="clearBtn">Effacer tout</button>
+      <div class="run-goal-card reveal reveal-delay-2">
+        <div class="run-goal-icon">🎯</div>
+        <div class="run-goal-text">
+          <div class="run-goal-title">Kilomètres par semaine</div>
+          <div class="run-goal-sub">Définis ton cap hebdomadaire</div>
+        </div>
+        <div class="run-goal-inputs">
+          <input type="number" id="goalInput" placeholder="Ex : 20" min="1" max="500" step="0.5">
+          <span>km/sem</span>
+          <button class="run-goal-save" id="saveGoalBtn">Sauvegarder</button>
+        </div>
+      </div>
     </div>
+  </section>
+
+  <!-- ═══ HISTORIQUE ═══ -->
+  <section class="run-section" style="padding-top:0; padding-bottom:3rem">
+    <div class="run-section-inner">
+      <div class="run-section-label reveal">Historique</div>
+      <h2 class="run-section-title reveal reveal-delay-1">Toutes tes <em>sorties</em></h2>
+      <div class="run-history-list" id="runList"></div>
+    </div>
+  </section>
+
+  <!-- ═══ ACTIONS ═══ -->
+  <div class="run-footer-section">
+    <button class="run-action-btn" id="exportBtn">📄 Exporter CSV</button>
+    <button class="run-action-btn danger" id="clearBtn">Effacer tout</button>
   </div>
 
   <!-- Footer -->
@@ -133,37 +1165,119 @@
   (function () {
     "use strict";
 
+    /* ══ Génération des étoiles ══ */
+    (function () {
+      const c = document.getElementById("runStars");
+      for (let i = 0; i < 120; i++) {
+        const s = document.createElement("div");
+        s.className = "run-star";
+        const size = Math.random() * 2.5 + .5;
+        s.style.cssText = `
+          width:${size}px; height:${size}px;
+          top:${Math.random()*70}%;
+          left:${Math.random()*100}%;
+          --d:${(Math.random()*3+2).toFixed(1)}s;
+          --o1:${(Math.random()*.3+.05).toFixed(2)};
+          --o2:${(Math.random()*.7+.3).toFixed(2)};
+          animation-delay:${(Math.random()*4).toFixed(1)}s;
+        `;
+        c.appendChild(s);
+      }
+    })();
+
+    /* ══ Génération des particules ══ */
+    (function () {
+      const c = document.getElementById("runParticles");
+      for (let i = 0; i < 20; i++) {
+        const p = document.createElement("div");
+        p.className = "run-particle";
+        const size = Math.random() * 3 + 1;
+        p.style.cssText = `
+          width:${size}px; height:${size}px;
+          bottom:${Math.random()*30}%;
+          left:${Math.random()*100}%;
+          --pd:${(Math.random()*6+4).toFixed(1)}s;
+          --pdelay:${(Math.random()*8).toFixed(1)}s;
+        `;
+        c.appendChild(p);
+      }
+    })();
+
+    /* ══ Arbres SVG ══ */
+    (function () {
+      const c = document.getElementById("runTrees");
+      const treeColors = ["#061008","#080f09","#050c07"];
+      for (let i = 0; i < 28; i++) {
+        const h = 40 + Math.random() * 80;
+        const w = h * 0.55;
+        const delay = (Math.random() * 2).toFixed(1);
+        const dur   = (3 + Math.random() * 3).toFixed(1);
+        const r1    = (-1 - Math.random()).toFixed(1);
+        const r2    = (1  + Math.random()).toFixed(1);
+        const col   = treeColors[Math.floor(Math.random() * treeColors.length)];
+        const svg = document.createElementNS("http://www.w3.org/2000/svg","svg");
+        svg.setAttribute("viewBox","0 0 40 80");
+        svg.setAttribute("width", w);
+        svg.setAttribute("height", h);
+        svg.style.cssText = `flex-shrink:0; --tw:${dur}s; --r1:${r1}deg; --r2:${r2}deg; animation-delay:${delay}s; margin-right:${(Math.random()*20-5).toFixed(0)}px`;
+        svg.className.baseVal = "run-tree";
+        svg.innerHTML = `
+          <polygon points="20,2 38,65 2,65" fill="${col}"/>
+          <polygon points="20,20 36,75 4,75" fill="${col}"/>
+          <rect x="16" y="65" width="8" height="15" fill="${col}"/>
+        `;
+        c.appendChild(svg);
+      }
+    })();
+
+    /* ══ Parallaxe au scroll ══ */
+    const mtnFar   = document.getElementById("mtnFar");
+    const mtnMid   = document.getElementById("mtnMid");
+    const mtnClose = document.getElementById("mtnClose");
+    const runRunner = document.getElementById("runRunner");
+    const hero = document.getElementById("runHero");
+
+    window.addEventListener("scroll", () => {
+      const sy = window.scrollY;
+      const hh = hero.offsetHeight;
+      if (sy > hh) return;
+      const p = sy / hh;
+      mtnFar.style.transform   = `translateY(${sy * 0.1}px)`;
+      mtnMid.style.transform   = `translateY(${sy * 0.2}px)`;
+      mtnClose.style.transform = `translateY(${sy * 0.35}px)`;
+      runRunner.style.transform = `translateY(${sy * 0.25}px)`;
+      hero.querySelector(".run-hero-content").style.transform = `translateY(${sy * 0.4}px)`;
+      hero.querySelector(".run-hero-content").style.opacity   = 1 - p * 1.5;
+    }, { passive: true });
+
+    /* ══ IntersectionObserver — révéler éléments ══ */
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target) } });
+    }, { threshold: .12 });
+    document.querySelectorAll(".reveal, .run-stat-item").forEach(el => io.observe(el));
+
+    /* ══ Données ══ */
     const STORAGE_KEY = "runningData";
     const GOAL_KEY    = "runningGoal";
     let chart = null;
     let currentPeriod = "week";
 
-    function getData() {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    }
-    function saveData(arr) {
-      window.dbSet(STORAGE_KEY, JSON.stringify(arr));
-    }
-    function getGoal() {
-      return parseFloat(localStorage.getItem(GOAL_KEY) || "") || null;
-    }
-    function todayKey() {
-      return new Date().toISOString().split("T")[0];
-    }
+    function getData()  { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]") }
+    function saveData(arr) { window.dbSet(STORAGE_KEY, JSON.stringify(arr)) }
+    function getGoal()  { return parseFloat(localStorage.getItem(GOAL_KEY) || "") || null }
+    function todayKey() { return new Date().toISOString().split("T")[0] }
     function fmtDate(d) {
-      return new Date(d).toLocaleDateString("fr-FR", { weekday:"short", day:"numeric", month:"short", year:"numeric" });
+      return new Date(d).toLocaleDateString("fr-FR", { weekday:"long", day:"numeric", month:"long", year:"numeric" });
     }
-    // Allure en min/km → "X'YY''"
-    function calcPace(distKm, totalSec) {
-      if (!distKm || !totalSec) return null;
-      const secPerKm = totalSec / distKm;
-      const m = Math.floor(secPerKm / 60);
-      const s = Math.round(secPerKm % 60);
+    function calcPace(dist, totalSec) {
+      if (!dist || !totalSec) return null;
+      const spk = totalSec / dist;
+      const m = Math.floor(spk / 60), s = Math.round(spk % 60);
       return `${m}'${String(s).padStart(2,"0")}''`;
     }
-    function paceToSec(paceStr) {
-      if (!paceStr) return Infinity;
-      const [m, rest] = paceStr.split("'");
+    function paceToSec(p) {
+      if (!p) return Infinity;
+      const [m, rest] = p.split("'");
       return parseInt(m) * 60 + parseInt(rest);
     }
     function fmtDuration(totalSec) {
@@ -174,12 +1288,25 @@
       return `${m}'${String(s).padStart(2,"0")}''`;
     }
 
-    // ── Stats ──
+    /* ══ Stats ══ */
+    function animateCounter(el, target, decimals = 1) {
+      const start = 0, dur = 1200, startTime = performance.now();
+      function step(now) {
+        const p = Math.min((now - startTime) / dur, 1);
+        const ease = 1 - Math.pow(1 - p, 4);
+        el.textContent = (start + (target - start) * ease).toFixed(decimals);
+        if (p < 1) requestAnimationFrame(step);
+        else el.textContent = target.toFixed(decimals);
+      }
+      requestAnimationFrame(step);
+    }
+
     function updateSummary() {
       const data = getData().sort((a, b) => a.date.localeCompare(b.date));
       const total = data.reduce((s, e) => s + e.dist, 0);
-      document.getElementById("totalKm").textContent   = Math.round(total * 10) / 10;
-      document.getElementById("totalRuns").textContent = data.length;
+
+      animateCounter(document.getElementById("totalKm"), Math.round(total * 10) / 10);
+      animateCounter(document.getElementById("totalRuns"), data.length, 0);
 
       const paces = data.filter(e => e.pace).map(e => paceToSec(e.pace));
       const best  = paces.length ? Math.min(...paces) : null;
@@ -188,127 +1315,102 @@
         : "–";
 
       const now = new Date();
-      let weekKm = 0;
-      data.forEach(e => {
-        const d = new Date(e.date);
-        const diff = (now - d) / (1000 * 60 * 60 * 24);
-        if (diff <= 7) weekKm += e.dist;
-      });
-      document.getElementById("weekKm").textContent = Math.round(weekKm * 10) / 10;
+      let wk = 0;
+      data.forEach(e => { if ((now - new Date(e.date)) / 86400000 <= 7) wk += e.dist; });
+      animateCounter(document.getElementById("weekKm"), Math.round(wk * 10) / 10);
     }
 
-    // ── Chart ──
+    /* ══ Chart ══ */
     function updateChart() {
       const all  = getData().sort((a, b) => a.date.localeCompare(b.date));
       const goal = getGoal();
       const now  = new Date();
-      let entries = all;
+
+      let labels, values;
 
       if (currentPeriod === "week") {
         const dates = [];
-        for (let i = 6; i >= 0; i--) {
-          const d = new Date(); d.setDate(d.getDate() - i);
-          dates.push(d.toISOString().split("T")[0]);
-        }
-        const labels = dates.map(d => new Date(d).toLocaleDateString("fr-FR", { weekday:"short", day:"numeric" }));
-        const values = dates.map(key => {
-          const runs = all.filter(e => e.date === key);
-          return runs.length ? Math.round(runs.reduce((s, e) => s + e.dist, 0) * 100) / 100 : null;
-        });
-        drawChart(labels, values, goal ? Array(7).fill(goal / 7) : null, goal);
-        return;
+        for (let i = 6; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate()-i); dates.push(d.toISOString().split("T")[0]) }
+        labels = dates.map(d => new Date(d).toLocaleDateString("fr-FR", { weekday:"short", day:"numeric" }));
+        values = dates.map(k => { const r = all.filter(e => e.date === k); return r.length ? Math.round(r.reduce((s,e)=>s+e.dist,0)*100)/100 : null });
+      } else {
+        let entries = all;
+        if (currentPeriod === "month") entries = all.filter(e => { const d = new Date(e.date); return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear() });
+        labels = entries.map(e => new Date(e.date).toLocaleDateString("fr-FR", { day:"numeric", month:"short" }));
+        values = entries.map(e => e.dist);
       }
 
-      if (currentPeriod === "month") {
-        entries = all.filter(e => {
-          const d = new Date(e.date);
-          return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
-        });
-      }
+      const goalLine = (goal && currentPeriod === "week") ? Array(7).fill(goal / 7) : null;
+      const colors = values.map(v => v ? "rgba(74,222,128,.65)" : "transparent");
 
-      const labels = entries.map(e => new Date(e.date).toLocaleDateString("fr-FR", { day:"numeric", month:"short" }));
-      const values = entries.map(e => e.dist);
-      drawChart(labels, values, null, goal);
-    }
-
-    function drawChart(labels, values, goalLine, goalTotal) {
       const datasets = [
-        {
-          label: "Distance (km)",
-          data: values,
-          backgroundColor: values.map(v => v ? "rgba(74,222,128,.6)" : "transparent"),
-          borderColor: "rgba(74,222,128,1)",
-          borderRadius: 6,
-          barPercentage: 0.6,
-          type: "bar",
-          order: 2,
-        }
+        { label:"Distance (km)", data:values, backgroundColor:colors, borderColor:"rgba(74,222,128,1)", borderWidth:0, borderRadius:6, barPercentage:.6, type:"bar", order:2 }
       ];
-      if (goalLine) {
-        datasets.push({
-          label: `Objectif/jour (${Math.round(goalLine[0]*10)/10} km)`,
-          data: goalLine,
-          borderColor: "rgba(251,146,60,.9)",
-          borderWidth: 2,
-          borderDash: [6, 4],
-          pointRadius: 0,
-          fill: false,
-          type: "line",
-          order: 1,
-        });
-      }
+      if (goalLine) datasets.push({ label:`Objectif/jour`, data:goalLine, borderColor:"rgba(251,146,60,.8)", borderWidth:2, borderDash:[6,4], pointRadius:0, fill:false, type:"line", order:1 });
+
+      const chartDefaults = {
+        responsive: true,
+        plugins: {
+          legend: { display: !!goalLine, labels: { color:"rgba(255,255,255,.5)", font:{family:"var(--font-body)",size:11} } },
+          tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y ?? 0} km` }, backgroundColor:"rgba(6,14,9,.9)", borderColor:"rgba(74,222,128,.2)", borderWidth:1 }
+        },
+        scales: {
+          y: { beginAtZero:true, grid:{color:"rgba(255,255,255,.04)"}, ticks:{color:"rgba(255,255,255,.35)",font:{size:11}}, border:{color:"transparent"} },
+          x: { grid:{display:false}, ticks:{color:"rgba(255,255,255,.4)",font:{size:11}}, border:{color:"transparent"} },
+        },
+      };
 
       if (chart) {
         chart.data.labels = labels;
         chart.data.datasets.splice(0, chart.data.datasets.length, ...datasets);
+        chart.options = chartDefaults;
         chart.update();
       } else {
         const ctx = document.getElementById("runChart").getContext("2d");
-        chart = new Chart(ctx, {
-          type: "bar",
-          data: { labels, datasets },
-          options: {
-            responsive: true,
-            plugins: {
-              legend: { display: !!goalLine, labels: { font: { family:"Plus Jakarta Sans", size:12 } } },
-              tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y ?? 0} km` } }
-            },
-            scales: {
-              y: { beginAtZero: true, grid: { color:"rgba(0,0,0,.04)" }, ticks: { font:{family:"Plus Jakarta Sans",size:12} } },
-              x: { grid: { display:false }, ticks: { font:{family:"Plus Jakarta Sans",size:12} } },
-            },
-          },
-        });
+        chart = new Chart(ctx, { type:"bar", data:{labels,datasets}, options:chartDefaults });
       }
     }
 
-    // ── Liste ──
+    /* ══ Historique ══ */
     function updateList() {
       const data = getData().sort((a, b) => b.date.localeCompare(a.date));
       const list = document.getElementById("runList");
 
       if (!data.length) {
-        list.innerHTML = '<p style="color:var(--c-text-3);padding:1rem 0">Aucune sortie pour le moment. Lance-toi !</p>';
+        list.innerHTML = `<div style="text-align:center;padding:4rem 0;color:rgba(255,255,255,.25)">
+          <div style="font-size:3rem;margin-bottom:1rem">🌅</div>
+          <div style="font-size:1rem;font-weight:600">Aucune sortie pour le moment.</div>
+          <div style="font-size:.82rem;margin-top:.3rem">Lance-toi, le premier kilomètre est le plus dur.</div>
+        </div>`;
         return;
       }
 
-      list.innerHTML = data.map(e => `
-        <div class="run-entry">
-          <div class="run-entry-left">
-            <div class="day-date">${fmtDate(e.date)}</div>
-            ${e.notes ? `<div class="run-notes">${e.notes}</div>` : ""}
+      list.innerHTML = data.map((e, i) => `
+        <div class="run-history-item">
+          <div class="run-history-num">${String(data.length - i).padStart(2,"0")}</div>
+          <div class="run-history-body">
+            <div class="run-history-date">${fmtDate(e.date)}</div>
+            ${e.notes ? `<div class="run-history-notes">${e.notes}</div>` : ""}
           </div>
-          <div class="run-entry-right">
-            <div style="text-align:right">
-              <div class="run-dist">${e.dist} km</div>
-              <div class="run-dur">${fmtDuration(e.duration)}</div>
-              ${e.pace ? `<div class="run-allure">Allure : ${e.pace}/km</div>` : ""}
+          <div class="run-history-stats">
+            <div>
+              <div class="run-history-dist">${e.dist}<span>km</span></div>
             </div>
-            <button class="run-delete-btn" data-id="${e.id}" title="Supprimer">✕</button>
+            <div class="run-history-meta">
+              <div class="run-history-time">${fmtDuration(e.duration)}</div>
+              ${e.pace ? `<div class="run-history-pace">${e.pace}/km</div>` : ""}
+            </div>
           </div>
+          <button class="run-history-del" data-id="${e.id}" title="Supprimer">✕</button>
         </div>`).join("");
 
-      list.querySelectorAll(".run-delete-btn").forEach(btn => {
+      // Animer les items au scroll
+      list.querySelectorAll(".run-history-item").forEach((el, i) => {
+        el.style.transitionDelay = `${i * 0.05}s`;
+        setTimeout(() => io.observe(el), 0);
+      });
+
+      list.querySelectorAll(".run-history-del").forEach(btn => {
         btn.addEventListener("click", () => {
           const filtered = getData().filter(e => e.id !== btn.dataset.id);
           saveData(filtered);
@@ -317,13 +1419,9 @@
       });
     }
 
-    function refresh() {
-      updateSummary();
-      updateChart();
-      updateList();
-    }
+    function refresh() { updateSummary(); updateChart(); updateList() }
 
-    // ── Ajouter une sortie ──
+    /* ══ Ajouter sortie ══ */
     document.getElementById("addRunBtn").addEventListener("click", () => {
       const date  = document.getElementById("runDate").value;
       const dist  = parseFloat(document.getElementById("runDist").value);
@@ -331,26 +1429,16 @@
       const sec   = parseInt(document.getElementById("runSec").value) || 0;
       const notes = document.getElementById("runNotes").value.trim();
 
-      if (!date || isNaN(dist) || dist <= 0) {
-        showToast("Renseigne une date et une distance valide.");
-        return;
-      }
-      if (min === 0 && sec === 0) {
-        showToast("Renseigne la durée de ta sortie.");
-        return;
-      }
+      if (!date || isNaN(dist) || dist <= 0) return showToast("Renseigne une date et une distance valide.");
+      if (min === 0 && sec === 0) return showToast("Renseigne la durée de ta sortie.");
 
       const totalSec = min * 60 + sec;
       const pace = calcPace(dist, totalSec);
-
-      // Vérifier record d'allure
       const prevBest = getData().filter(e => e.pace).map(e => paceToSec(e.pace));
-      const isNewPB  = pace && (prevBest.length === 0 || paceToSec(pace) < Math.min(...prevBest));
+      const isNewPB  = pace && (!prevBest.length || paceToSec(pace) < Math.min(...prevBest));
 
       const entry = { id: Date.now().toString(), date, dist, duration: totalSec, pace, notes };
-      const data  = getData();
-      data.push(entry);
-      saveData(data);
+      const data = getData(); data.push(entry); saveData(data);
 
       document.getElementById("runDist").value  = "";
       document.getElementById("runMin").value   = "";
@@ -360,41 +1448,41 @@
       refresh();
 
       if (isNewPB) {
-        const banner = document.getElementById("pbBanner");
-        banner.style.display = "block";
-        banner.textContent = `🏅 Nouveau record d'allure : ${pace}/km !`;
-        setTimeout(() => banner.style.display = "none", 4000);
+        const b = document.getElementById("pbBanner");
+        b.classList.add("show");
+        document.getElementById("pbText").textContent = `Nouveau record d'allure : ${pace}/km ! Tu te surpasses. 💚`;
+        setTimeout(() => b.classList.remove("show"), 5000);
       }
-      showToast(`Sortie ajoutée : ${dist} km en ${fmtDuration(totalSec)}${pace ? ` (${pace}/km)` : ""}`);
+      showToast(`${dist} km en ${fmtDuration(totalSec)}${pace ? ` · ${pace}/km` : ""}`);
     });
 
-    // ── Objectif ──
+    /* ══ Objectif ══ */
     const goalInput = document.getElementById("goalInput");
     goalInput.value = getGoal() || "";
     document.getElementById("saveGoalBtn").addEventListener("click", () => {
       const v = parseFloat(goalInput.value);
-      if (isNaN(v) || v <= 0) { showToast("Objectif invalide."); return; }
+      if (isNaN(v) || v <= 0) return showToast("Objectif invalide.");
       window.dbSet(GOAL_KEY, String(v));
       updateChart();
-      showToast("Objectif sauvegardé !");
+      showToast("Objectif mis à jour !");
     });
 
-    // ── Period tabs ──
-    document.querySelectorAll(".period-tab").forEach(btn => {
+    /* ══ Period tabs ══ */
+    document.querySelectorAll(".run-period-btn").forEach(btn => {
       btn.addEventListener("click", () => {
-        document.querySelector(".period-tab.active").classList.remove("active");
+        document.querySelector(".run-period-btn.active").classList.remove("active");
         btn.classList.add("active");
         currentPeriod = btn.dataset.period;
         updateChart();
       });
     });
 
-    // ── Export ──
+    /* ══ Export ══ */
     document.getElementById("exportBtn").addEventListener("click", () => {
       const data = getData().sort((a, b) => a.date.localeCompare(b.date));
       const lines = ["Date,Distance (km),Durée (s),Allure (min/km),Notes",
-        ...data.map(e => `${e.date},${e.dist},${e.duration},${e.pace || ""},${e.notes || ""}`)];
-      const blob = new Blob([lines.join("\n")], { type: "text/csv" });
+        ...data.map(e => `${e.date},${e.dist},${e.duration},${e.pace||""},${e.notes||""}`)];
+      const blob = new Blob([lines.join("\n")], { type:"text/csv" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
       a.download = `running-${todayKey()}.csv`;
@@ -402,29 +1490,24 @@
       showToast("Export CSV téléchargé");
     });
 
-    // ── Effacer ──
+    /* ══ Effacer ══ */
     document.getElementById("clearBtn").addEventListener("click", () => {
-      if (confirm("Effacer toutes les données de running ?")) {
-        saveData([]);
-        refresh();
-        showToast("Données effacées");
-      }
+      if (confirm("Effacer toutes les données de running ?")) { saveData([]); refresh(); showToast("Données effacées") }
     });
 
-    // ── Toast ──
+    /* ══ Toast ══ */
     function showToast(msg) {
-      const el = document.createElement("div");
-      el.className = "toast";
-      el.textContent = msg;
-      document.body.appendChild(el);
-      requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add("show")));
-      setTimeout(() => { el.classList.remove("show"); setTimeout(() => el.remove(), 400); }, 2500);
+      let t = document.querySelector(".run-toast");
+      if (!t) { t = document.createElement("div"); t.className = "run-toast"; document.body.appendChild(t) }
+      t.textContent = msg;
+      requestAnimationFrame(() => requestAnimationFrame(() => t.classList.add("show")));
+      setTimeout(() => { t.classList.remove("show") }, 2800);
     }
 
-    // ── Sync Firestore → re-render ──
+    /* ══ Sync Firestore ══ */
     window.__onDbSync = refresh;
 
-    // ── Init ──
+    /* ══ Init ══ */
     document.getElementById("runDate").value = todayKey();
     refresh();
   })();

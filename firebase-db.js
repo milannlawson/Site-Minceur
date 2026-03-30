@@ -25,7 +25,7 @@
   const db  = firebase.firestore();
   const DOC = db.collection("ml").doc("data");
 
-  const KEYS = ["caloriesData", "dailyGoal", "poidsData", "poidsGoal", "sportPlanning"];
+  const KEYS = ["caloriesData", "dailyGoal", "poidsData", "poidsGoal", "sportPlanning", "runningData", "runningGoal"];
 
   // ── Écriture : localStorage + Firestore ──
   window.dbSet = function (key, value) {

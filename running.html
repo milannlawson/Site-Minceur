@@ -934,6 +934,227 @@
     border-top-color: rgba(34,197,94,.1);
   }
 
+  /* ─── Section programmes (overrides) ─── */
+  .run-section--prog {
+    padding-top: 0;
+    padding-bottom: 3rem;
+  }
+  .run-prog-intro {
+    color: rgba(255,255,255,.45);
+    font-size: .88rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+  [data-theme="light"] .run-prog-intro { color: rgba(0,0,0,.5) }
+
+  /* ─── Programmes de running ─── */
+  .run-prog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+  .run-prog-card {
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(74,222,128,.12);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: border-color .3s, transform .3s, box-shadow .3s;
+    cursor: pointer;
+  }
+  .run-prog-card:hover {
+    border-color: rgba(74,222,128,.35);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.3);
+  }
+  .run-prog-header {
+    padding: 1.5rem 1.5rem 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .run-prog-badge {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .run-prog-badge.lvl1 { background: rgba(74,222,128,.1); }
+  .run-prog-badge.lvl2 { background: rgba(59,130,246,.1); }
+  .run-prog-badge.lvl3 { background: rgba(249,115,22,.1); }
+  .run-prog-badge.lvl4 { background: rgba(168,85,247,.1); }
+  .run-prog-meta { flex: 1 }
+  .run-prog-level {
+    font-size: .6rem;
+    font-weight: 800;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    margin-bottom: .3rem;
+  }
+  .run-prog-level.lvl1 { color: #4ade80 }
+  .run-prog-level.lvl2 { color: #60a5fa }
+  .run-prog-level.lvl3 { color: #fb923c }
+  .run-prog-level.lvl4 { color: #c084fc }
+  .run-prog-name {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -.02em;
+    line-height: 1.2;
+  }
+  .run-prog-chips {
+    display: flex;
+    gap: .4rem;
+    flex-wrap: wrap;
+    margin-top: .6rem;
+  }
+  .run-prog-chip {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    padding: .25rem .6rem;
+    border-radius: 100px;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.08);
+    color: rgba(255,255,255,.5);
+  }
+  .run-prog-desc {
+    padding: 0 1.5rem .75rem;
+    font-size: .82rem;
+    color: rgba(255,255,255,.45);
+    line-height: 1.55;
+  }
+  .run-prog-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .9rem 1.5rem;
+    border-top: 1px solid rgba(74,222,128,.08);
+    font-size: .75rem;
+    font-weight: 700;
+    color: rgba(255,255,255,.35);
+    letter-spacing: .04em;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .run-prog-arrow {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    background: rgba(74,222,128,.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .7rem;
+    color: var(--c-green);
+    transition: transform .3s;
+  }
+  .run-prog-card.open .run-prog-arrow { transform: rotate(180deg) }
+  .run-prog-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .5s cubic-bezier(.4,0,.2,1);
+  }
+  .run-prog-card.open .run-prog-body { max-height: 2400px }
+  .run-prog-weeks {
+    padding: 1rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+  .run-week-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: .75rem;
+    align-items: start;
+    padding: .75rem;
+    border-radius: 10px;
+    background: rgba(255,255,255,.02);
+    border: 1px solid rgba(255,255,255,.04);
+    transition: background .2s, border-color .2s;
+  }
+  .run-week-row:hover {
+    background: rgba(74,222,128,.04);
+    border-color: rgba(74,222,128,.1);
+  }
+  .run-week-num {
+    font-size: .65rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--c-green);
+    padding-top: .05rem;
+  }
+  .run-week-sessions {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+  }
+  .run-week-session {
+    font-size: .76rem;
+    color: rgba(255,255,255,.55);
+    line-height: 1.45;
+  }
+  .run-week-session b {
+    color: rgba(255,255,255,.8);
+    font-weight: 700;
+  }
+  .run-prog-tip {
+    margin: 0 1.5rem 1.25rem;
+    padding: .85rem 1rem;
+    background: rgba(74,222,128,.05);
+    border: 1px solid rgba(74,222,128,.12);
+    border-radius: 10px;
+    font-size: .75rem;
+    color: rgba(74,222,128,.8);
+    line-height: 1.5;
+  }
+  .run-prog-tip::before { content: '💡 '; }
+
+  /* Mode clair — programmes */
+  [data-theme="light"] .run-prog-card {
+    background: #fff;
+    border-color: rgba(34,197,94,.18);
+    box-shadow: 0 2px 12px rgba(0,0,0,.05);
+  }
+  [data-theme="light"] .run-prog-card:hover {
+    border-color: rgba(34,197,94,.4);
+    box-shadow: 0 12px 32px rgba(0,0,0,.1);
+  }
+  [data-theme="light"] .run-prog-name { color: #0f1f14 }
+  [data-theme="light"] .run-prog-chip {
+    background: rgba(0,0,0,.04);
+    border-color: rgba(0,0,0,.1);
+    color: rgba(0,0,0,.45);
+  }
+  [data-theme="light"] .run-prog-desc { color: rgba(0,0,0,.5) }
+  [data-theme="light"] .run-prog-toggle {
+    border-top-color: rgba(34,197,94,.12);
+    color: rgba(0,0,0,.35);
+  }
+  [data-theme="light"] .run-week-row {
+    background: #f7faf8;
+    border-color: rgba(0,0,0,.05);
+  }
+  [data-theme="light"] .run-week-row:hover {
+    background: #edf7f0;
+    border-color: rgba(34,197,94,.2);
+  }
+  [data-theme="light"] .run-week-session { color: rgba(0,0,0,.55) }
+  [data-theme="light"] .run-week-session b { color: rgba(0,0,0,.75) }
+  [data-theme="light"] .run-prog-tip {
+    background: rgba(34,197,94,.06);
+    border-color: rgba(34,197,94,.2);
+    color: #15803d;
+  }
+  [data-theme="light"] .run-prog-badge.lvl1 { background: rgba(34,197,94,.12) }
+  [data-theme="light"] .run-prog-badge.lvl2 { background: rgba(59,130,246,.1) }
+  [data-theme="light"] .run-prog-badge.lvl3 { background: rgba(249,115,22,.1) }
+  [data-theme="light"] .run-prog-badge.lvl4 { background: rgba(168,85,247,.1) }
+
   /* Mobile */
   @media (max-width: 600px) {
     .run-hero-title { letter-spacing: -.03em }
@@ -942,6 +1163,7 @@
     .run-stats-strip { grid-template-columns: repeat(2, 1fr) }
     .run-stat-item { border-right: none; border-bottom: 1px solid rgba(74,222,128,.08) }
     .run-stat-item:nth-child(2n) { border-right: none }
+    .run-prog-grid { grid-template-columns: 1fr }
   }
   </style>
 </head>
@@ -1150,10 +1372,357 @@
     </div>
   </section>
 
+  <!-- ═══ PROGRAMMES ═══ -->
+  <section class="run-section run-section--prog">
+    <div class="run-section-inner">
+      <div class="run-section-label reveal">Objectif 2027</div>
+      <h2 class="run-section-title reveal reveal-delay-1">Programmes de <em>progression</em></h2>
+      <p class="run-prog-intro reveal reveal-delay-2">
+        4 blocs progressifs pour passer de zéro à 21 km. Clique sur un programme pour voir le plan semaine par semaine.
+      </p>
+
+      <div class="run-prog-grid">
+
+        <!-- ── NIVEAU 1 : Fondation ── -->
+        <div class="run-prog-card reveal" onclick="this.classList.toggle('open')">
+          <div class="run-prog-header">
+            <div class="run-prog-badge lvl1">🌱</div>
+            <div class="run-prog-meta">
+              <div class="run-prog-level lvl1">Niveau 1</div>
+              <div class="run-prog-name">Fondation</div>
+              <div class="run-prog-chips">
+                <span class="run-prog-chip">8 semaines</span>
+                <span class="run-prog-chip">3 séances/sem</span>
+                <span class="run-prog-chip">Objectif : 30 min</span>
+              </div>
+            </div>
+          </div>
+          <p class="run-prog-desc">Point de départ absolu. Alterner marche et course pour habituer ton corps à l'effort, sans te blesser.</p>
+          <div class="run-prog-toggle">
+            <span>Voir le programme</span>
+            <div class="run-prog-arrow">▼</div>
+          </div>
+          <div class="run-prog-body">
+            <div class="run-prog-weeks">
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 1</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>×3</b> — 20 min : 1 min course / 2 min marche</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 2</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>×3</b> — 22 min : 2 min course / 2 min marche</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 3</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>×3</b> — 25 min : 3 min course / 1 min 30 marche</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 4</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>×3</b> — 25 min : 4 min course / 1 min marche</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 5</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>×3</b> — 28 min : 6 min course / 1 min marche</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 6</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>×3</b> — 28 min : 8 min course / 1 min marche</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 7</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>×3</b> — 30 min : 12 min course / 1 min marche</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 8 🏁</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>×3</b> — 30 min de course continue à allure confortable</div>
+                </div>
+              </div>
+            </div>
+            <div class="run-prog-tip">Cours lentement — tu dois pouvoir parler sans t'essouffler. La régularité prime sur la vitesse.</div>
+          </div>
+        </div>
+
+        <!-- ── NIVEAU 2 : 5 km ── -->
+        <div class="run-prog-card reveal reveal-delay-1" onclick="this.classList.toggle('open')">
+          <div class="run-prog-header">
+            <div class="run-prog-badge lvl2">🏃</div>
+            <div class="run-prog-meta">
+              <div class="run-prog-level lvl2">Niveau 2</div>
+              <div class="run-prog-name">Cap sur les 5 km</div>
+              <div class="run-prog-chips">
+                <span class="run-prog-chip">8 semaines</span>
+                <span class="run-prog-chip">3 séances/sem</span>
+                <span class="run-prog-chip">Objectif : 5 km</span>
+              </div>
+            </div>
+          </div>
+          <p class="run-prog-desc">Tu cours 30 min en continu. Maintenant on travaille la distance et l'endurance pour franchir le cap des 5 km.</p>
+          <div class="run-prog-toggle">
+            <span>Voir le programme</span>
+            <div class="run-prog-arrow">▼</div>
+          </div>
+          <div class="run-prog-body">
+            <div class="run-prog-weeks">
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 1</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 3 km facile · <b>S2</b> 3 km facile · <b>S3</b> 3,5 km</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 2</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 3 km · <b>S2</b> 3,5 km · <b>S3</b> 4 km</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 3</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 3,5 km · <b>S2</b> 3,5 km · <b>S3</b> 4,5 km</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 4 ↻</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session">Semaine de récupération — <b>×3</b> 3 km très facile</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 5</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 4 km · <b>S2</b> 4 km · <b>S3</b> 4,5 km</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 6</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 4 km · <b>S2</b> 4,5 km · <b>S3</b> 5 km</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 7</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 4,5 km · <b>S2</b> 4 km · <b>S3</b> 5 km</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 8 🏁</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 4 km · <b>S2</b> 3 km facile · <b>S3</b> Course 5 km !</div>
+                </div>
+              </div>
+            </div>
+            <div class="run-prog-tip">Introduis 1 sortie avec 3 × 1 min à allure vive (fartlek) par semaine pour booster ta vitesse de base.</div>
+          </div>
+        </div>
+
+        <!-- ── NIVEAU 3 : 10 km ── -->
+        <div class="run-prog-card reveal reveal-delay-2" onclick="this.classList.toggle('open')">
+          <div class="run-prog-header">
+            <div class="run-prog-badge lvl3">🔥</div>
+            <div class="run-prog-meta">
+              <div class="run-prog-level lvl3">Niveau 3</div>
+              <div class="run-prog-name">Cap sur les 10 km</div>
+              <div class="run-prog-chips">
+                <span class="run-prog-chip">10 semaines</span>
+                <span class="run-prog-chip">3–4 séances/sem</span>
+                <span class="run-prog-chip">Objectif : 10 km</span>
+              </div>
+            </div>
+          </div>
+          <p class="run-prog-desc">Tu maîtrises les 5 km. On monte en volume progressivement et on introduit des séances de qualité.</p>
+          <div class="run-prog-toggle">
+            <span>Voir le programme</span>
+            <div class="run-prog-arrow">▼</div>
+          </div>
+          <div class="run-prog-body">
+            <div class="run-prog-weeks">
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 1</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 5 km facile · <b>S2</b> 5 km · <b>S3</b> 6 km</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 2</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 5 km · <b>S2</b> 5 km tempo · <b>S3</b> 6,5 km</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 3</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 5 km · <b>S2</b> 6 km · <b>S3</b> 7 km long</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 4 ↻</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session">Récupération — <b>×3</b> 4–5 km très facile</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 5</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 5 km · <b>S2</b> 6 km tempo · <b>S3</b> 7,5 km</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 6</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 6 km · <b>S2</b> intervalles 6×2 min · <b>S3</b> 8 km</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 7</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 6 km · <b>S2</b> 6 km tempo · <b>S3</b> 9 km long</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 8 ↻</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session">Récupération — <b>×3</b> 5 km facile</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 9</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 7 km · <b>S2</b> intervalles · <b>S3</b> 9,5 km</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 10 🏁</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 6 km · <b>S2</b> 4 km facile · <b>S3</b> Course 10 km !</div>
+                </div>
+              </div>
+            </div>
+            <div class="run-prog-tip">Séance tempo = courir 20 min à un rythme soutenu mais contrôlé (tu peux prononcer des mots isolés). Intervalles = alterner effort intense et récupération.</div>
+          </div>
+        </div>
+
+        <!-- ── NIVEAU 4 : Semi-marathon ── -->
+        <div class="run-prog-card reveal reveal-delay-3" onclick="this.classList.toggle('open')">
+          <div class="run-prog-header">
+            <div class="run-prog-badge lvl4">🏅</div>
+            <div class="run-prog-meta">
+              <div class="run-prog-level lvl4">Niveau 4</div>
+              <div class="run-prog-name">Semi-marathon 21 km</div>
+              <div class="run-prog-chips">
+                <span class="run-prog-chip">12 semaines</span>
+                <span class="run-prog-chip">4 séances/sem</span>
+                <span class="run-prog-chip">Objectif : 21,1 km</span>
+              </div>
+            </div>
+          </div>
+          <p class="run-prog-desc">Le programme final. Tu cours 10 km avec aisance. 12 semaines pour atteindre la ligne d'arrivée du semi.</p>
+          <div class="run-prog-toggle">
+            <span>Voir le programme</span>
+            <div class="run-prog-arrow">▼</div>
+          </div>
+          <div class="run-prog-body">
+            <div class="run-prog-weeks">
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 1</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 6 km · <b>S2</b> 7 km tempo · <b>S3</b> 6 km · <b>S4</b> 10 km long</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 2</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 7 km · <b>S2</b> intervalles · <b>S3</b> 6 km · <b>S4</b> 11 km long</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 3</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 7 km · <b>S2</b> 8 km tempo · <b>S3</b> 7 km · <b>S4</b> 12 km long</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 4 ↻</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session">Récupération — <b>×3</b> 6 km très facile + <b>S4</b> 9 km</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 5</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 8 km · <b>S2</b> intervalles · <b>S3</b> 7 km · <b>S4</b> 14 km long</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 6</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 8 km · <b>S2</b> 9 km tempo · <b>S3</b> 8 km · <b>S4</b> 15 km long</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 7</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 8 km · <b>S2</b> intervalles · <b>S3</b> 8 km · <b>S4</b> 16 km long</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 8 ↻</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session">Récupération — <b>×3</b> 7 km facile + <b>S4</b> 11 km</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 9</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 9 km · <b>S2</b> 10 km tempo · <b>S3</b> 8 km · <b>S4</b> 18 km long</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 10</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 9 km · <b>S2</b> intervalles · <b>S3</b> 8 km · <b>S4</b> 19 km long</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 11 ↻</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session">Affûtage — <b>S1</b> 7 km · <b>S2</b> 8 km tempo · <b>S3</b> 6 km · <b>S4</b> 13 km</div>
+                </div>
+              </div>
+              <div class="run-week-row">
+                <div class="run-week-num">Sem. 12 🏁</div>
+                <div class="run-week-sessions">
+                  <div class="run-week-session"><b>S1</b> 5 km · <b>S2</b> 4 km facile · <b>S3</b> repos · <b>S4</b> SEMI-MARATHON 21,1 km !</div>
+                </div>
+              </div>
+            </div>
+            <div class="run-prog-tip">La sortie longue du week-end est le cœur du programme. Cours-la 90 sec/km plus lentement que ton allure objectif — l'endurance se construit à basse intensité.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ═══ ACTIONS ═══ -->
   <div class="run-footer-section">
-    <button class="run-action-btn" id="exportBtn">📄 Exporter CSV</button>
-    <button class="run-action-btn danger" id="clearBtn">Effacer tout</button>
+    <button class="run-action-btn" id="exportBtn" type="button">📄 Exporter CSV</button>
+    <button class="run-action-btn danger" id="clearBtn" type="button">Effacer tout</button>
   </div>
 
   <!-- Footer -->

@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Coach — Dans mon assiette</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="theme.js"></script>
+  <style>
+  /* ── Hero coach ── */
+  .coach-hero {
+    background: linear-gradient(135deg, #0f2318 0%, #0a1a10 50%, #060e09 100%);
+    border-bottom: 1px solid rgba(74,222,128,.1);
+    padding: 4rem 1.5rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .coach-hero::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(74,222,128,.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .coach-hero-eyebrow {
+    font-size: .65rem;
+    font-weight: 800;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--c-green);
+    margin-bottom: .75rem;
+    position: relative;
+  }
+  .coach-hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    letter-spacing: -.04em;
+    color: var(--c-text);
+    line-height: 1.1;
+    margin-bottom: .75rem;
+    position: relative;
+  }
+  .coach-hero h1 em { font-style: normal; color: var(--c-green) }
+  .coach-hero p {
+    font-size: .9rem;
+    color: var(--c-text-3);
+    max-width: 500px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+    position: relative;
+  }
+
+  /* Stats bar */
+  .coach-stats {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    border: 1px solid rgba(74,222,128,.12);
+    border-radius: 16px;
+    background: rgba(255,255,255,.02);
+    max-width: 420px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+  }
+  .coach-stat {
+    flex: 1;
+    padding: 1.1rem .75rem;
+    text-align: center;
+    border-right: 1px solid rgba(74,222,128,.1);
+  }
+  .coach-stat:last-child { border-right: none }
+  .coach-stat-val {
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: -.03em;
+    color: var(--c-green);
+    display: block;
+    line-height: 1;
+    margin-bottom: .25rem;
+  }
+  .coach-stat-lbl {
+    font-size: .6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--c-text-3);
+  }
+
+  /* ── Tabs ── */
+  .coach-tabs-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--c-bg);
+    border-bottom: 1px solid var(--c-border);
+    padding: .75rem 1.5rem;
+  }
+  .coach-tabs {
+    display: flex;
+    gap: .25rem;
+    background: var(--c-surface-2);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-full);
+    padding: .3rem;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .coach-tab {
+    flex: 1;
+    padding: .6rem .5rem;
+    text-align: center;
+    border-radius: var(--r-full);
+    font-family: var(--font-body);
+    font-size: .8rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--c-text-3);
+    transition: var(--transition);
+    white-space: nowrap;
+  }
+  .coach-tab:hover { color: var(--c-text-2) }
+  .coach-tab.active {
+    background: var(--c-green-d);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(34,197,94,.3);
+  }
+  .coach-panel { display: none }
+  .coach-panel.active { display: block }
+
+  /* ── Container ── */
+  .coach-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+
+  /* ── Section heading ── */
+  .coach-section-label {
+    font-size: .6rem;
+    font-weight: 800;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--c-green);
+    margin-bottom: .5rem;
+  }
+  .coach-section-title {
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: -.03em;
+    color: var(--c-text);
+    margin-bottom: .35rem;
+  }
+  .coach-section-sub {
+    font-size: .82rem;
+    color: var(--c-text-3);
+    margin-bottom: 1.75rem;
+    line-height: 1.5;
+  }
+
+  /* ── Tip box ── */
+  .coach-tip {
+    background: rgba(251,146,60,.06);
+    border-left: 3px solid var(--c-orange);
+    border-radius: 0 12px 12px 0;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    font-size: .84rem;
+    color: var(--c-text-2);
+    line-height: 1.6;
+  }
+  .coach-tip strong { color: var(--c-orange) }
+
+  /* ── Card ── */
+  .coach-card {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-xl);
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+    transition: var(--transition);
+  }
+  .coach-card:hover {
+    border-color: rgba(74,222,128,.2);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+  }
+  .coach-card-header {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    margin-bottom: 1.1rem;
+  }
+  .coach-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--r-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    background: var(--c-surface-2);
+    border: 1px solid var(--c-border);
+  }
+  .coach-card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--c-text);
+    letter-spacing: -.02em;
+  }
+  .coach-card-subtitle {
+    font-size: .75rem;
+    color: var(--c-text-3);
+    margin-top: .1rem;
+  }
+
+  /* ── Meal items ── */
+  .meal-row {
+    padding: .9rem 0;
+    border-bottom: 1px solid var(--c-border-l);
+  }
+  .meal-row:last-child { border-bottom: none }
+  .meal-label {
+    font-size: .6rem;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--c-green);
+    margin-bottom: .25rem;
+  }
+  .meal-name {
+    font-size: .92rem;
+    font-weight: 700;
+    color: var(--c-text);
+    margin-bottom: .2rem;
+  }
+  .meal-desc {
+    font-size: .8rem;
+    color: var(--c-text-3);
+    line-height: 1.5;
+  }
+  .meal-cal {
+    display: inline-block;
+    margin-top: .4rem;
+    background: var(--c-green-xl);
+    border: 1px solid rgba(74,222,128,.15);
+    color: var(--c-green);
+    font-size: .7rem;
+    font-weight: 700;
+    padding: .2rem .7rem;
+    border-radius: var(--r-full);
+  }
+  .meal-total {
+    background: linear-gradient(135deg, var(--c-green-d), #166534);
+    color: #fff;
+    border-radius: 10px;
+    padding: .9rem 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: .75rem;
+    font-size: .85rem;
+    font-weight: 700;
+  }
+  .meal-total-val {
+    font-size: 1.2rem;
+    font-weight: 900;
+    letter-spacing: -.03em;
+  }
+
+  /* ── Week selector ── */
+  .week-selector {
+    display: flex;
+    gap: .5rem;
+    margin-bottom: 1.5rem;
+  }
+  .week-btn {
+    flex: 1;
+    padding: .65rem .5rem;
+    border-radius: var(--r-md);
+    font-family: var(--font-body);
+    font-size: .78rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1px solid var(--c-border);
+    background: var(--c-surface);
+    color: var(--c-text-3);
+    transition: var(--transition);
+    text-align: center;
+    letter-spacing: .02em;
+  }
+  .week-btn:hover { border-color: rgba(74,222,128,.3); color: var(--c-text-2) }
+  .week-btn.active {
+    border-color: rgba(74,222,128,.4);
+    background: var(--c-green-xl);
+    color: var(--c-green);
+  }
+  .week-content { display: none }
+  .week-content.active { display: block }
+
+  /* ── Exercises ── */
+  .exercise-row {
+    display: flex;
+    align-items: flex-start;
+    gap: .85rem;
+    padding: .85rem 0;
+    border-bottom: 1px solid var(--c-border-l);
+  }
+  .exercise-row:last-child { border-bottom: none }
+  .exercise-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--c-green-xl);
+    border: 1px solid rgba(74,222,128,.2);
+    color: var(--c-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .72rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .exercise-name {
+    font-size: .88rem;
+    font-weight: 700;
+    color: var(--c-text);
+    margin-bottom: .15rem;
+  }
+  .exercise-detail {
+    font-size: .78rem;
+    color: var(--c-text-3);
+    line-height: 1.45;
+  }
+
+  /* Badges difficulté */
+  .badge {
+    display: inline-block;
+    padding: .15rem .55rem;
+    border-radius: var(--r-full);
+    font-size: .65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+  .badge.easy   { background: rgba(74,222,128,.1);  color: var(--c-green) }
+  .badge.medium { background: rgba(251,146,60,.1);  color: var(--c-orange) }
+  .badge.hard   { background: rgba(248,113,113,.1); color: var(--c-danger) }
+
+  /* ── Checklist mindset ── */
+  .check-row {
+    display: flex;
+    align-items: flex-start;
+    gap: .85rem;
+    padding: .9rem 0;
+    border-bottom: 1px solid var(--c-border-l);
+    font-size: .86rem;
+    color: var(--c-text-2);
+    line-height: 1.6;
+  }
+  .check-row:last-child { border-bottom: none }
+  .check-circle {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--c-border);
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+  .check-circle:hover { border-color: rgba(74,222,128,.5) }
+  .check-circle.checked {
+    background: var(--c-green-d);
+    border-color: var(--c-green-d);
+  }
+  .check-circle.checked::after {
+    content: '✓';
+    color: #fff;
+    font-size: .65rem;
+    font-weight: 800;
+  }
+  .check-row strong { color: var(--c-text) }
+
+  /* ── Quote card ── */
+  .quote-card {
+    background: linear-gradient(135deg, #0f2318, #0a1a10);
+    border: 1px solid rgba(74,222,128,.15);
+    border-radius: var(--r-xl);
+    padding: 2rem;
+    margin-bottom: 1.25rem;
+    text-align: center;
+  }
+  .quote-text {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--c-text);
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: .65rem;
+  }
+  .quote-author {
+    font-size: .75rem;
+    color: var(--c-green);
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  /* Light mode overrides */
+  [data-theme="light"] .coach-hero {
+    background: linear-gradient(135deg, #e8f5ee 0%, #d0eadb 50%, #c5e4d0 100%);
+    border-bottom-color: rgba(34,197,94,.15);
+  }
+  [data-theme="light"] .coach-stats {
+    background: #fff;
+    border-color: rgba(34,197,94,.2);
+  }
+  [data-theme="light"] .coach-stat { border-right-color: rgba(34,197,94,.12) }
+  [data-theme="light"] .coach-stat-val { color: #15803d }
+  [data-theme="light"] .coach-tabs-wrap {
+    background: #f4faf6;
+    border-bottom-color: rgba(34,197,94,.12);
+  }
+  [data-theme="light"] .coach-tabs {
+    background: #fff;
+    border-color: rgba(34,197,94,.2);
+  }
+  [data-theme="light"] .coach-tab.active {
+    background: #15803d;
+  }
+  [data-theme="light"] .coach-card:hover { border-color: rgba(34,197,94,.3) }
+  [data-theme="light"] .coach-card-icon {
+    background: #eef7f1;
+    border-color: rgba(34,197,94,.15);
+  }
+  [data-theme="light"] .meal-cal {
+    background: rgba(34,197,94,.08);
+    border-color: rgba(34,197,94,.2);
+    color: #15803d;
+  }
+  [data-theme="light"] .exercise-num {
+    background: rgba(34,197,94,.08);
+    border-color: rgba(34,197,94,.2);
+    color: #15803d;
+  }
+  [data-theme="light"] .week-btn.active {
+    background: rgba(34,197,94,.08);
+    border-color: rgba(34,197,94,.35);
+    color: #15803d;
+  }
+  [data-theme="light"] .badge.easy   { background: rgba(34,197,94,.1);  color: #15803d }
+  [data-theme="light"] .badge.medium { background: rgba(234,88,12,.08); color: #c2410c }
+  [data-theme="light"] .coach-tip { background: rgba(234,88,12,.05); color: #7c4a0f }
+  [data-theme="light"] .check-circle:hover { border-color: rgba(34,197,94,.6) }
+  [data-theme="light"] .check-circle.checked { background: #15803d; border-color: #15803d }
+  [data-theme="light"] .quote-card {
+    background: linear-gradient(135deg, #e8f5ee, #d0eadb);
+    border-color: rgba(34,197,94,.2);
+  }
+  [data-theme="light"] .quote-text { color: #0f1f14 }
+  [data-theme="light"] .quote-author { color: #15803d }
+
+  @media (max-width: 500px) {
+    .coach-stats { flex-direction: column; max-width: 220px }
+    .coach-stat { border-right: none; border-bottom: 1px solid rgba(74,222,128,.1); padding: .8rem }
+    .coach-stat:last-child { border-bottom: none }
+    .week-selector { gap: .35rem }
+    .coach-container { padding: 1.5rem 1rem 4rem }
+  }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">Dans mon assiette</a>
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Changer le thème">☀️</button>
+      <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" title="Menu" type="button">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="recettes.html">Recettes</a></li>
+        <li><a href="calories.html">Mes Calories</a></li>
+        <li><a href="sport.html">Sport</a></li>
+        <li><a href="poids.html">Mon Poids</a></li>
+        <li><a href="running.html">On the Road</a></li>
+        <li><a href="coach.html" class="active">Mon Coach</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="coach-hero">
+    <div class="coach-hero-eyebrow">Programme personnalisé</div>
+    <h1>Ton <em>Coach</em> Perso</h1>
+    <p>Reprise en douceur · Résultats durables · Sans privation</p>
+    <div class="coach-stats">
+      <div class="coach-stat">
+        <span class="coach-stat-val">74 kg</span>
+        <span class="coach-stat-lbl">Actuel</span>
+      </div>
+      <div class="coach-stat">
+        <span class="coach-stat-val">60 kg</span>
+        <span class="coach-stat-lbl">Objectif</span>
+      </div>
+      <div class="coach-stat">
+        <span class="coach-stat-val">~1 700</span>
+        <span class="coach-stat-lbl">kcal/jour</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="coach-tabs-wrap">
+    <div class="coach-tabs">
+      <button class="coach-tab active" data-panel="food">🍽 Alimentation</button>
+      <button class="coach-tab" data-panel="sport">💪 Sport</button>
+      <button class="coach-tab" data-panel="mindset">🧠 Mindset</button>
+    </div>
+  </div>
+
+  <div class="coach-container">
+
+    <!-- ════════ ALIMENTATION ════════ -->
+    <div class="coach-panel active" id="panel-food">
+
+      <div class="coach-section-label">Plan alimentaire</div>
+      <h2 class="coach-section-title">Tes journées types</h2>
+      <p class="coach-section-sub">~1 700 kcal/jour · Déficit modéré de 400 kcal · Recettes simples &lt;20 min</p>
+
+      <div class="coach-tip">
+        <strong>Le principe :</strong> Ton métabolisme de base + activité ≈ 2 100 kcal. En visant 1 700 kcal, tu perds environ 0,4 kg/semaine de façon saine et durable. Pas de privation, juste des choix malins.
+      </div>
+
+      <!-- Jour A -->
+      <div class="coach-card">
+        <div class="coach-card-header">
+          <div class="coach-card-icon">📗</div>
+          <div>
+            <div class="coach-card-title">Jour Type A — Méditerranéen</div>
+            <div class="coach-card-subtitle">Idéal en semaine · Simple à batch-préparer</div>
+          </div>
+        </div>
+        <div class="meal-row">
+          <div class="meal-label">☀ Petit-déjeuner</div>
+          <div class="meal-name">Yaourt grec + flocons d'avoine + fruits</div>
+          <div class="meal-desc">150 g yaourt grec nature 0 % · 30 g flocons d'avoine · 1 petite banane tranchée · 1 c.à.c. miel</div>
+          <span class="meal-cal">≈ 320 kcal</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-label">🌞 Déjeuner</div>
+          <div class="meal-name">Salade de poulet, quinoa & légumes grillés</div>
+          <div class="meal-desc">120 g blanc de poulet grillé · 80 g quinoa (poids cuit) · Courgette, poivron, oignon rouge grillés · Filet d'huile d'olive + citron</div>
+          <span class="meal-cal">≈ 520 kcal</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-label">🌙 Dîner</div>
+          <div class="meal-name">Soupe de lentilles corail au cumin</div>
+          <div class="meal-desc">80 g lentilles corail · 1 carotte · 1 oignon · Cumin, curcuma · 1 tranche de pain complet</div>
+          <span class="meal-cal">≈ 420 kcal</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-label">🍎 Collation</div>
+          <div class="meal-name">1 pomme + 10 amandes</div>
+          <div class="meal-desc">À prendre si faim dans l'après-midi</div>
+          <span class="meal-cal">≈ 150 kcal</span>
+        </div>
+        <div class="meal-total">
+          <span>Total journée</span>
+          <span class="meal-total-val">≈ 1 410 kcal</span>
+        </div>
+      </div>
+
+      <!-- Jour B -->
+      <div class="coach-card">
+        <div class="coach-card-header">
+          <div class="coach-card-icon">📙</div>
+          <div>
+            <div class="coach-card-title">Jour Type B — Comfort Food Léger</div>
+            <div class="coach-card-subtitle">Pour les jours où tu veux quelque chose de réconfortant</div>
+          </div>
+        </div>
+        <div class="meal-row">
+          <div class="meal-label">☀ Petit-déjeuner</div>
+          <div class="meal-name">Tartines complètes œuf + avocat</div>
+          <div class="meal-desc">2 tranches de pain complet · 2 œufs brouillés · ¼ avocat écrasé · Sel, poivre, piment d'Espelette</div>
+          <span class="meal-cal">≈ 400 kcal</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-label">🌞 Déjeuner</div>
+          <div class="meal-name">Pâtes complètes au thon, tomates cerises & roquette</div>
+          <div class="meal-desc">80 g pâtes complètes (poids sec) · 1 boîte de thon nature · Tomates cerises · Roquette · 1 c.à.s. huile d'olive</div>
+          <span class="meal-cal">≈ 520 kcal</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-label">🌙 Dîner</div>
+          <div class="meal-name">Omelette aux champignons & salade verte</div>
+          <div class="meal-desc">3 œufs · 100 g champignons de Paris · Salade verte (mâche ou roquette) · Vinaigrette légère maison</div>
+          <span class="meal-cal">≈ 380 kcal</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-label">🍎 Collation</div>
+          <div class="meal-name">1 compote sans sucre ajouté + 2 carrés de chocolat noir 70 %</div>
+          <div class="meal-desc">Plaisir raisonnable en fin de journée</div>
+          <span class="meal-cal">≈ 130 kcal</span>
+        </div>
+        <div class="meal-total">
+          <span>Total journée</span>
+          <span class="meal-total-val">≈ 1 430 kcal</span>
+        </div>
+      </div>
+
+      <!-- Jour C -->
+      <div class="coach-card">
+        <div class="coach-card-header">
+          <div class="coach-card-icon">📘</div>
+          <div>
+            <div class="coach-card-title">Jour Type C — Express</div>
+            <div class="coach-card-subtitle">Quand tu as très peu de temps</div>
+          </div>
+        </div>
+        <div class="meal-row">
+          <div class="meal-label">☀ Petit-déjeuner</div>
+          <div class="meal-name">Smoothie protéiné express</div>
+          <div class="meal-desc">200 ml lait demi-écrémé · 1 banane · 30 g flocons d'avoine · 1 c.à.s. beurre de cacahuète · Mixé 30 sec</div>
+          <span class="meal-cal">≈ 380 kcal</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-label">🌞 Déjeuner</div>
+          <div class="meal-name">Wrap poulet-crudités</div>
+          <div class="meal-desc">1 tortilla complète · 100 g poulet émincé · Salade, tomate, concombre · 1 c.à.s. fromage frais ail & fines herbes</div>
+          <span class="meal-cal">≈ 430 kcal</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-label">🌙 Dîner</div>
+          <div class="meal-name">Saumon en papillote & haricots verts</div>
+          <div class="meal-desc">130 g pavé de saumon · 200 g haricots verts · Citron, aneth · 1 noisette de beurre</div>
+          <span class="meal-cal">≈ 420 kcal</span>
+        </div>
+        <div class="meal-row">
+          <div class="meal-label">🍎 Collation</div>
+          <div class="meal-name">Fromage blanc 0 % + 1 c.à.c. confiture</div>
+          <div class="meal-desc">150 g de fromage blanc, rapide et rassasiant</div>
+          <span class="meal-cal">≈ 110 kcal</span>
+        </div>
+        <div class="meal-total">
+          <span>Total journée</span>
+          <span class="meal-total-val">≈ 1 340 kcal</span>
+        </div>
+      </div>
+
+      <div class="coach-tip">
+        <strong>🛒 Astuce courses :</strong> Prépare tes courses le dimanche avec ces basiques : poulet, œufs, yaourt grec, flocons d'avoine, quinoa, lentilles corail, légumes de saison, fruits, pain complet, thon en boîte. Avec ça, tu tiens toute la semaine.
+      </div>
+
+    </div>
+
+    <!-- ════════ SPORT ════════ -->
+    <div class="coach-panel" id="panel-sport">
+
+      <div class="coach-section-label">Programme de reprise</div>
+      <h2 class="coach-section-title">4 semaines de progression</h2>
+      <p class="coach-section-sub">3 séances/semaine · Progression douce · Salle de sport</p>
+
+      <div class="coach-tip">
+        <strong>🎯 Le deal :</strong> Après 6 mois d'arrêt, l'objectif n°1 c'est de <em>reprendre l'habitude</em>, pas de battre des records. On commence doucement et on monte chaque semaine.
+      </div>
+
+      <div class="week-selector">
+        <button class="week-btn active" data-week="1">Sem. 1</button>
+        <button class="week-btn" data-week="2">Sem. 2</button>
+        <button class="week-btn" data-week="3">Sem. 3</button>
+        <button class="week-btn" data-week="4">Sem. 4</button>
+      </div>
+
+      <!-- Semaine 1 -->
+      <div class="week-content active" id="wk-1">
+        <div class="coach-card">
+          <div class="coach-card-header">
+            <div class="coach-card-icon">🟢</div>
+            <div>
+              <div class="coach-card-title">Séance 1 — Découverte cardio</div>
+              <div class="coach-card-subtitle">30 min · <span class="badge easy">Facile</span></div>
+            </div>
+          </div>
+          <div class="exercise-row"><div class="exercise-num">1</div><div><div class="exercise-name">Marche rapide sur tapis</div><div class="exercise-detail">15 min · Vitesse 5-6 km/h · Pente 0-1 %</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">2</div><div><div class="exercise-name">Vélo elliptique (faible résistance)</div><div class="exercise-detail">10 min · Résistance 2-3/10 · Rythme confortable</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">3</div><div><div class="exercise-name">Étirements doux</div><div class="exercise-detail">5 min · Quadriceps, mollets, épaules, dos</div></div></div>
+        </div>
+        <div class="coach-card">
+          <div class="coach-card-header">
+            <div class="coach-card-icon">🟢</div>
+            <div>
+              <div class="coach-card-title">Séance 2 — Initiation machines</div>
+              <div class="coach-card-subtitle">35 min · <span class="badge easy">Facile</span></div>
+            </div>
+          </div>
+          <div class="exercise-row"><div class="exercise-num">1</div><div><div class="exercise-name">Vélo stationnaire (échauffement)</div><div class="exercise-detail">8 min · Rythme modéré</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">2</div><div><div class="exercise-name">Presse à cuisses (machine guidée)</div><div class="exercise-detail">3 × 12 reps · Poids léger (30-40 kg)</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">3</div><div><div class="exercise-name">Tirage vertical (machine)</div><div class="exercise-detail">3 × 12 reps · Poids léger · Prise large</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">4</div><div><div class="exercise-name">Gainage ventral</div><div class="exercise-detail">3 × 20 sec · Sur les genoux si besoin</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">5</div><div><div class="exercise-name">Étirements</div><div class="exercise-detail">5 min</div></div></div>
+        </div>
+        <div class="coach-card">
+          <div class="coach-card-header">
+            <div class="coach-card-icon">🟢</div>
+            <div>
+              <div class="coach-card-title">Séance 3 — Corps complet doux</div>
+              <div class="coach-card-subtitle">30 min · <span class="badge easy">Facile</span></div>
+            </div>
+          </div>
+          <div class="exercise-row"><div class="exercise-num">1</div><div><div class="exercise-name">Marche inclinée sur tapis</div><div class="exercise-detail">10 min · 5 km/h · Pente 3-4 %</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">2</div><div><div class="exercise-name">Squats au poids du corps</div><div class="exercise-detail">3 × 10 reps · Descente contrôlée</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">3</div><div><div class="exercise-name">Pompes inclinées (sur un banc)</div><div class="exercise-detail">3 × 8 reps · Plus le banc est haut, plus c'est facile</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">4</div><div><div class="exercise-name">Gainage latéral</div><div class="exercise-detail">2 × 15 sec par côté</div></div></div>
+        </div>
+      </div>
+
+      <!-- Semaine 2 -->
+      <div class="week-content" id="wk-2">
+        <div class="coach-card">
+          <div class="coach-card-header">
+            <div class="coach-card-icon">🟡</div>
+            <div>
+              <div class="coach-card-title">Séance 1 — Cardio progressif</div>
+              <div class="coach-card-subtitle">35 min · <span class="badge easy">Facile+</span></div>
+            </div>
+          </div>
+          <div class="exercise-row"><div class="exercise-num">1</div><div><div class="exercise-name">Marche rapide / jogging alternés</div><div class="exercise-detail">20 min · 2 min marche rapide + 1 min jogging léger · Répéter</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">2</div><div><div class="exercise-name">Rameur</div><div class="exercise-detail">10 min · Rythme modéré · Focus sur la technique</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">3</div><div><div class="exercise-name">Étirements</div><div class="exercise-detail">5 min</div></div></div>
+        </div>
+        <div class="coach-card">
+          <div class="coach-card-header">
+            <div class="coach-card-icon">🟡</div>
+            <div>
+              <div class="coach-card-title">Séance 2 — Renforcement haut du corps</div>
+              <div class="coach-card-subtitle">40 min · <span class="badge easy">Facile+</span></div>
+            </div>
+          </div>
+          <div class="exercise-row"><div class="exercise-num">1</div><div><div class="exercise-name">Échauffement vélo</div><div class="exercise-detail">8 min</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">2</div><div><div class="exercise-name">Développé machine (pectoraux)</div><div class="exercise-detail">3 × 12 reps · Poids confortable</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">3</div><div><div class="exercise-name">Tirage horizontal (machine)</div><div class="exercise-detail">3 × 12 reps</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">4</div><div><div class="exercise-name">Élévations latérales (haltères légers)</div><div class="exercise-detail">3 × 12 reps · 3-4 kg</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">5</div><div><div class="exercise-name">Gainage ventral</div><div class="exercise-detail">3 × 30 sec</div></div></div>
+        </div>
+        <div class="coach-card">
+          <div class="coach-card-header">
+            <div class="coach-card-icon">🟡</div>
+            <div>
+              <div class="coach-card-title">Séance 3 — Bas du corps + cardio</div>
+              <div class="coach-card-subtitle">40 min · <span class="badge easy">Facile+</span></div>
+            </div>
+          </div>
+          <div class="exercise-row"><div class="exercise-num">1</div><div><div class="exercise-name">Vélo elliptique</div><div class="exercise-detail">10 min · Résistance 3-4/10</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">2</div><div><div class="exercise-name">Presse à cuisses</div><div class="exercise-detail">3 × 12 reps · +5 kg vs semaine 1</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">3</div><div><div class="exercise-name">Fentes avant au poids du corps</div><div class="exercise-detail">3 × 10 par jambe</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">4</div><div><div class="exercise-name">Extension mollets (debout sur marche)</div><div class="exercise-detail">3 × 15 reps</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">5</div><div><div class="exercise-name">Gainage latéral</div><div class="exercise-detail">2 × 20 sec par côté</div></div></div>
+        </div>
+      </div>
+
+      <!-- Semaine 3 -->
+      <div class="week-content" id="wk-3">
+        <div class="coach-card">
+          <div class="coach-card-header">
+            <div class="coach-card-icon">🟠</div>
+            <div>
+              <div class="coach-card-title">Séance 1 — Cardio intervalle</div>
+              <div class="coach-card-subtitle">40 min · <span class="badge medium">Modéré</span></div>
+            </div>
+          </div>
+          <div class="exercise-row"><div class="exercise-num">1</div><div><div class="exercise-name">Tapis : intervals marche / jogging</div><div class="exercise-detail">25 min · 2 min marche + 2 min jogging · Augmente vitesse jogging de 0,5 km/h</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">2</div><div><div class="exercise-name">Rameur</div><div class="exercise-detail">10 min · Alterne 1 min effort / 1 min repos</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">3</div><div><div class="exercise-name">Étirements + retour au calme</div><div class="exercise-detail">5 min</div></div></div>
+        </div>
+        <div class="coach-card">
+          <div class="coach-card-header">
+            <div class="coach-card-icon">🟠</div>
+            <div>
+              <div class="coach-card-title">Séance 2 — Full body machines</div>
+              <div class="coach-card-subtitle">45 min · <span class="badge medium">Modéré</span></div>
+            </div>
+          </div>
+          <div class="exercise-row"><div class="exercise-num">1</div><div><div class="exercise-name">Échauffement elliptique</div><div class="exercise-detail">8 min</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">2</div><div><div class="exercise-name">Presse à cuisses</div><div class="exercise-detail">3 × 12 · Augmente encore le poids</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">3</div><div><div class="exercise-name">Développé machine pectoraux</div><div class="exercise-detail">3 × 12 · +2,5 kg</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">4</div><div><div class="exercise-name">Tirage vertical</div><div class="exercise-detail">3 × 12 · +2,5 kg</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">5</div><div><div class="exercise-name">Crunchs machine ou au sol</div><div class="exercise-detail">3 × 15</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">6</div><div><div class="exercise-name">Gainage ventral</div><div class="exercise-detail">3 × 40 sec</div></div></div>
+        </div>
+        <div class="coach-card">
+          <div class="coach-card-header">
+            <div class="coach-card-icon">🟠</div>
+            <div>
+              <div class="coach-card-title">Séance 3 — Circuit training léger</div>
+              <div class="coach-card-subtitle">35 min · <span class="badge medium">Modéré</span></div>
+            </div>
+          </div>
+          <div class="exercise-row"><div class="exercise-num">1</div><div><div class="exercise-name">Échauffement marche rapide</div><div class="exercise-detail">5 min</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">2</div><div><div class="exercise-name">Circuit (3 tours · 1 min repos entre tours)</div><div class="exercise-detail">10 squats · 8 pompes inclinées · 10 fentes alternées · 20 sec gainage · 10 tirage horizontal</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">3</div><div><div class="exercise-name">Retour au calme + étirements</div><div class="exercise-detail">5 min</div></div></div>
+        </div>
+      </div>
+
+      <!-- Semaine 4 -->
+      <div class="week-content" id="wk-4">
+        <div class="coach-card">
+          <div class="coach-card-header">
+            <div class="coach-card-icon">🔴</div>
+            <div>
+              <div class="coach-card-title">Séance 1 — Cardio + core</div>
+              <div class="coach-card-subtitle">45 min · <span class="badge medium">Modéré+</span></div>
+            </div>
+          </div>
+          <div class="exercise-row"><div class="exercise-num">1</div><div><div class="exercise-name">Jogging continu sur tapis</div><div class="exercise-detail">20 min · Rythme confortable où tu peux encore parler</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">2</div><div><div class="exercise-name">Rameur intervalles</div><div class="exercise-detail">10 min · 1 min intense / 1 min repos</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">3</div><div><div class="exercise-name">Circuit abdos (3 tours)</div><div class="exercise-detail">15 crunchs · 30 sec gainage · 10 relevés de genoux · 20 sec gainage latéral/côté</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">4</div><div><div class="exercise-name">Étirements</div><div class="exercise-detail">5 min</div></div></div>
+        </div>
+        <div class="coach-card">
+          <div class="coach-card-header">
+            <div class="coach-card-icon">🔴</div>
+            <div>
+              <div class="coach-card-title">Séance 2 — Full body (charges progressives)</div>
+              <div class="coach-card-subtitle">50 min · <span class="badge medium">Modéré+</span></div>
+            </div>
+          </div>
+          <div class="exercise-row"><div class="exercise-num">1</div><div><div class="exercise-name">Échauffement rameur</div><div class="exercise-detail">8 min</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">2</div><div><div class="exercise-name">Presse à cuisses</div><div class="exercise-detail">4 × 10 · Charge la plus lourde propre</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">3</div><div><div class="exercise-name">Développé machine</div><div class="exercise-detail">4 × 10</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">4</div><div><div class="exercise-name">Tirage vertical + Tirage horizontal</div><div class="exercise-detail">3 × 10 chacun · En superset (enchaîné sans pause)</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">5</div><div><div class="exercise-name">Fentes avec haltères légers</div><div class="exercise-detail">3 × 10/jambe · 4-6 kg par main</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">6</div><div><div class="exercise-name">Gainage 3 positions</div><div class="exercise-detail">Ventral 45 sec · Latéral gauche 25 sec · Latéral droit 25 sec · × 2</div></div></div>
+        </div>
+        <div class="coach-card">
+          <div class="coach-card-header">
+            <div class="coach-card-icon">🔴</div>
+            <div>
+              <div class="coach-card-title">Séance 3 — Circuit training complet</div>
+              <div class="coach-card-subtitle">40 min · <span class="badge medium">Modéré+</span></div>
+            </div>
+          </div>
+          <div class="exercise-row"><div class="exercise-num">1</div><div><div class="exercise-name">Échauffement elliptique</div><div class="exercise-detail">8 min</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">2</div><div><div class="exercise-name">Circuit (4 tours · 1 min repos entre tours)</div><div class="exercise-detail">12 squats · 10 pompes (au sol si possible) · 12 fentes · 30 sec gainage · 10 tirages horizontaux · 10 élévations latérales</div></div></div>
+          <div class="exercise-row"><div class="exercise-num">3</div><div><div class="exercise-name">Retour au calme + étirements complets</div><div class="exercise-detail">7 min</div></div></div>
+        </div>
+      </div>
+
+      <div class="coach-tip">
+        <strong>🔑 Ton rituel d'entrée :</strong> Prépare ton sac la veille, mets tes chaussures de sport en arrivant à la maison, et pars dans les 10 minutes. Ne réfléchis pas, bouge. L'énergie vient en bougeant, pas avant.
+      </div>
+
+    </div>
+
+    <!-- ════════ MINDSET ════════ -->
+    <div class="coach-panel" id="panel-mindset">
+
+      <div class="coach-section-label">Mental & Motivation</div>
+      <h2 class="coach-section-title">Les clés pour tenir</h2>
+      <p class="coach-section-sub">Parce que la tête compte autant que le corps</p>
+
+      <div class="quote-card">
+        <div class="quote-text">« Tu n'as pas besoin de motivation pour commencer. Tu as besoin de commencer pour trouver la motivation. »</div>
+        <div class="quote-author">— Action d'abord, inspiration ensuite</div>
+      </div>
+
+      <div class="coach-card">
+        <div class="coach-card-header">
+          <div class="coach-card-icon">🎯</div>
+          <div>
+            <div class="coach-card-title">Tes micro-objectifs semaine 1</div>
+            <div class="coach-card-subtitle">Coche-les un par un — chaque coche est une victoire</div>
+          </div>
+        </div>
+        <div class="check-row">
+          <div class="check-circle" role="checkbox" aria-checked="false" tabindex="0"></div>
+          <div>Aller à la salle une première fois, même juste 20 min</div>
+        </div>
+        <div class="check-row">
+          <div class="check-circle" role="checkbox" aria-checked="false" tabindex="0"></div>
+          <div>Préparer un petit-déjeuner « type A ou B » au moins 3 matins</div>
+        </div>
+        <div class="check-row">
+          <div class="check-circle" role="checkbox" aria-checked="false" tabindex="0"></div>
+          <div>Faire tes courses avec une liste (basiques de la semaine)</div>
+        </div>
+        <div class="check-row">
+          <div class="check-circle" role="checkbox" aria-checked="false" tabindex="0"></div>
+          <div>Boire 1,5 L d'eau par jour pendant 3 jours</div>
+        </div>
+        <div class="check-row">
+          <div class="check-circle" role="checkbox" aria-checked="false" tabindex="0"></div>
+          <div>Te peser une fois (le matin à jeun) et noter le chiffre sans jugement</div>
+        </div>
+      </div>
+
+      <div class="coach-card">
+        <div class="coach-card-header">
+          <div class="coach-card-icon">🧩</div>
+          <div>
+            <div class="coach-card-title">Surmonter la barrière psychologique</div>
+            <div class="coach-card-subtitle">Parce que le plus dur c'est d'y aller, pas de s'entraîner</div>
+          </div>
+        </div>
+        <div class="check-row"><div><strong>La règle des 10 minutes :</strong> Dis-toi « j'y vais juste 10 min ». Si après 10 min tu veux partir, tu pars. Spoiler : ça n'arrive presque jamais.</div></div>
+        <div class="check-row"><div><strong>Prépare tout la veille :</strong> Sac de sport prêt, vêtements sortis. Moins de décisions à prendre = moins de chance d'abandonner.</div></div>
+        <div class="check-row"><div><strong>Créneau fixe :</strong> Choisis 3 jours précis (ex : lundi, mercredi, vendredi) et considère-les comme des rendez-vous non négociables.</div></div>
+        <div class="check-row"><div><strong>Récompense non alimentaire :</strong> Après chaque séance → 20 min de série, podcast préféré, ou jeu vidéo sans culpabilité.</div></div>
+        <div class="check-row"><div><strong>Journal de ressentis (1 phrase) :</strong> Après chaque séance, note comment tu te sens. « Fatigué mais fier » suffit. Tu reliras ça les jours difficiles.</div></div>
+      </div>
+
+      <div class="coach-card">
+        <div class="coach-card-header">
+          <div class="coach-card-icon">📊</div>
+          <div>
+            <div class="coach-card-title">Attentes réalistes</div>
+            <div class="coach-card-subtitle">Pour rester motivé sans se décourager</div>
+          </div>
+        </div>
+        <div class="check-row"><div><strong>Semaines 1-2 :</strong> Tu pourrais perdre 0,5-1 kg (dont de l'eau). Tu vas surtout ressentir plus d'énergie et mieux dormir.</div></div>
+        <div class="check-row"><div><strong>Semaines 3-4 :</strong> La perte se stabilise à ~0,3-0,5 kg/semaine. C'est normal et sain. Tes vêtements commencent à aller mieux.</div></div>
+        <div class="check-row"><div><strong>Mois 2-3 :</strong> Les progrès à la salle deviennent visibles. Tu es plus fort, plus endurant. Le poids descend régulièrement.</div></div>
+        <div class="check-row"><div><strong>Objectif 60 kg :</strong> Avec un déficit modéré de 400 kcal/jour, compte environ 7-9 mois. C'est un marathon, pas un sprint — et c'est ce qui fait que ça dure.</div></div>
+      </div>
+
+      <div class="coach-tip">
+        <strong>💬 N'oublie pas :</strong> Reviens consulter ce programme à tout moment pour rester sur la bonne voie. On avance ensemble, étape par étape.
+      </div>
+
+    </div>
+
+  </div><!-- /coach-container -->
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>Dans mon assiette — Prendre soin de toi, un plat à la fois.</p>
+  </footer>
+
+  <script>
+  (function () {
+    // ── Tabs ──
+    document.querySelectorAll('.coach-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.coach-tab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.coach-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
+      });
+    });
+
+    // ── Semaines ──
+    document.querySelectorAll('.week-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.week-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.week-content').forEach(w => w.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('wk-' + btn.dataset.week).classList.add('active');
+      });
+    });
+
+    // ── Checklist ──
+    document.querySelectorAll('.check-circle[role="checkbox"]').forEach(el => {
+      const toggle = () => {
+        const checked = el.classList.toggle('checked');
+        el.setAttribute('aria-checked', checked);
+      };
+      el.addEventListener('click', toggle);
+      el.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(); } });
+    });
+  })();
+  </script>
+
+</body>
+</html>

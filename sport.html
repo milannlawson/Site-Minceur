@@ -125,6 +125,29 @@
   .workout-banner-text h3{font-size:1.1rem;font-weight:700;color:var(--c-text);letter-spacing:-.02em;margin-bottom:.2rem}
   .workout-banner-text p{font-size:.85rem;color:var(--c-text-2)}
   @media(max-width:600px){.timer-inner{flex-wrap:wrap;justify-content:center}.timer-presets{justify-content:center}.session-modal-body{padding:1rem 1.15rem 1.25rem}.session-modal-header{padding:1.15rem}.builder-section{padding:1.15rem}.sport-tabs{overflow-x:auto;width:auto;max-width:100%}.builder-exercise-row{grid-template-columns:1fr}}
+  /* ── Section Reprise Coach ── */
+  .rp-tip{background:rgba(251,146,60,.06);border-left:3px solid var(--c-orange);border-radius:0 12px 12px 0;padding:1rem 1.25rem;margin-bottom:1.5rem;font-size:.84rem;color:var(--c-text-2);line-height:1.6}
+  .rp-tip strong{color:var(--c-orange)}
+  .rp-week-selector{display:flex;gap:.5rem;margin-bottom:1.5rem}
+  .rp-week-btn{flex:1;padding:.65rem .5rem;border-radius:var(--r-md);font-family:var(--font-body);font-size:.78rem;font-weight:700;cursor:pointer;border:1px solid var(--c-border);background:var(--c-surface);color:var(--c-text-3);transition:var(--transition);text-align:center}
+  .rp-week-btn:hover{border-color:rgba(74,222,128,.3);color:var(--c-text-2)}
+  .rp-week-btn.active{border-color:rgba(74,222,128,.4);background:var(--c-green-xl);color:var(--c-green)}
+  .rp-week-content{display:none}
+  .rp-week-content.active{display:block}
+  .rp-card{background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--r-xl);padding:1.5rem;margin-bottom:1.25rem;transition:var(--transition)}
+  .rp-card:hover{border-color:rgba(74,222,128,.2);transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .rp-card-header{display:flex;align-items:center;gap:.85rem;margin-bottom:1.1rem}
+  .rp-card-icon{width:44px;height:44px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;background:var(--c-surface-2);border:1px solid var(--c-border)}
+  .rp-card-title{font-size:1rem;font-weight:700;color:var(--c-text);letter-spacing:-.02em}
+  .rp-card-subtitle{font-size:.75rem;color:var(--c-text-3);margin-top:.1rem}
+  .rp-badge{display:inline-block;padding:.15rem .55rem;border-radius:var(--r-full);font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+  .rp-badge.easy{background:var(--c-green-xl);color:var(--c-green)}
+  .rp-badge.medium{background:var(--c-orange-l);color:var(--c-orange)}
+  .rp-exercise-row{display:flex;align-items:flex-start;gap:.85rem;padding:.85rem 0;border-bottom:1px solid var(--c-border-l)}
+  .rp-exercise-row:last-child{border-bottom:none}
+  .rp-exercise-num{width:28px;height:28px;border-radius:50%;background:var(--c-green-xl);border:1px solid rgba(74,222,128,.2);color:var(--c-green);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;flex-shrink:0;margin-top:2px}
+  .rp-exercise-name{font-size:.88rem;font-weight:700;color:var(--c-text);margin-bottom:.15rem}
+  .rp-exercise-detail{font-size:.78rem;color:var(--c-text-3);line-height:1.45}
   </style>
 </head>
 <body>
@@ -172,9 +195,130 @@
         <button type="button" class="period-tab" data-level="Débutant">🌱 Débutant</button>
         <button type="button" class="period-tab" data-level="Intermédiaire">⚡ Intermédiaire</button>
         <button type="button" class="period-tab" data-level="Expert">🔥 Expert</button>
+        <button type="button" class="period-tab" data-level="Reprise">🏥 Reprise</button>
       </div>
       <div class="programs-grid" id="programsGrid"></div>
-      <div style="display:flex;justify-content:center;margin-top:.75rem"><button class="btn btn-primary" id="applyProgramBtn" disabled>Appliquer ce programme</button></div>
+      <div id="applyProgramWrap" style="display:flex;justify-content:center;margin-top:.75rem"><button type="button" class="btn btn-primary" id="applyProgramBtn" disabled>Appliquer ce programme</button></div>
+
+      <!-- ── Programme Reprise Coach (affiché quand filtre Reprise actif) ── -->
+      <div id="reprisePanel" style="display:none">
+        <div class="rp-tip">
+          <strong>🎯 Le deal :</strong> Après un arrêt, l'objectif n°1 c'est de <em>reprendre l'habitude</em>, pas de battre des records. On commence doucement et on monte chaque semaine. Si une séance te semble facile, c'est parfait.
+        </div>
+
+        <div class="rp-week-selector">
+          <button class="rp-week-btn active" data-rpweek="1">Sem. 1</button>
+          <button class="rp-week-btn" data-rpweek="2">Sem. 2</button>
+          <button class="rp-week-btn" data-rpweek="3">Sem. 3</button>
+          <button class="rp-week-btn" data-rpweek="4">Sem. 4</button>
+        </div>
+
+        <!-- Semaine 1 -->
+        <div class="rp-week-content active" id="rpwk-1">
+          <div class="rp-card">
+            <div class="rp-card-header"><div class="rp-card-icon">🟢</div><div><div class="rp-card-title">Séance 1 — Découverte cardio</div><div class="rp-card-subtitle">30 min · <span class="rp-badge easy">Facile</span></div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">1</div><div><div class="rp-exercise-name">Marche rapide sur tapis</div><div class="rp-exercise-detail">15 min · Vitesse 5-6 km/h · Pente 0-1 %</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">2</div><div><div class="rp-exercise-name">Vélo elliptique (faible résistance)</div><div class="rp-exercise-detail">10 min · Résistance 2-3/10 · Rythme confortable</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">3</div><div><div class="rp-exercise-name">Étirements doux</div><div class="rp-exercise-detail">5 min · Quadriceps, mollets, épaules, dos</div></div></div>
+          </div>
+          <div class="rp-card">
+            <div class="rp-card-header"><div class="rp-card-icon">🟢</div><div><div class="rp-card-title">Séance 2 — Initiation machines</div><div class="rp-card-subtitle">35 min · <span class="rp-badge easy">Facile</span></div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">1</div><div><div class="rp-exercise-name">Vélo stationnaire (échauffement)</div><div class="rp-exercise-detail">8 min · Rythme modéré</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">2</div><div><div class="rp-exercise-name">Presse à cuisses (machine guidée)</div><div class="rp-exercise-detail">3 × 12 reps · Poids léger (30-40 kg)</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">3</div><div><div class="rp-exercise-name">Tirage vertical (machine)</div><div class="rp-exercise-detail">3 × 12 reps · Poids léger · Prise large</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">4</div><div><div class="rp-exercise-name">Gainage ventral</div><div class="rp-exercise-detail">3 × 20 sec · Sur les genoux si besoin</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">5</div><div><div class="rp-exercise-name">Étirements</div><div class="rp-exercise-detail">5 min</div></div></div>
+          </div>
+          <div class="rp-card">
+            <div class="rp-card-header"><div class="rp-card-icon">🟢</div><div><div class="rp-card-title">Séance 3 — Corps complet doux</div><div class="rp-card-subtitle">30 min · <span class="rp-badge easy">Facile</span></div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">1</div><div><div class="rp-exercise-name">Marche inclinée sur tapis</div><div class="rp-exercise-detail">10 min · 5 km/h · Pente 3-4 %</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">2</div><div><div class="rp-exercise-name">Squats au poids du corps</div><div class="rp-exercise-detail">3 × 10 reps · Descente contrôlée</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">3</div><div><div class="rp-exercise-name">Pompes inclinées (sur un banc)</div><div class="rp-exercise-detail">3 × 8 reps · Plus le banc est haut, plus c'est facile</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">4</div><div><div class="rp-exercise-name">Gainage latéral</div><div class="rp-exercise-detail">2 × 15 sec par côté</div></div></div>
+          </div>
+        </div>
+
+        <!-- Semaine 2 -->
+        <div class="rp-week-content" id="rpwk-2">
+          <div class="rp-card">
+            <div class="rp-card-header"><div class="rp-card-icon">🟡</div><div><div class="rp-card-title">Séance 1 — Cardio progressif</div><div class="rp-card-subtitle">35 min · <span class="rp-badge easy">Facile+</span></div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">1</div><div><div class="rp-exercise-name">Marche rapide / jogging alternés</div><div class="rp-exercise-detail">20 min · 2 min marche rapide + 1 min jogging léger · Répéter</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">2</div><div><div class="rp-exercise-name">Rameur</div><div class="rp-exercise-detail">10 min · Rythme modéré · Focus sur la technique</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">3</div><div><div class="rp-exercise-name">Étirements</div><div class="rp-exercise-detail">5 min</div></div></div>
+          </div>
+          <div class="rp-card">
+            <div class="rp-card-header"><div class="rp-card-icon">🟡</div><div><div class="rp-card-title">Séance 2 — Renforcement haut du corps</div><div class="rp-card-subtitle">40 min · <span class="rp-badge easy">Facile+</span></div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">1</div><div><div class="rp-exercise-name">Échauffement vélo</div><div class="rp-exercise-detail">8 min</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">2</div><div><div class="rp-exercise-name">Développé machine (pectoraux)</div><div class="rp-exercise-detail">3 × 12 reps · Poids confortable</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">3</div><div><div class="rp-exercise-name">Tirage horizontal (machine)</div><div class="rp-exercise-detail">3 × 12 reps</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">4</div><div><div class="rp-exercise-name">Élévations latérales (haltères légers)</div><div class="rp-exercise-detail">3 × 12 reps · 3-4 kg</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">5</div><div><div class="rp-exercise-name">Gainage ventral</div><div class="rp-exercise-detail">3 × 30 sec</div></div></div>
+          </div>
+          <div class="rp-card">
+            <div class="rp-card-header"><div class="rp-card-icon">🟡</div><div><div class="rp-card-title">Séance 3 — Bas du corps + cardio</div><div class="rp-card-subtitle">40 min · <span class="rp-badge easy">Facile+</span></div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">1</div><div><div class="rp-exercise-name">Vélo elliptique</div><div class="rp-exercise-detail">10 min · Résistance 3-4/10</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">2</div><div><div class="rp-exercise-name">Presse à cuisses</div><div class="rp-exercise-detail">3 × 12 reps · +5 kg vs semaine 1</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">3</div><div><div class="rp-exercise-name">Fentes avant au poids du corps</div><div class="rp-exercise-detail">3 × 10 par jambe</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">4</div><div><div class="rp-exercise-name">Extension mollets (debout sur marche)</div><div class="rp-exercise-detail">3 × 15 reps</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">5</div><div><div class="rp-exercise-name">Gainage latéral</div><div class="rp-exercise-detail">2 × 20 sec par côté</div></div></div>
+          </div>
+        </div>
+
+        <!-- Semaine 3 -->
+        <div class="rp-week-content" id="rpwk-3">
+          <div class="rp-card">
+            <div class="rp-card-header"><div class="rp-card-icon">🟠</div><div><div class="rp-card-title">Séance 1 — Cardio intervalle</div><div class="rp-card-subtitle">40 min · <span class="rp-badge medium">Modéré</span></div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">1</div><div><div class="rp-exercise-name">Tapis : intervals marche / jogging</div><div class="rp-exercise-detail">25 min · 2 min marche + 2 min jogging · Augmente vitesse jogging de 0,5 km/h</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">2</div><div><div class="rp-exercise-name">Rameur</div><div class="rp-exercise-detail">10 min · Alterne 1 min effort / 1 min repos</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">3</div><div><div class="rp-exercise-name">Étirements + retour au calme</div><div class="rp-exercise-detail">5 min</div></div></div>
+          </div>
+          <div class="rp-card">
+            <div class="rp-card-header"><div class="rp-card-icon">🟠</div><div><div class="rp-card-title">Séance 2 — Full body machines</div><div class="rp-card-subtitle">45 min · <span class="rp-badge medium">Modéré</span></div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">1</div><div><div class="rp-exercise-name">Échauffement elliptique</div><div class="rp-exercise-detail">8 min</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">2</div><div><div class="rp-exercise-name">Presse à cuisses</div><div class="rp-exercise-detail">3 × 12 · Augmente encore le poids</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">3</div><div><div class="rp-exercise-name">Développé machine pectoraux</div><div class="rp-exercise-detail">3 × 12 · +2,5 kg</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">4</div><div><div class="rp-exercise-name">Tirage vertical</div><div class="rp-exercise-detail">3 × 12 · +2,5 kg</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">5</div><div><div class="rp-exercise-name">Crunchs machine ou au sol</div><div class="rp-exercise-detail">3 × 15</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">6</div><div><div class="rp-exercise-name">Gainage ventral</div><div class="rp-exercise-detail">3 × 40 sec</div></div></div>
+          </div>
+          <div class="rp-card">
+            <div class="rp-card-header"><div class="rp-card-icon">🟠</div><div><div class="rp-card-title">Séance 3 — Circuit training léger</div><div class="rp-card-subtitle">35 min · <span class="rp-badge medium">Modéré</span></div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">1</div><div><div class="rp-exercise-name">Échauffement marche rapide</div><div class="rp-exercise-detail">5 min</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">2</div><div><div class="rp-exercise-name">Circuit (3 tours · 1 min repos entre tours)</div><div class="rp-exercise-detail">10 squats · 8 pompes inclinées · 10 fentes alternées · 20 sec gainage · 10 tirage horizontal</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">3</div><div><div class="rp-exercise-name">Retour au calme + étirements</div><div class="rp-exercise-detail">5 min</div></div></div>
+          </div>
+        </div>
+
+        <!-- Semaine 4 -->
+        <div class="rp-week-content" id="rpwk-4">
+          <div class="rp-card">
+            <div class="rp-card-header"><div class="rp-card-icon">🔴</div><div><div class="rp-card-title">Séance 1 — Cardio + core</div><div class="rp-card-subtitle">45 min · <span class="rp-badge medium">Modéré+</span></div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">1</div><div><div class="rp-exercise-name">Jogging continu sur tapis</div><div class="rp-exercise-detail">20 min · Rythme confortable où tu peux encore parler</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">2</div><div><div class="rp-exercise-name">Rameur intervalles</div><div class="rp-exercise-detail">10 min · 1 min intense / 1 min repos</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">3</div><div><div class="rp-exercise-name">Circuit abdos (3 tours)</div><div class="rp-exercise-detail">15 crunchs · 30 sec gainage · 10 relevés de genoux · 20 sec gainage latéral/côté</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">4</div><div><div class="rp-exercise-name">Étirements</div><div class="rp-exercise-detail">5 min</div></div></div>
+          </div>
+          <div class="rp-card">
+            <div class="rp-card-header"><div class="rp-card-icon">🔴</div><div><div class="rp-card-title">Séance 2 — Full body (charges progressives)</div><div class="rp-card-subtitle">50 min · <span class="rp-badge medium">Modéré+</span></div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">1</div><div><div class="rp-exercise-name">Échauffement rameur</div><div class="rp-exercise-detail">8 min</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">2</div><div><div class="rp-exercise-name">Presse à cuisses</div><div class="rp-exercise-detail">4 × 10 · Charge la plus lourde propre</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">3</div><div><div class="rp-exercise-name">Développé machine</div><div class="rp-exercise-detail">4 × 10</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">4</div><div><div class="rp-exercise-name">Tirage vertical + Tirage horizontal</div><div class="rp-exercise-detail">3 × 10 chacun · En superset (enchaîné sans pause)</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">5</div><div><div class="rp-exercise-name">Fentes avec haltères légers</div><div class="rp-exercise-detail">3 × 10/jambe · 4-6 kg par main</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">6</div><div><div class="rp-exercise-name">Gainage 3 positions</div><div class="rp-exercise-detail">Ventral 45 sec · Latéral gauche 25 sec · Latéral droit 25 sec · × 2</div></div></div>
+          </div>
+          <div class="rp-card">
+            <div class="rp-card-header"><div class="rp-card-icon">🔴</div><div><div class="rp-card-title">Séance 3 — Circuit training complet</div><div class="rp-card-subtitle">40 min · <span class="rp-badge medium">Modéré+</span></div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">1</div><div><div class="rp-exercise-name">Échauffement elliptique</div><div class="rp-exercise-detail">8 min</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">2</div><div><div class="rp-exercise-name">Circuit (4 tours · 1 min repos entre tours)</div><div class="rp-exercise-detail">12 squats · 10 pompes (au sol si possible) · 12 fentes · 30 sec gainage · 10 tirages horizontaux · 10 élévations latérales</div></div></div>
+            <div class="rp-exercise-row"><div class="rp-exercise-num">3</div><div><div class="rp-exercise-name">Retour au calme + étirements complets</div><div class="rp-exercise-detail">7 min</div></div></div>
+          </div>
+        </div>
+
+        <div class="rp-tip">
+          <strong>🔑 Ton rituel d'entrée :</strong> Prépare ton sac la veille, mets tes chaussures de sport en arrivant à la maison, et pars dans les 10 minutes. Ne réfléchis pas, bouge. L'énergie vient en bougeant, pas avant.
+        </div>
+      </div><!-- /reprisePanel -->
     </div>
 
     <div class="tab-panel" id="panel-custom">
@@ -250,7 +394,11 @@ const PROGRAMS=[
 {id:"yoga",name:"Yoga & Mobilité",desc:"Séances douces, souplesse et récupération.",emoji:"🧘",tags:["Tous niveaux","Souplesse"],days:[{label:"Flow Matinal",exercises:[{id:"etirement_dos",sets:3,reps:"45s",rest:15},{id:"chien_tete_bas",sets:3,reps:"30s",rest:15},{id:"guerrier",sets:3,reps:"30s/c",rest:15},{id:"pigeon",sets:2,reps:"45s/c",rest:15}]},null,{label:"Renfo Doux",exercises:[{id:"planche",sets:3,reps:"30s",rest:30},{id:"gainage_lateral",sets:3,reps:"20s/c",rest:30},{id:"hip_thrust",sets:3,reps:"15",rest:30},{id:"etirement_dos",sets:3,reps:"45s",rest:15}]},null,{label:"Stretch",exercises:[{id:"chien_tete_bas",sets:3,reps:"45s",rest:15},{id:"guerrier",sets:3,reps:"30s/c",rest:15},{id:"pigeon",sets:3,reps:"45s/c",rest:15},{id:"etirement_dos",sets:3,reps:"60s",rest:15}]},null,null]},
 {id:"upper_lower",name:"Haut / Bas",desc:"Alternance haut/bas, 4 jours.",emoji:"⚡",tags:["Intermédiaire","Musculation"],days:[{label:"Haut A",exercises:[{id:"pompes",sets:4,reps:"12",rest:90},{id:"rowing_bouteille",sets:4,reps:"12",rest:90},{id:"elevation_laterale",sets:3,reps:"15",rest:60},{id:"curl_biceps",sets:3,reps:"12",rest:60},{id:"dips",sets:3,reps:"10",rest:60}]},{label:"Bas A",exercises:[{id:"squats",sets:4,reps:"15",rest:90},{id:"hip_thrust",sets:4,reps:"15",rest:90},{id:"fentes",sets:3,reps:"10/j",rest:60},{id:"mollets",sets:3,reps:"20",rest:45},{id:"crunchs",sets:3,reps:"20",rest:45}]},null,{label:"Haut B",exercises:[{id:"pompes",sets:4,reps:"max",rest:90},{id:"rowing_bouteille",sets:4,reps:"12",rest:90},{id:"dips",sets:3,reps:"12",rest:60},{id:"elevation_laterale",sets:3,reps:"15",rest:60},{id:"planche",sets:3,reps:"60s",rest:60}]},{label:"Bas B",exercises:[{id:"sumo_squat",sets:4,reps:"15",rest:90},{id:"hip_thrust",sets:4,reps:"15",rest:90},{id:"fentes",sets:3,reps:"12/j",rest:60},{id:"mollets",sets:3,reps:"20",rest:45},{id:"russian_twist",sets:3,reps:"20",rest:45}]},null,null]},
 {id:"debutant_poids",name:"Perte de Poids — Débutant",desc:"3 séances/semaine pour brûler des calories sans se blesser. Idéal pour débuter.",emoji:"🌱",tags:["Débutant","Perte de poids"],days:[{label:"Cardio Débutant",exercises:[{id:"jumping_jacks",sets:3,reps:"20",rest:60},{id:"high_knees",sets:3,reps:"20s",rest:60},{id:"squats",sets:3,reps:"10",rest:60},{id:"planche",sets:3,reps:"20s",rest:60}]},null,{label:"Circuit Full Body",exercises:[{id:"pompes",sets:3,reps:"8",rest:60},{id:"squats",sets:3,reps:"12",rest:60},{id:"fentes",sets:3,reps:"8/j",rest:60},{id:"crunchs",sets:3,reps:"12",rest:45}]},null,{label:"Renfo & Souplesse",exercises:[{id:"hip_thrust",sets:3,reps:"12",rest:60},{id:"elevation_laterale",sets:2,reps:"12",rest:45},{id:"etirement_dos",sets:3,reps:"30s",rest:15},{id:"chien_tete_bas",sets:3,reps:"30s",rest:15}]},null,null]},
-{id:"expert_poids",name:"Perte de Poids — Expert",desc:"5 séances/semaine. HIIT intense + musculation pour maximiser la combustion des graisses.",emoji:"🔥",tags:["Expert","Perte de poids"],days:[{label:"HIIT Intense",exercises:[{id:"burpees",sets:5,reps:"12",rest:40},{id:"mountain_climbers",sets:5,reps:"45s",rest:30},{id:"jumping_jacks",sets:4,reps:"45s",rest:30},{id:"high_knees",sets:4,reps:"45s",rest:30}]},{label:"Force Haut du corps",exercises:[{id:"pompes",sets:5,reps:"15",rest:75},{id:"dips",sets:4,reps:"12",rest:75},{id:"rowing_bouteille",sets:5,reps:"12",rest:75},{id:"elevation_laterale",sets:4,reps:"15",rest:60},{id:"curl_biceps",sets:4,reps:"12",rest:60}]},{label:"HIIT Abdos",exercises:[{id:"burpees",sets:4,reps:"10",rest:40},{id:"mountain_climbers",sets:4,reps:"45s",rest:30},{id:"crunchs",sets:4,reps:"25",rest:30},{id:"russian_twist",sets:4,reps:"25",rest:30},{id:"leg_raises",sets:4,reps:"20",rest:30},{id:"planche",sets:3,reps:"60s",rest:45}]},{label:"Force Bas du corps",exercises:[{id:"squats",sets:5,reps:"15",rest:90},{id:"hip_thrust",sets:5,reps:"15",rest:90},{id:"fentes",sets:4,reps:"12/j",rest:75},{id:"sumo_squat",sets:4,reps:"15",rest:75},{id:"mollets",sets:4,reps:"25",rest:45}]},{label:"HIIT Full Body",exercises:[{id:"burpees",sets:5,reps:"12",rest:40},{id:"squats",sets:4,reps:"20",rest:45},{id:"pompes",sets:4,reps:"15",rest:45},{id:"jumping_jacks",sets:4,reps:"45s",rest:30},{id:"planche",sets:3,reps:"60s",rest:45},{id:"high_knees",sets:3,reps:"45s",rest:30}]},null,null]}
+{id:"expert_poids",name:"Perte de Poids — Expert",desc:"5 séances/semaine. HIIT intense + musculation pour maximiser la combustion des graisses.",emoji:"🔥",tags:["Expert","Perte de poids"],days:[{label:"HIIT Intense",exercises:[{id:"burpees",sets:5,reps:"12",rest:40},{id:"mountain_climbers",sets:5,reps:"45s",rest:30},{id:"jumping_jacks",sets:4,reps:"45s",rest:30},{id:"high_knees",sets:4,reps:"45s",rest:30}]},{label:"Force Haut du corps",exercises:[{id:"pompes",sets:5,reps:"15",rest:75},{id:"dips",sets:4,reps:"12",rest:75},{id:"rowing_bouteille",sets:5,reps:"12",rest:75},{id:"elevation_laterale",sets:4,reps:"15",rest:60},{id:"curl_biceps",sets:4,reps:"12",rest:60}]},{label:"HIIT Abdos",exercises:[{id:"burpees",sets:4,reps:"10",rest:40},{id:"mountain_climbers",sets:4,reps:"45s",rest:30},{id:"crunchs",sets:4,reps:"25",rest:30},{id:"russian_twist",sets:4,reps:"25",rest:30},{id:"leg_raises",sets:4,reps:"20",rest:30},{id:"planche",sets:3,reps:"60s",rest:45}]},{label:"Force Bas du corps",exercises:[{id:"squats",sets:5,reps:"15",rest:90},{id:"hip_thrust",sets:5,reps:"15",rest:90},{id:"fentes",sets:4,reps:"12/j",rest:75},{id:"sumo_squat",sets:4,reps:"15",rest:75},{id:"mollets",sets:4,reps:"25",rest:45}]},{label:"HIIT Full Body",exercises:[{id:"burpees",sets:5,reps:"12",rest:40},{id:"squats",sets:4,reps:"20",rest:45},{id:"pompes",sets:4,reps:"15",rest:45},{id:"jumping_jacks",sets:4,reps:"45s",rest:30},{id:"planche",sets:3,reps:"60s",rest:45},{id:"high_knees",sets:3,reps:"45s",rest:30}]},null,null]},
+{id:"coach_s1",name:"Coach Reprise — Sem. 1",desc:"Découverte et initiation en douceur. 3 séances de 30-35 min. Idéal après un arrêt.",emoji:"🌱",tags:["Débutant","Reprise"],days:[{label:"Découverte cardio",exercises:[{id:"jumping_jacks",sets:3,reps:"20s",rest:60},{id:"high_knees",sets:3,reps:"20s",rest:60},{id:"etirement_dos",sets:3,reps:"30s",rest:15},{id:"chien_tete_bas",sets:2,reps:"20s",rest:15}]},null,{label:"Initiation renfo",exercises:[{id:"jumping_jacks",sets:2,reps:"30s",rest:60},{id:"squats",sets:3,reps:"12",rest:60},{id:"rowing_bouteille",sets:3,reps:"12",rest:60},{id:"planche",sets:3,reps:"20s",rest:60}]},null,{label:"Corps complet doux",exercises:[{id:"high_knees",sets:2,reps:"30s",rest:60},{id:"squats",sets:3,reps:"10",rest:60},{id:"pompes",sets:3,reps:"8",rest:60},{id:"gainage_lateral",sets:2,reps:"15s",rest:45}]},null,null]},
+{id:"coach_s2",name:"Coach Reprise — Sem. 2",desc:"Cardio progressif et renforcement haut du corps. On monte d'un cran.",emoji:"🟡",tags:["Débutant","Reprise"],days:[{label:"Cardio progressif",exercises:[{id:"high_knees",sets:4,reps:"30s",rest:60},{id:"jumping_jacks",sets:3,reps:"30s",rest:60},{id:"rowing_bouteille",sets:3,reps:"12",rest:60}]},null,{label:"Renfo haut du corps",exercises:[{id:"pompes",sets:3,reps:"12",rest:60},{id:"rowing_bouteille",sets:3,reps:"12",rest:60},{id:"elevation_laterale",sets:3,reps:"12",rest:60},{id:"planche",sets:3,reps:"30s",rest:60}]},null,{label:"Bas du corps + cardio",exercises:[{id:"high_knees",sets:3,reps:"30s",rest:60},{id:"squats",sets:3,reps:"12",rest:60},{id:"fentes",sets:3,reps:"10/j",rest:60},{id:"mollets",sets:3,reps:"15",rest:45},{id:"gainage_lateral",sets:2,reps:"20s",rest:45}]},null,null]},
+{id:"coach_s3",name:"Coach Reprise — Sem. 3",desc:"Cardio en intervalles et circuit training. La progression devient visible.",emoji:"🟠",tags:["Intermédiaire","Reprise"],days:[{label:"Cardio intervalle",exercises:[{id:"high_knees",sets:4,reps:"40s",rest:40},{id:"jumping_jacks",sets:4,reps:"30s",rest:40},{id:"rowing_bouteille",sets:3,reps:"12",rest:60},{id:"etirement_dos",sets:2,reps:"30s",rest:15}]},null,{label:"Full body renfo",exercises:[{id:"squats",sets:3,reps:"12",rest:75},{id:"pompes",sets:3,reps:"12",rest:75},{id:"rowing_bouteille",sets:3,reps:"12",rest:75},{id:"crunchs",sets:3,reps:"15",rest:45},{id:"planche",sets:3,reps:"40s",rest:60}]},null,{label:"Circuit training",exercises:[{id:"high_knees",sets:2,reps:"30s",rest:60},{id:"squats",sets:3,reps:"10",rest:45},{id:"pompes",sets:3,reps:"8",rest:45},{id:"fentes",sets:3,reps:"10/j",rest:45},{id:"planche",sets:3,reps:"20s",rest:45},{id:"rowing_bouteille",sets:3,reps:"10",rest:45}]},null,null]},
+{id:"coach_s4",name:"Coach Reprise — Sem. 4",desc:"Les séances les plus intenses du cycle. Tu es prêt pour la suite.",emoji:"🔴",tags:["Intermédiaire","Reprise"],days:[{label:"Cardio + core",exercises:[{id:"high_knees",sets:4,reps:"30s",rest:30},{id:"rowing_bouteille",sets:3,reps:"10",rest:60},{id:"crunchs",sets:3,reps:"15",rest:30},{id:"planche",sets:3,reps:"30s",rest:30},{id:"leg_raises",sets:3,reps:"12",rest:30},{id:"gainage_lateral",sets:2,reps:"20s",rest:30}]},null,{label:"Full body (charges max)",exercises:[{id:"squats",sets:4,reps:"10",rest:90},{id:"pompes",sets:4,reps:"10",rest:90},{id:"rowing_bouteille",sets:3,reps:"10",rest:90},{id:"fentes",sets:3,reps:"10/j",rest:75},{id:"planche",sets:2,reps:"45s",rest:60},{id:"gainage_lateral",sets:2,reps:"25s",rest:60}]},null,{label:"Circuit complet",exercises:[{id:"jumping_jacks",sets:2,reps:"30s",rest:60},{id:"squats",sets:4,reps:"12",rest:45},{id:"pompes",sets:4,reps:"10",rest:45},{id:"fentes",sets:4,reps:"12/j",rest:45},{id:"planche",sets:4,reps:"30s",rest:45},{id:"rowing_bouteille",sets:4,reps:"10",rest:45},{id:"elevation_laterale",sets:4,reps:"10",rest:45}]},null,null]}
 ];
 
 const DK=["lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche"],DL=["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"];
@@ -292,7 +440,9 @@ document.querySelectorAll(".timer-preset").forEach(b=>b.addEventListener("click"
 
 let selProg=null,selLevel="Tous";
 function renderPrograms(){const g=document.getElementById("programsGrid");g.innerHTML="";const filtered=selLevel==="Tous"?PROGRAMS:PROGRAMS.filter(p=>p.tags.some(t=>t===selLevel||t.includes(selLevel)));if(!filtered.length){g.innerHTML='<p style="color:var(--c-text-3);padding:1rem 0">Aucun programme pour ce niveau.</p>';return}filtered.forEach(p=>{const c=document.createElement("div");c.className="program-card"+(selProg===p.id?" selected":"");c.innerHTML=`<div class="program-card-header"><div class="program-icon">${p.emoji}</div><div class="program-card-info"><div class="program-card-title">${p.name}</div><div class="program-card-desc">${p.desc}</div></div></div><div class="program-card-footer">${p.tags.map(t=>`<span class="program-tag">${t}</span>`).join("")}<span class="program-tag orange">${p.days.filter(Boolean).length}j/sem</span></div>`;c.addEventListener("click",()=>{selProg=p.id;document.getElementById("applyProgramBtn").disabled=false;renderPrograms()});g.appendChild(c)})}
-document.querySelectorAll("#levelTabs .period-tab").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("#levelTabs .period-tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");selLevel=b.dataset.level;selProg=null;document.getElementById("applyProgramBtn").disabled=true;renderPrograms()}));
+document.querySelectorAll("#levelTabs .period-tab").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("#levelTabs .period-tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");selLevel=b.dataset.level;selProg=null;document.getElementById("applyProgramBtn").disabled=true;const isReprise=selLevel==="Reprise";document.getElementById("reprisePanel").style.display=isReprise?"block":"none";document.getElementById("programsGrid").style.display=isReprise?"none":"";document.getElementById("applyProgramWrap").style.display=isReprise?"none":"flex";if(!isReprise)renderPrograms()}));
+
+document.querySelectorAll(".rp-week-btn").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".rp-week-btn").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".rp-week-content").forEach(w=>w.classList.remove("active"));b.classList.add("active");document.getElementById("rpwk-"+b.dataset.rpweek).classList.add("active")}));
 document.getElementById("applyProgramBtn").addEventListener("click",()=>{const prog=PROGRAMS.find(p=>p.id===selProg);if(!prog)return;const plan={};prog.days.forEach((d,i)=>{if(d)plan[DK[i]]=d});sp(plan);syncLegacy(plan);renderWeek();document.querySelectorAll(".sport-tab").forEach(b=>b.classList.remove("active"));document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));document.querySelector('[data-tab="planning"]').classList.add("active");document.getElementById("panel-planning").classList.add("active");toast("Programme "+prog.name+" appliqué !")});
 
 const cDE=document.getElementById("customDays");
